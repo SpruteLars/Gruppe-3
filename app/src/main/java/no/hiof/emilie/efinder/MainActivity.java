@@ -3,8 +3,6 @@ package no.hiof.emilie.efinder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //final ActionBar actionBar = getSupportActionBar();
 
         textProfil = (TextView) findViewById(R.id.textProfil);
         textInstilliger = (TextView) findViewById(R.id.textInstillinger);
@@ -45,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        /*final ActionBar actionBar = getActionBar();
->>>>>>> Stashed changes
+        /*final ActionBar actionBar = getSupportActionBar();
 
         //ActionBar vises
         //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
