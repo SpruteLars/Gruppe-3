@@ -7,24 +7,23 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp"
     android:background="@color/Background">
-    <!--android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
-        android:layout_width="384dp"
-        android:layout_height="567dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/page_rtitle_strip"
+            android:id="@+id/pager_title_strip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:background="#33b5e5"
-            android:paddingBottom="4dp"
+            android:background="#c0c5ce"
+            android:textColor="#000000"
             android:paddingTop="4dp"
-            android:textColor="#fff" />
+            android:paddingBottom="4dp" />
 
-    </-android.support.v4.view.ViewPager-->
+    </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
