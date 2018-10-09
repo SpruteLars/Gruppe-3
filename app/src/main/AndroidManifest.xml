@@ -10,16 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".EventActivity" />
+        <activity
+            android:name=".SignInActivity"
+            android:label="@string/title_activity_sign_in">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< Updated upstream
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".CollectionDemoActivity"></activity>
+=======
+>>>>>>> Stashed changes
     </application>
 
 </manifest>

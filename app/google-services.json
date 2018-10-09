@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "278085141176",
+    "firebase_url": "https://gruppe3fire.firebaseio.com",
+    "project_id": "gruppe3fire",
+    "storage_bucket": "gruppe3fire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278085141176:android:1993052061880878",
+        "android_client_info": {
+          "package_name": "no.hiof.emilie.efinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278085141176-p0rrgufkbpckjt47unmgg39gptdlol54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6CWykh7TyOjo90BJm5PaM3woTYP3xxV0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

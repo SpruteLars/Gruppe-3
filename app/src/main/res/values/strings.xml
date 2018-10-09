@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">eFinder</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="button">Button</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
 </resources>

@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< Updated upstream
         textProfil = (TextView) findViewById(R.id.textProfil);
         textInstilliger = (TextView) findViewById(R.id.textInstillinger);
 
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         /*final ActionBar actionBar = getSupportActionBar();
+=======
+        /*final ActionBar actionBar = getActionBar();
+>>>>>>> Stashed changes
 
         //ActionBar vises
         //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -57,15 +61,20 @@ public class MainActivity extends AppCompatActivity {
             }
             public void onTabReselected (ActionBar.Tab tab, FragmentTransaction ft) {
                 //Mest sannsynlig ignorere dette eventet
-            }
-        };
+            }*/
+      /*  };
 
         //Legge til 2 tabs, spesifiser tabbenes tekst og TabListener
         for (int i = 0; i < 2; i++) {
             actionBar.addTab(
                     actionBar.newTab()
-                            .setText("Tab" + (i+1)) //TODO: Gi bedre navn siden
+                            .setText("Tab" + (i+1)) TODO: Gi bedre navn siden
                             .setTabListener(tabListener));
+<<<<<<< Updated upstream
         }*/
     }
+=======
+        }
+    */}
+>>>>>>> Stashed changes
 }
