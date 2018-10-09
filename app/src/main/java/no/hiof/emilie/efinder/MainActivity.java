@@ -12,15 +12,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ActionBar actionBar = getActionBar();
+        //final ActionBar actionBar = getSupportActionBar();
 
         //ActionBar vises
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         //Kalles på når brukeren bytter mellom tabs
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+        /*ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             public void onTabSelected (ActionBar.Tab tab, FragmentTransaction ft) {
-                //vis gitt tab
+                //Når en tab er valgt, bytt til tilhørende siden i ViewPager
+                mViewpager.setCurrentItem(tab.getPosition());
             }
             public void onTabUnselected (ActionBar.Tab tab, FragmentTransaction ft) {
                 //skjul gitt tab
@@ -36,6 +37,6 @@ public class MainActivity extends AppCompatActivity {
                     actionBar.newTab()
                             .setText("Tab" + (i+1)) //TODO: Gi bedre navn siden
                             .setTabListener(tabListener));
-        }
+        }*/
     }
 }
