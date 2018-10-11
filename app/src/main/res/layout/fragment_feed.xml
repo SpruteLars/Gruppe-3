@@ -9,7 +9,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/second_fragment"
         android:textSize="42sp"
-        android:text="@string/second_fragment"/>
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="176dp" />
 
 </android.support.constraint.ConstraintLayout>
