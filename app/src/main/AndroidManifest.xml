@@ -15,9 +15,12 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EventActivity" />
-        <activity android:name=".TabHandlerActivity" />
-        <activity android:name=".Fragments.PaameldtFragment" />
-        <activity android:name=".Fragments.FeedFragment"></activity>
+        <activity android:name=".TabHandlerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

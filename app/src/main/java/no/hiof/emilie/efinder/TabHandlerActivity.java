@@ -1,6 +1,7 @@
 package no.hiof.emilie.efinder;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -26,6 +27,9 @@ public class TabHandlerActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         eksempelPagerAdapter = new EksempelPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(eksempelPagerAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         /* Her kontrolleres hva som skal skje når brukeren interagerer med viewet
          * Skal noe i aktiviteten reagere på endringer i view-pageren, skal dette gjøres her
@@ -60,6 +64,8 @@ public class TabHandlerActivity extends AppCompatActivity {
         public EksempelPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+
+
 
         @Override
         public Fragment getItem (int i) {
