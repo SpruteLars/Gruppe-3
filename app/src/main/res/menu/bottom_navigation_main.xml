@@ -13,4 +13,5 @@
         android:icon="@drawable/options_img"
         android:title="Instillinger"
         app:showAsAction="ifRoom" />
+
 </menu>

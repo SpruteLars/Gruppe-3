@@ -1,11 +1,11 @@
 package no.hiof.emilie.efinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textProfil = (TextView) findViewById(R.id.textProfil);
-        textInstilliger = (TextView) findViewById(R.id.textInstillinger);
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -29,13 +26,11 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_profil:
-                                textProfil.setVisibility(View.VISIBLE);
-                                textInstilliger.setVisibility(View.GONE);
-                                break;
+                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                                return true;
                             case R.id.action_instillinger:
-                                textProfil.setVisibility(View.GONE);
-                                textInstilliger.setVisibility(View.VISIBLE);
-                                break;
+                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                                return true;
                         }
                         return false;
                     }
