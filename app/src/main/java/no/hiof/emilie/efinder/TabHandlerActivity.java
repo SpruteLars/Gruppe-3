@@ -47,11 +47,6 @@ public class TabHandlerActivity extends AppCompatActivity {
                 Log.d(TAG, "State endret!");
             }
         });
-
-        //ViewPager bruker SupportLibraryFragemnts, bruk disse:
-        /*mDemoCollectionPagerActivity = new DemoCollectionPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mDemoCollectionPagerActivity);*/
     }
 
     //Adapteren

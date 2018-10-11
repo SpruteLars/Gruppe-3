@@ -7,6 +7,7 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp"
     android:background="@color/Background">
+
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/view_pager"
@@ -18,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:background="#c0c5ce"
-            android:textColor="#000000"
+            android:background="@color/Bottom"
+            android:textColor="@color/white"
             android:paddingTop="4dp"
             android:paddingBottom="4dp" />
 
