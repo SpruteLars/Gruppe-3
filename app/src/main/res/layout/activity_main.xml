@@ -44,7 +44,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_pager"
         app:menu="@menu/bottom_navigation_main">
-
+        <android.support.v4.widget.SlidingPaneLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.widget.SlidingPaneLayout>
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/tools"
             android:layout_width="56dp"
@@ -54,7 +56,11 @@
             android:elevation="6dp"
             android:scaleType="center"
             app:backgroundTint="@color/colorAccent"
+
             app:srcCompat="@drawable/ic_baseline_search_24px" />
+            app:srcCompat="@drawable/ic_baseline_search_24px"/>
+
+
     </android.support.design.widget.BottomNavigationView>
 
 
