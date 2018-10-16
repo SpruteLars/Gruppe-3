@@ -6,11 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-//import com.google.firebase.database
 
 public class MakeEventActivity extends AppCompatActivity {
-    ImageView imageView; //Burde være array????
-    EditText textViewEventName; //Er egentlig PlainText
+    ImageView imageView;
+    EditText textViewEventName;
     EditText textViewDate;
     EditText textViewClock;
     EditText textViewPayment;
@@ -60,6 +59,10 @@ public class MakeEventActivity extends AppCompatActivity {
                         System.out.println("Dette kan sendes til firebase!");
                     }
                 }
+
+                /*if (imageView.getDrawable() == 0) {
+                    return;
+                }*/
 
                 //Send data til firebase
             }
