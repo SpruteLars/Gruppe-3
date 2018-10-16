@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database
 
 public class MakeEventActivity extends AppCompatActivity {
     ImageView imageView; //Burde være array????
@@ -16,7 +16,9 @@ public class MakeEventActivity extends AppCompatActivity {
     EditText textViewPayment;
     EditText textViewAttendants;
     EditText textViewAdresse;
+    EditText textViewDescription;
     Button buttonSubmit;
+    //private EditText[] editTextArray;
     //private DatabaseReference databaseReference;
 
     @Override
@@ -24,21 +26,42 @@ public class MakeEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
 
+        buttonSubmit = (Button) findViewById(R.id.btnSubmit);
         imageView = (ImageView) findViewById(R.id.imgView);
-        textViewEventName = (EditText) findViewById(R.id.txtEventName);
+        /*textViewEventName = (EditText) findViewById(R.id.txtEventName);
         textViewDate = (EditText) findViewById(R.id.txtDate);
         textViewClock = (EditText) findViewById(R.id.txtClock);
         textViewPayment = (EditText) findViewById(R.id.txtPayment);
         textViewAttendants = (EditText) findViewById(R.id.txtAttendants);
         textViewAdresse = (EditText) findViewById(R.id.txtAdress);
-        buttonSubmit = (Button) findViewById(R.id.btnSubmit);
+        textViewDescription = (EditText) findViewById(R.id.txtDescription);*/
         //databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        final EditText[] editTextArray = new EditText[] {
+                textViewEventName = (EditText) findViewById(R.id.txtEventName),
+                textViewDate = (EditText) findViewById(R.id.txtDate),
+                textViewClock = (EditText) findViewById(R.id.txtClock),
+                textViewPayment = (EditText) findViewById(R.id.txtPayment),
+                textViewAttendants = (EditText) findViewById(R.id.txtAttendants),
+                textViewAdresse = (EditText) findViewById(R.id.txtAdress),
+                textViewDescription = (EditText) findViewById(R.id.txtDescription),
+        };
+
 
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
-                //Send datat til firebase
+                for (EditText textView : editTextArray) {
+                    if (textView.getText().length() == 0) {
+                        System.out.println("Du mangler tekst i et felt");
+                        return;
+                    }
+                    else {
+                        System.out.println("Dette kan sendes til firebase!");
+                    }
+                }
+
+                //Send data til firebase
             }
         });
     }
