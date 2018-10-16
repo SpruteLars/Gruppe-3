@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtEventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,93 +55,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgView" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="84dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintBottom_toBottomOf="@+id/imgDate"
-        app:layout_constraintEnd_toStartOf="@+id/imgTime"
-        app:layout_constraintTop_toTopOf="@+id/imgDate"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/imgDate" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtClock"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="96dp"
         android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintBottom_toBottomOf="@+id/imgTime"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2"
-        app:layout_constraintStart_toEndOf="@+id/imgTime"
-        app:layout_constraintTop_toTopOf="@+id/imgTime" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtPayment"
-        android:layout_width="61dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
         app:layout_constraintEnd_toStartOf="@+id/imgAttendants"
-        tools:layout_editor_absoluteY="273dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgPayment" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtAttendants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="96dp"
         android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imgAttendants"
-        app:layout_constraintTop_toTopOf="@+id/imgAttendants"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="@+id/barrier2" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtAdress"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="284dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="@+id/txtPayment"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/imgLocation"
-        app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtDescriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="@+id/txtAdress"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAdress" />
+        app:layout_constraintTop_toBottomOf="@+id/imgLocation" />
 
-    <TextView
+    <EditText
         android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:text="@string/filler"
+        android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -152,12 +137,9 @@
         android:id="@+id/imgDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:tint="@color/colorText"
-        app:layout_constraintEnd_toStartOf="@+id/txtDate"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEventName"
         app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
@@ -166,49 +148,61 @@
         android:id="@+id/imgTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px"
-        tools:layout_editor_absoluteX="180dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/txtDate"
+        app:layout_constraintEnd_toEndOf="@+id/imgAttendants"
+        app:layout_constraintEnd_toStartOf="@+id/txtClock"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintStart_toEndOf="@+id/txtDate"
+        app:layout_constraintStart_toStartOf="@+id/imgAttendants"
+        app:srcCompat="@drawable/ic_baseline_access_time_24px" />
 
     <ImageView
         android:id="@+id/imgLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:tint="@color/colorText"
+        app:layout_constraintEnd_toStartOf="@+id/txtAdress"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLocation"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
+        app:srcCompat="@drawable/ic_baseline_location_on_24px"
+        tools:layout_editor_absoluteY="309dp" />
 
     <ImageView
         android:id="@+id/imgAttendants"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
-        app:layout_constraintTop_toTopOf="@+id/txtPayment"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_group_24px"
-        tools:layout_editor_absoluteX="180dp" />
-
-    <ImageView
-        android:id="@+id/imgLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:tint="@color/colorText"
-        app:layout_constraintTop_toBottomOf="@+id/imgDate"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintEnd_toStartOf="@+id/txtAttendants"
+        app:srcCompat="@drawable/ic_baseline_group_24px" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="left" />
+
+    <ImageView
+        android:id="@+id/imgPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
+        tools:layout_editor_absoluteY="272dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="427dp" />
 
 </android.support.constraint.ConstraintLayout>
