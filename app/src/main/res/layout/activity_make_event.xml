@@ -59,56 +59,80 @@
         android:id="@+id/txtDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="257dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgDate"
+        app:layout_constraintEnd_toStartOf="@+id/imgTime"
+        app:layout_constraintTop_toTopOf="@+id/imgDate"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txtClock"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="217dp"
-        tools:layout_editor_absoluteY="257dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgTime"
+        app:layout_constraintEnd_toEndOf="@+id/barrier2"
+        app:layout_constraintStart_toEndOf="@+id/imgTime"
+        app:layout_constraintTop_toTopOf="@+id/imgTime" />
 
     <TextView
         android:id="@+id/txtPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="61dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="80dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="303dp" />
+        app:layout_constraintEnd_toStartOf="@+id/imgAttendants"
+        tools:layout_editor_absoluteY="273dp" />
 
     <TextView
         android:id="@+id/txtAttendants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="217dp"
-        tools:layout_editor_absoluteY="298dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgAttendants"
+        app:layout_constraintTop_toTopOf="@+id/imgAttendants"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtAdress"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="344dp" />
+        app:layout_constraintEnd_toEndOf="@+id/txtPayment"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/imgLocation"
+        app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
 
     <TextView
         android:id="@+id/txtDescriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="@+id/txtAdress"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintTop_toBottomOf="@+id/txtAdress" />
 
     <TextView
         android:id="@+id/txtDescription"
@@ -116,57 +140,70 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="@string/filler"
         android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintEnd_toStartOf="@+id/txtDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEventName"
+        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:tint="@color/colorText"
+        app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
         app:srcCompat="@drawable/ic_baseline_access_time_24px"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="252dp" />
+        tools:layout_editor_absoluteX="180dp" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="339dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLocation"
+        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imgAttendants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:tint="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
+        app:layout_constraintTop_toTopOf="@+id/txtPayment"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_group_24px"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="298dp" />
+        tools:layout_editor_absoluteX="180dp" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imgLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:tint="@color/colorText"
+        app:layout_constraintTop_toBottomOf="@+id/imgDate"
         app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="298dp" />
+        tools:layout_editor_absoluteX="8dp" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier2"
