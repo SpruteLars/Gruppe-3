@@ -71,7 +71,7 @@
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="205dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtAddPhoto"
         android:layout_width="201dp"
         android:layout_height="48dp"
