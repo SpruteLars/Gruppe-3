@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,6 +26,10 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editTlf;
     DatabaseReference dbref;
     FirebaseUser user;
+    TextView kaare;
+    DataSnapshot dbsnap;
+    AdapterView mAdapter;
+
 
 
     String Uid;
@@ -31,16 +38,16 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
-        dbref = FirebaseDatabase.getInstance().getReference();
+        kaare = findViewById(R.id.txtProfilNavn);
+        dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
         Uid = user.getUid();
-
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                editNavn = dataSnapshot.child(Uid).child("Navn").getValue(String.class);
-                TextView kaare = findViewById(R.id.txtProfilNavn);
-                kaare.setText(editNavn);
+                Log.d("Database", "Got data");
+                kaare.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
+                Log.d("Database", "Set data");
             }
 
             @Override
