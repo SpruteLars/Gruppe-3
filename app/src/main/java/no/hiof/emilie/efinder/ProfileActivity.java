@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
+    TextView kaare;
+
 
 
     String Uid;
@@ -36,16 +39,16 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
-        dbref = FirebaseDatabase.getInstance().getReference();
+        kaare = findViewById(R.id.txtProfilNavn);
+        dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
         Uid = user.getUid();
-
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                editNavn = dataSnapshot.child(Uid).child("Navn").getValue(String.class);
-                TextView kaare = findViewById(R.id.txtProfilNavn);
-                kaare.setText(editNavn);
+                Log.d("Database", "Got data");
+                kaare.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
+                Log.d("Database", "Set data");
             }
 
             @Override
