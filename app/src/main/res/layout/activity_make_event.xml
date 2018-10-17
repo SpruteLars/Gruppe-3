@@ -35,89 +35,78 @@
             app:srcCompat="@drawable/ic_baseline_search_24px" />
     </android.support.design.widget.BottomNavigationView>
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="388dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
     <EditText
         android:id="@+id/txtEventName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="257dp"
+        android:layout_height="48dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgView" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <EditText
         android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="199dp"
+        android:layout_height="45dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDate"
-        app:layout_constraintStart_toEndOf="@+id/imgDate" />
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="91dp" />
 
     <EditText
         android:id="@+id/txtClock"
-        android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
+        android:layout_width="201dp"
+        android:layout_height="50dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgTime"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="146dp" />
 
     <EditText
         android:id="@+id/txtPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="200dp"
+        android:layout_height="47dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
-        app:layout_constraintEnd_toStartOf="@+id/imgAttendants"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imgPayment" />
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="205dp" />
+
+    <EditText
+        android:id="@+id/txtAddPhoto"
+        android:layout_width="201dp"
+        android:layout_height="48dp"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="378dp" />
 
     <EditText
         android:id="@+id/txtAttendants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
+        android:layout_width="201dp"
+        android:layout_height="48dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2" />
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="317dp" />
 
     <EditText
         android:id="@+id/txtAdress"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginEnd="284dp"
+        android:layout_width="199dp"
+        android:layout_height="51dp"
         android:text="TextView"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="260dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtDescriptionTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="101dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
         android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLocation" />
+        tools:layout_editor_absoluteY="428dp" />
 
     <EditText
         android:id="@+id/txtDescription"
@@ -125,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -137,65 +126,46 @@
         android:id="@+id/imgDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
         android:tint="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEventName"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+        app:srcCompat="@drawable/ic_baseline_calendar_today_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="99dp" />
 
     <ImageView
         android:id="@+id/imgTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDate"
-        app:layout_constraintEnd_toEndOf="@+id/imgAttendants"
-        app:layout_constraintEnd_toStartOf="@+id/txtClock"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toEndOf="@+id/txtDate"
-        app:layout_constraintStart_toStartOf="@+id/imgAttendants"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px" />
+        app:srcCompat="@drawable/ic_baseline_access_time_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="158dp" />
 
     <ImageView
         android:id="@+id/imgLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:layout_constraintEnd_toStartOf="@+id/txtAdress"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_baseline_location_on_24px"
-        tools:layout_editor_absoluteY="309dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="271dp" />
 
     <ImageView
         android:id="@+id/imgAttendants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:tint="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
-        app:layout_constraintEnd_toStartOf="@+id/txtAttendants"
-        app:srcCompat="@drawable/ic_baseline_group_24px" />
-
-    <android.support.constraint.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+        app:srcCompat="@drawable/ic_baseline_group_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="327dp" />
 
     <ImageView
         android:id="@+id/imgPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:tint="@color/colorText"
         app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteY="272dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="217dp" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -208,5 +178,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+
+    <ImageView
+        android:id="@+id/imgAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="387dp" />
+
+    <Button
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="378dp" />
 
 </android.support.constraint.ConstraintLayout>
