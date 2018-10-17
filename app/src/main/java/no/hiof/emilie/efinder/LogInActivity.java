@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.List;
 
 
-public class logInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
         private FirebaseAuth auth;
         public Button but;
         ArrayAdapter<String> nisse;
@@ -30,18 +30,19 @@ public class logInActivity extends AppCompatActivity {
         List<String> itemlist;
         String uid;
         private DatabaseReference dbref;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main2);
+            setContentView(R.layout.activity_login);
 
             auth = FirebaseAuth.getInstance();
-            but = findViewById(R.id.myButton);
+            but = findViewById(R.id.btnLogIn);
             but.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    editEmail = findViewById(R.id.editText);
-                    editPass = findViewById(R.id.editText2);
+                    editEmail = findViewById(R.id.txtEmail);
+                    editPass = findViewById(R.id.txtPassword);
 
                     signIn(editEmail.getText().toString(), editPass.getText().toString());
                 }
@@ -52,25 +53,19 @@ public class logInActivity extends AppCompatActivity {
 
         }
         private void signIn (String email, String password){
-            auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                
-                                Intent intent = new Intent(logInActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                            else {
-                                Toast.makeText(logInActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                            if (!task.isSuccessful()) {
-
-                            }
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }
-                    });
+                        else {
+                            Toast.makeText(LogInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+                        if (!task.isSuccessful()) { }
+                    }
+            });
 
         }
     }

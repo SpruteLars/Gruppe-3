@@ -1,14 +1,34 @@
 <resources>
     <string name="app_name">eFinder</string>
+
+    <!-- Log in strings -->
+    <string name="email">email@example.com</string>
+    <string name="password">Passord</string>
+    <string name="login">Log in</string>
+
+    <!-- Profil strings -->
     <string name="profile_name">Trond Dåse</string>
     <string name="about">Om meg</string>
+
+    <!-- Innstillinger -->
+    <string name="settings">Instillinger</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+
+    <!-- Lage events -->
+    <string name="hint_name">Name of event</string>
+    <string name="hint_date">Pick a date</string>
+    <string name="hint_time">Pick a time</string>
+    <string name="hint_payment">Choose the price</string>
+    <string name="hint_location">Choose place</string>
+    <string name="hint_attendants">How many can join you?</string>
+    <string name="hint_image">Choose an image</string>
+    <string name="description">Description</string>
+    <string name="hint_description">Add a description to your event!</string>
+
+    <!-- Dummy strings -->
+    <string name="button">Button</string>
     <string name="filler">det samme så de trollene komme settende, og de var så store og digre at hodene på dem var jevnhøye med furutoppene. Men de hadde bare ett øye sammen alle tre, og det skiftedes de til å bruke; de hadde et hull i pannen, som de la det i, og styrte det med hånden; den som gikk foran, han måtte ha det, og de andre gikk etter og holdt seg i den første.
 
     Ja, broren rente føre, og trollene dro etter. Imens kom den eldste gutten bak dem og hugg til det bakerste trollet i fotleddet, så det slo opp et fælslig skrik, og det første ble så skremt at det skvatt, og slapp øyet, og gutten var ikke sen til å snappe det. Det var større enn om en hadde lagt i hop to potteskåler, og så klart var det, at enda det var fullmørke natten ble det som lyse dagen da han så igjennom det.</string>
-
-    <string name="first_fragment">First fragment!</string>
-    <string name="second_fragment">Second fragment!</string>
-    <string name="title_activity_sign_in">SignInActivity</string>
-    <string name="button">Button</string>
 
 </resources>

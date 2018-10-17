@@ -3,9 +3,11 @@ package no.hiof.emilie.efinder;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,6 +25,8 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editTlf;
     DatabaseReference dbref;
     FirebaseUser user;
+    FloatingActionButton floatingActionButton;
+    BottomNavigationView bottomNavigationView;
 
 
     String Uid;
@@ -30,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
         dbref = FirebaseDatabase.getInstance().getReference();
         user = fbdb.getCurrentUser();
@@ -49,9 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //Bottom Nav
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
+        /** Bottom Nav */
+        bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,5 +75,12 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, MakeEventActivity.class));
+            }
+        });
     }
 }

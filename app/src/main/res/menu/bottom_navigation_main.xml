@@ -4,14 +4,14 @@
     <item
         android:id="@+id/action_profil"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_person_24px"
         android:title="Profil"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_instillinger"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_baseline_settings_20px"
         android:title="Instillinger"
         app:showAsAction="ifRoom" />
 

@@ -7,14 +7,188 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".MakeEventActivity">
 
+    <!-- Text -->
+    <EditText
+        android:id="@+id/txtEventName"
+        android:layout_width="257dp"
+        android:layout_height="48dp"
+        android:hint="@string/hint_name"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/txtDate"
+        android:layout_width="199dp"
+        android:layout_height="45dp"
+        android:hint="@string/hint_date"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="78dp" />
+
+    <EditText
+        android:id="@+id/txtClock"
+        android:layout_width="201dp"
+        android:layout_height="50dp"
+        android:hint="@string/hint_time"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <EditText
+        android:id="@+id/txtPayment"
+        android:layout_width="200dp"
+        android:layout_height="47dp"
+        android:hint="@string/hint_payment"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <TextView
+        android:id="@+id/txtAddPhoto"
+        android:layout_width="201dp"
+        android:layout_height="48dp"
+        android:hint="@string/hint_image"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="365dp" />
+
+    <EditText
+        android:id="@+id/txtAttendants"
+        android:layout_width="201dp"
+        android:layout_height="48dp"
+        android:hint="@string/hint_attendants"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="311dp" />
+
+    <EditText
+        android:id="@+id/txtAdress"
+        android:layout_width="199dp"
+        android:layout_height="51dp"
+        android:hint="@string/hint_location"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/txtDescriptionTitle"
+        android:layout_width="101dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/description"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <EditText
+        android:id="@+id/txtDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/hint_description"
+        android:textColorHint="@color/colorTextHint"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
+
+    <!-- Icons -->
+    <ImageView
+        android:id="@+id/imgDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_calendar_today_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="91dp" />
+
+    <ImageView
+        android:id="@+id/imgTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_access_time_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <ImageView
+        android:id="@+id/imgLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_location_on_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="260dp" />
+
+    <ImageView
+        android:id="@+id/imgAttendants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_group_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="317dp" />
+
+    <ImageView
+        android:id="@+id/imgPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="205dp" />
+
+    <ImageView
+        android:id="@+id/imgAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/colorText"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="378dp" />
+
+    <!-- Buttons -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+
+    <Button
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="365dp" />
+
+    <!-- Bottom Navigation -->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
         android:maxWidth="168dp"
         android:minWidth="80dp"
+        android:background="@color/colorPrimary"
+        app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/colorText"
         app:itemTextColor="@color/colorText"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,166 +208,5 @@
             app:backgroundTint="@color/colorAccent"
             app:srcCompat="@drawable/ic_baseline_search_24px" />
     </android.support.design.widget.BottomNavigationView>
-
-    <EditText
-        android:id="@+id/txtEventName"
-        android:layout_width="257dp"
-        android:layout_height="48dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <EditText
-        android:id="@+id/txtDate"
-        android:layout_width="199dp"
-        android:layout_height="45dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="91dp" />
-
-    <EditText
-        android:id="@+id/txtClock"
-        android:layout_width="201dp"
-        android:layout_height="50dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="146dp" />
-
-    <EditText
-        android:id="@+id/txtPayment"
-        android:layout_width="200dp"
-        android:layout_height="47dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="205dp" />
-
-    <TextView
-        android:id="@+id/txtAddPhoto"
-        android:layout_width="201dp"
-        android:layout_height="48dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="378dp" />
-
-    <EditText
-        android:id="@+id/txtAttendants"
-        android:layout_width="201dp"
-        android:layout_height="48dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="317dp" />
-
-    <EditText
-        android:id="@+id/txtAdress"
-        android:layout_width="199dp"
-        android:layout_height="51dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="260dp" />
-
-    <TextView
-        android:id="@+id/txtDescriptionTitle"
-        android:layout_width="101dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="428dp" />
-
-    <EditText
-        android:id="@+id/txtDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
-
-    <ImageView
-        android:id="@+id/imgDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="99dp" />
-
-    <ImageView
-        android:id="@+id/imgTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="158dp" />
-
-    <ImageView
-        android:id="@+id/imgLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="271dp" />
-
-    <ImageView
-        android:id="@+id/imgAttendants"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_group_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="327dp" />
-
-    <ImageView
-        android:id="@+id/imgPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="217dp" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
-
-    <ImageView
-        android:id="@+id/imgAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="387dp" />
-
-    <Button
-        android:id="@+id/btnAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        tools:layout_editor_absoluteX="280dp"
-        tools:layout_editor_absoluteY="378dp" />
 
 </android.support.constraint.ConstraintLayout>
