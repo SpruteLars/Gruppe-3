@@ -18,6 +18,7 @@
         android:textColorHint="@color/colorTextHint"
         android:hint="@string/email"
         app:layout_constraintBottom_toTopOf="@+id/txtPassword"
+        android:textColorHighlight="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
