@@ -11,11 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".EventActivity" />
-        <activity android:name=".TabHandlerActivity"></activity>
         <activity android:name=".logInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".EventActivity" />
+        <activity android:name=".TabHandlerActivity"></activity>
         <activity android:name=".GoogleMapActivity"></activity>
     </application>
 
