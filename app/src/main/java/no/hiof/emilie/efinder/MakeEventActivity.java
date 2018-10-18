@@ -38,7 +38,6 @@ import no.hiof.emilie.efinder.Classes.EventInformation;
 import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 
 public class MakeEventActivity extends AppCompatActivity {
-    Button addPhotoButton;
     EditText textViewEventName;
     EditText textViewDate;
     EditText textViewClock;
@@ -47,8 +46,8 @@ public class MakeEventActivity extends AppCompatActivity {
     EditText textViewAdresse;
     EditText textViewDescription;
     TextView textAddedPhoto;
+    Button addPhotoButton;
     Button buttonSubmit;
-    //private DatabaseReference databaseReference;
     private List<EditText> editTextArray;
     private List<EventInformation> eventList;
     private List<String> eventKeyList;
@@ -95,6 +94,7 @@ public class MakeEventActivity extends AppCompatActivity {
         addPhotoButton.setOnClickListener(addPhotoListener);
 
         /** Firebase */
+        //https://firebase.google.com/docs/storage/android/upload-files
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
 
@@ -115,15 +115,16 @@ public class MakeEventActivity extends AppCompatActivity {
                     }
                 }
 
-                /*if (imageView.getDrawable() == 0) {
+                /* TODO: Hvordan sjekke om bildet eksisterer? */
+                if (imageView.getDrawable() == 0) {
                     return;
-                }*/
+                }
 
                 //Lag objekt av Event-klassekonstruktør
                 EventInformation eventInformation = new EventInformation(null, textViewEventName, textViewDate, textViewPayment, textViewAttendants, textViewAdresse, textViewDescription);
 
                 //Send objektet til firebase
-                eventdataReference.push().setValue(eventInformation);
+                eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
             }
         });
     }
@@ -222,24 +223,12 @@ public class MakeEventActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
             }
 
+            //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
             if (picFile != null) {
                 Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-
-            /** Få tak i filnavn til bildet */
-            Uri returnUri = File.getData();
-            Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
-
-            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            returnCursor.moveToFirst();
-            textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
-            textAddedPhoto.setText(returnCursor.getString(nameIndex));
-
-            private void sendEventDataToFirebase(){
-                eventdataReference.push().setValue(eventList);
             }
         }
     }
@@ -247,12 +236,25 @@ public class MakeEventActivity extends AppCompatActivity {
     //Get the Thumbnail
     @Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        //ImageView imageView = findViewById(R.id.txtAddPhoto); //Hvilken ID skal denne referere til????
+        //ImageView imageView = findViewById(R.id.txtAddPhoto); /* TODO: Hvilken ID skal denne referere til???? */
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
 
             //imageView.setImageBitmap(imageBitmap);
+
+            /** Få tak i filnavn til bildet */
+            Uri returnUri = data.getData();
+            Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
+
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            returnCursor.moveToFirst();
+            textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
+            textAddedPhoto.setText(returnCursor.getString(nameIndex));
+
+            private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
+                eventdataReference.push().setValue(eventList);
+            }
         }
     }
 
@@ -283,7 +285,7 @@ public class MakeEventActivity extends AppCompatActivity {
     //Decode image for less RAM usage
     private void setPic() {
         //Dimensions used to display image
-        int targetWidth = imageView.getWidth();
+        int targetWidth = imageView.getWidth(); /* TODO: Skal dette håndteres der eventet skal vises? CardView og EventActivity */
         int targetHeight = imageView.getHeight();
 
         //Get the dimensions of the bitmap
