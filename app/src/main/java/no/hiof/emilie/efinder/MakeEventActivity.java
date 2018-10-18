@@ -3,12 +3,15 @@ package no.hiof.emilie.efinder;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +26,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 import no.hiof.emilie.efinder.Classes.EventInformation;
 import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
@@ -44,8 +52,10 @@ public class MakeEventActivity extends AppCompatActivity {
     private List<EditText> editTextArray;
     private List<EventInformation> eventList;
     private List<String> eventKeyList;
+
     final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
+    String mCurrentPhotoPath;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
@@ -112,7 +122,7 @@ public class MakeEventActivity extends AppCompatActivity {
                 //Lag objekt av Event-klassekonstruktør
                 EventInformation eventInformation = new EventInformation(null, textViewEventName, textViewDate, textViewPayment, textViewAttendants, textViewAdresse, textViewDescription);
 
-                //Send data til firebase
+                //Send objektet til firebase
                 eventdataReference.push().setValue(eventInformation);
             }
         });
@@ -193,38 +203,105 @@ public class MakeEventActivity extends AppCompatActivity {
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            hentBilde();
+            dispatchTakePictureIntent();
         }
     };
 
-    //android developer - take photos
-    private void hentBilde() {
+    //Forespørsel om bildetagning til OS
+    private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-    }
 
-    /*@Override
-    protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        ImageView imageView = findViewById(R.id.txtAddPhoto); //Hvilken ID skal denne referere til????
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
+        //Make sure there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            //Create a File where the picture should go
+            File picFile = null;
 
-            imageView.setImageBitmap(imageBitmap);
+            try {
+                picFile = createImageFile();
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
+            }
+
+            if (picFile != null) {
+                Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
 
             /** Få tak i filnavn til bildet */
-            /*Uri returnUri = data.getData();
+            Uri returnUri = File.getData();
             Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
 
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
             returnCursor.moveToFirst();
             textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
             textAddedPhoto.setText(returnCursor.getString(nameIndex));
-        }
-    }*/
 
-    private void sendEventDataToFirebase() {
-        eventdataReference.push().setValue(eventList);
+            private void sendEventDataToFirebase(){
+                eventdataReference.push().setValue(eventList);
+            }
+        }
+    }
+
+    //Get the Thumbnail
+    @Override
+    protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
+        //ImageView imageView = findViewById(R.id.txtAddPhoto); //Hvilken ID skal denne referere til????
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+
+            //imageView.setImageBitmap(imageBitmap);
+        }
+    }
+
+    //Save the fullsized photo to device
+    private File createImageFile() throws IOException {
+        //Make a name for the image file
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "event_" + timestamp;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(/*prefix*/ imageFileName, /*suffix*/ ".jpg", /*directory*/ storageDir);
+
+        //Save a file: the path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    //Add the picture to a gallery
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File file = new File(mCurrentPhotoPath);
+        Uri contentURI = Uri.fromFile(file);
+
+        mediaScanIntent.setData(contentURI);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+    //Decode image for less RAM usage
+    private void setPic() {
+        //Dimensions used to display image
+        int targetWidth = imageView.getWidth();
+        int targetHeight = imageView.getHeight();
+
+        //Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        bmOptions.inJustDecodeBounds = true;
+        int imageWidth = bmOptions.outWidth;
+        int imageHeight = bmOptions.outHeight;
+
+        //Determine how much to scale down the image
+        int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
+
+        //Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true; //(?)
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        imageView.setImageBitMap(bitmap);
     }
 }

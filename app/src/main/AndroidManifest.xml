@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="no.hiof.emilie.efinder">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,5 +28,21 @@
         <activity android:name=".TabHandlerActivity"></activity>
         <!--activity android:name=".GoogleMapActivity"></activity-->
     </application>
+
+    <paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
+    </paths>
+
+    <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="no.hiof.emilie.efinder"
+        android:exported="false"
+        android:grantUriPermissions="true"
+        tools:ignore="WrongManifestParent">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths"/>
+    </provider>
+
 
 </manifest>
