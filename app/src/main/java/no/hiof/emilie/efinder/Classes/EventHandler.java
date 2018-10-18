@@ -1,23 +1,23 @@
-package no.hiof.emilie.efinder;
+package no.hiof.emilie.efinder.Classes;
 
 import android.media.Image;
 
 import java.util.Date;
 
 public class EventHandler {
-    public String eventTitle;
+    public String eventUID, eventTitle, eventAdress, eventDescription;
     public Date eventDateTime;
-    public int eventPrice;
-    public int  eventAttendants;
+    public int eventPrice, eventAttendants;
     public Image eventImage;
-    public String eventDescription;
 
-    public EventHandler(String eventTitle, Date eventDate, int eventPrice, int eventAttendants, Image eventImage, String eventDescription) {
+    public EventHandler(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
+        this.eventUID = eventUID;
         this.eventTitle = eventTitle;
-        this.eventDateTime = eventDate;
+        this.eventDateTime = eventDateTime;
         this.eventPrice = eventPrice;
         this.eventAttendants = eventAttendants;
         this.eventImage = eventImage;
+        this.eventAdress = eventAdress;
         this.eventDescription = eventDescription;
     }
 

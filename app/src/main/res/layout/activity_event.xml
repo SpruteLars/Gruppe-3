@@ -230,12 +230,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:tint="@color/colorText"
         app:layout_constraintEnd_toEndOf="@+id/imgPayment"
         app:layout_constraintEnd_toStartOf="@+id/txtAdress"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px"
-        tools:layout_editor_absoluteY="309dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imgPayment"
+        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
 
     <ImageView
         android:id="@+id/imgAttendants"
@@ -258,10 +259,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:tint="@color/colorText"
         app:layout_constraintEnd_toEndOf="@+id/imgDate"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteY="272dp" /-->
+        app:layout_constraintTop_toBottomOf="@+id/imgDate"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
 </android.support.constraint.ConstraintLayout>

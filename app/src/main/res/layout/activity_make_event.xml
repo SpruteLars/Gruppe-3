@@ -12,35 +12,38 @@
         android:id="@+id/txtEventName"
         android:layout_width="257dp"
         android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_name"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:textColorHint="@color/colorTextHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtDate"
         android:layout_width="199dp"
         android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_date"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="78dp" />
+        android:textColorHint="@color/colorTextHint"
+        app:layout_constraintBottom_toBottomOf="@+id/imgDate"
+        app:layout_constraintStart_toEndOf="@+id/imgDate" />
 
     <EditText
         android:id="@+id/txtClock"
         android:layout_width="201dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_time"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="136dp" />
 
@@ -48,11 +51,11 @@
         android:id="@+id/txtPayment"
         android:layout_width="200dp"
         android:layout_height="47dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_payment"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="196dp" />
 
@@ -60,11 +63,11 @@
         android:id="@+id/txtAddPhoto"
         android:layout_width="201dp"
         android:layout_height="48dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_image"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="365dp" />
 
@@ -72,11 +75,11 @@
         android:id="@+id/txtAttendants"
         android:layout_width="201dp"
         android:layout_height="48dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_attendants"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="311dp" />
 
@@ -84,11 +87,11 @@
         android:id="@+id/txtAdress"
         android:layout_width="199dp"
         android:layout_height="51dp"
+        android:backgroundTint="@color/colorText"
         android:hint="@string/hint_location"
         android:textColor="@color/colorText"
-        android:textColorHint="@color/colorTextHint"
-        android:backgroundTint="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         tools:layout_editor_absoluteX="65dp"
         tools:layout_editor_absoluteY="258dp" />
 
@@ -109,11 +112,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="@string/hint_description"
-        android:textColorHint="@color/colorTextHint"
-        android:textColor="@color/colorText"
         android:backgroundTint="@color/colorText"
+        android:hint="@string/hint_description"
+        android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorTextHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,55 +127,67 @@
         android:id="@+id/imgDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="91dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imgTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEventName"
+        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
 
     <ImageView
         android:id="@+id/imgTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="146dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imgPayment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgDate"
+        app:srcCompat="@drawable/ic_baseline_access_time_24px" />
 
     <ImageView
         android:id="@+id/imgLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="260dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPayment"
+        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
 
     <ImageView
         android:id="@+id/imgAttendants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_group_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="317dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imgAddPhoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLocation"
+        app:srcCompat="@drawable/ic_baseline_group_24px" />
 
     <ImageView
         android:id="@+id/imgPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="205dp" />
+        app:layout_constraintBottom_toTopOf="@+id/imgLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTime"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
     <ImageView
         android:id="@+id/imgAddPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:tint="@color/colorText"
-        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="378dp" />
+        app:layout_constraintBottom_toTopOf="@+id/txtDescriptionTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAttendants"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
 
     <!-- Buttons -->
     <Button
@@ -201,9 +216,9 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
         android:maxWidth="168dp"
         android:minWidth="80dp"
-        android:background="@color/colorPrimary"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/colorText"
         app:itemTextColor="@color/colorText"
