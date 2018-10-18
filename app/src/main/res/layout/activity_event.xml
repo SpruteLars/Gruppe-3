@@ -36,6 +36,70 @@
             app:srcCompat="@drawable/ic_baseline_search_24px" />
     </android.support.design.widget.BottomNavigationView>
 
+    <ImageView
+        android:id="@+id/posterImageView"
+        android:layout_width="356dp"
+        android:layout_height="163dp"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="145dp"
+        android:layout_height="47dp"
+        android:text="Name"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="200dp" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="363dp"
+        android:layout_height="118dp"
+        android:text="beskrivelse"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="386dp" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <TextView
+        android:id="@+id/clockTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clock"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="298dp" />
+
+    <TextView
+        android:id="@+id/paymentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="payment"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="335dp" />
+
+    <TextView
+        android:id="@+id/attendantsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="attendants"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <TextView
+        android:id="@+id/adresseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="adresse"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="298dp" />
+
     <!--ImageView
         android:id="@+id/imgView"
         android:layout_width="388dp"
