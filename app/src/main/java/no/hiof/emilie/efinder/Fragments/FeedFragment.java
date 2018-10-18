@@ -25,13 +25,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import no.hiof.emilie.efinder.EventActivity;
 import no.hiof.emilie.efinder.R;
+import no.hiof.emilie.efinder.EventActivity;
 import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 import no.hiof.emilie.efinder.model.Event;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+
 
 /*
     NB: Veldig enkelt utgangspunkt!

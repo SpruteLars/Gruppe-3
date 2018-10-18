@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import no.hiof.emilie.efinder.R;
+
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import no.hiof.emilie.efinder.R;
 import no.hiof.emilie.efinder.model.Event;
 
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.EventViewHolder>{
