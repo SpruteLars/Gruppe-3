@@ -4,13 +4,23 @@ import android.media.Image;
 
 import java.util.Date;
 
-public class EventHandler {
+public class EventInformation {
     public String eventUID, eventTitle, eventAdress, eventDescription;
     public Date eventDateTime;
     public int eventPrice, eventAttendants;
     public Image eventImage;
 
-    public EventHandler(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
+    public EventInformation(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, String eventAdress, String eventDescription) {
+        this.eventUID = eventUID;
+        this.eventTitle = eventTitle;
+        this.eventDateTime = eventDateTime;
+        this.eventPrice = eventPrice;
+        this.eventAttendants = eventAttendants;
+        this.eventAdress = eventAdress;
+        this.eventDescription = eventDescription;
+    }
+
+    public EventInformation(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
         this.eventDateTime = eventDateTime;
@@ -19,6 +29,30 @@ public class EventHandler {
         this.eventImage = eventImage;
         this.eventAdress = eventAdress;
         this.eventDescription = eventDescription;
+    }
+
+    public String getEventUID() {
+        return eventUID;
+    }
+
+    public void setEventUID(String eventUID) {
+        this.eventUID = eventUID;
+    }
+
+    public String getEventAdress() {
+        return eventAdress;
+    }
+
+    public void setEventAdress(String eventAdress) {
+        this.eventAdress = eventAdress;
+    }
+
+    public Date getEventDateTime() {
+        return eventDateTime;
+    }
+
+    public void setEventDateTime(Date eventDateTime) {
+        this.eventDateTime = eventDateTime;
     }
 
     public String getEventTitle() {

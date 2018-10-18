@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.hiof.emilie.efinder.Classes.EventHandler;
+import no.hiof.emilie.efinder.Classes.EventInformation;
+import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 
 public class MakeEventActivity extends AppCompatActivity {
     Button addPhotoButton;
@@ -38,17 +40,16 @@ public class MakeEventActivity extends AppCompatActivity {
     EditText textViewDescription;
     TextView textAddedPhoto;
     Button buttonSubmit;
-    //private EditText[] editTextArray;
     //private DatabaseReference databaseReference;
-    private EditText[] editTextArray;
-    private List<EventHandler> eventList;
+    private List<EditText> editTextArray;
+    private List<EventInformation> eventList;
     private List<String> eventKeyList;
     final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
-    //private DatabaseReference databaseReference;
+    private EventRecyclerAdapter eventRecyclerAdapter;
     private ChildEventListener childEventListener;
 
 
@@ -56,45 +57,51 @@ public class MakeEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
-
-        /* Objektet */
-        buttonSubmit = (Button) findViewById(R.id.btnSubmit);
-        addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
-
+        editTextArray = new ArrayList<>();
         eventList = new ArrayList<>();
         eventKeyList = new ArrayList<>();
 
-        editTextArray = new EditText[] {
-                textViewEventName = (EditText) findViewById(R.id.txtEventName),
-                textViewDate = (EditText) findViewById(R.id.txtDate),
-                textViewClock = (EditText) findViewById(R.id.txtClock),
-                textViewPayment = (EditText) findViewById(R.id.txtPayment),
-                textViewAttendants = (EditText) findViewById(R.id.txtAttendants),
-                textViewAdresse = (EditText) findViewById(R.id.txtAdress),
-                textViewDescription = (EditText) findViewById(R.id.txtDescription)
-        };
+        /** Få XML koblet til variabler */
+        buttonSubmit = (Button) findViewById(R.id.btnSubmit);
+        addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
+        textViewEventName = (EditText) findViewById(R.id.txtEventName);
+        textViewDate = (EditText) findViewById(R.id.txtDate);
+        textViewClock = (EditText) findViewById(R.id.txtClock);
+        textViewPayment = (EditText) findViewById(R.id.txtPayment);
+        textViewAttendants = (EditText) findViewById(R.id.txtAttendants);
+        textViewAdresse = (EditText) findViewById(R.id.txtAdress);
+        textViewDescription = (EditText) findViewById(R.id.txtDescription);
+        //Skal også ha med bildet
+
+        editTextArray.add(textViewEventName);
+        editTextArray.add(textViewDate);
+        editTextArray.add(textViewClock);
+        editTextArray.add(textViewPayment);
+        editTextArray.add(textViewAttendants);
+        editTextArray.add(textViewAdresse);
+        editTextArray.add(textViewDescription);
+        //Skal også legge til bildet
 
         addPhotoButton.setOnClickListener(addPhotoListener);
 
-        /* Firebase */
+        /** Firebase */
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
-        //databaseReference = firebaseDatabase.getInstance().getReference();
 
         createDatabaseReadListener();
 
-        /* Laste opp data til firebase */
+        /** Laste opp data til firebase */
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (EditText textView : editTextArray) {
                     //textView.setError("Feilmelding");
                     if (textView.getText().length() == 0) {
-                        System.out.println("Du mangler tekst i et felt");
+                        Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
                     else {
-                        System.out.println("Dette kan sendes til firebase!");
+                        Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -102,10 +109,11 @@ public class MakeEventActivity extends AppCompatActivity {
                     return;
                 }*/
 
-                //Send data til firebase
+                //Lag objekt av Event-klassekonstruktør
+                EventInformation eventInformation = new EventInformation(null, textViewEventName, textViewDate, textViewPayment, textViewAttendants, textViewAdresse, textViewDescription);
 
-                //Lag objekt av Event-klassekontruktør
-                EventHandler eventHandler = new EventHandler(null, textViewEventName, textViewDate, textViewPayment, textViewAttendants, imageViewEventImage, textViewDescription);
+                //Send data til firebase
+                eventdataReference.push().setValue(eventInformation);
             }
         });
     }
@@ -126,46 +134,47 @@ public class MakeEventActivity extends AppCompatActivity {
 
         eventKeyList.clear();
         eventList.clear();
+        eventRecyclerAdapter.notifyDataSetChanged();
     }
 
     private void createDatabaseReadListener() {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventHandler eventHandler = dataSnapshot.getValue(EventHandler.class);
+                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                eventHandler.setEventUID(eventKey);
+                eventInformation.setEventUID(eventKey);
 
-                if (!eventList.contains(eventHandler)) {
-                    eventList.add(event);
+                if (!eventList.contains(eventInformation)) {
+                    eventList.add(eventInformation);
                     eventKeyList.add(eventKey);
-                    eventAdapter.notifyItemInserted(eventList.size()-1);
+                    eventRecyclerAdapter.notifyItemInserted(eventList.size()-1);
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventHandler eventHandler = dataSnapshot.getValue(EventHandler.class);
+                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                eventHandler.setEventUID(eventKey);
+                eventInformation.setEventUID(eventKey);
 
                 int position = eventKeyList.indexOf(eventKey);
 
-                eventList.set(position, event);
-                eventAdapter.notifyItemChanged(position);
+                eventList.set(position, eventInformation);
+                eventRecyclerAdapter.notifyItemChanged(position);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                EventHandler eventHandler = dataSnapshot.getValue(EventHandler.class);
+                EventInformation removedEventInformation = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                eventHandler.setEventUID(eventKey);
+                removedEventInformation.setEventUID(eventKey);
 
                 int position = eventKeyList.indexOf(eventKey);
 
-                eventList.remove(removedEvent);
+                eventList.remove(removedEventInformation);
                 eventKeyList.remove(position);
-                eventAdapter.notifyItemRemoved(position);
+                eventRecyclerAdapter.notifyItemRemoved(position);
             }
 
             @Override
@@ -195,7 +204,7 @@ public class MakeEventActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
         ImageView imageView = findViewById(R.id.txtAddPhoto); //Hvilken ID skal denne referere til????
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
@@ -205,7 +214,7 @@ public class MakeEventActivity extends AppCompatActivity {
             imageView.setImageBitmap(imageBitmap);
 
             /** Få tak i filnavn til bildet */
-            Uri returnUri = data.getData();
+            /*Uri returnUri = data.getData();
             Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
 
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
@@ -213,13 +222,9 @@ public class MakeEventActivity extends AppCompatActivity {
             textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
             textAddedPhoto.setText(returnCursor.getString(nameIndex));
         }
-    }
-
-    private void generateEventObject() {
-        eventList.add(new EventHandler(null, ));
-    }
+    }*/
 
     private void sendEventDataToFirebase() {
-        eventdataReference.push().setValue(event);
+        eventdataReference.push().setValue(eventList);
     }
 }
