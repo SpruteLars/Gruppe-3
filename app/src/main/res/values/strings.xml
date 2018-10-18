@@ -15,6 +15,7 @@
     <string name="title_activity_sign_in">SignInActivity</string>
 
     <!-- Lage events -->
+    <string name="make_event">Make an event!</string>
     <string name="hint_name">Name of event</string>
     <string name="hint_date">Pick a date</string>
     <string name="hint_time">Pick a time</string>
@@ -24,6 +25,7 @@
     <string name="hint_image">Choose an image</string>
     <string name="description">Description</string>
     <string name="hint_description">Add a description to your event!</string>
+    <string name="button_add">Add</string>
 
     <!-- Dummy strings -->
     <string name="button">Button</string>

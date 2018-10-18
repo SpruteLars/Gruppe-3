@@ -36,7 +36,7 @@
             app:srcCompat="@drawable/ic_baseline_search_24px" />
     </android.support.design.widget.BottomNavigationView>
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/posterImageView"
         android:layout_width="356dp"
         android:layout_height="163dp"
@@ -98,9 +98,9 @@
         android:layout_height="wrap_content"
         android:text="adresse"
         tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="298dp" />
+        tools:layout_editor_absoluteY="298dp" /-->
 
-    <!--ImageView
+    <ImageView
         android:id="@+id/imgView"
         android:layout_width="388dp"
         android:layout_height="200dp"
