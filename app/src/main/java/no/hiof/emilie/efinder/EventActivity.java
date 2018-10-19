@@ -24,7 +24,7 @@ import no.hiof.emilie.efinder.model.EventInformation;
 public class EventActivity extends AppCompatActivity {
     public static final String EVENT_UID = "event_uid";
 
-    private EventInformation event;
+    private no.hiof.emilie.efinder.model.EventInformation event;
 
     private TextView nameTextView;
     private TextView descriptionTextView;
