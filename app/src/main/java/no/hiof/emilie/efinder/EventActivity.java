@@ -1,16 +1,15 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,14 +53,14 @@ public class EventActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        nameTextView = findViewById(R.id.nameTextView);
-        descriptionTextView = findViewById(R.id.descriptionTextView);
-        dateTextView = findViewById(R.id.dateTextView);
-        clockTextView = findViewById(R.id.clockTextView);
-        paymentTextView = findViewById(R.id.paymentTextView);
-        attendantsTextView = findViewById(R.id.attendantsTextView);
-        adresseTextView = findViewById(R.id.adresseTextView);
-        posterImageView  = findViewById(R.id.posterImageView);
+        nameTextView = findViewById(R.id.txtEventName);
+        descriptionTextView = findViewById(R.id.txtDescription);
+        dateTextView = findViewById(R.id.txtDate);
+        clockTextView = findViewById(R.id.txtClock);
+        paymentTextView = findViewById(R.id.txtCalendar);
+        attendantsTextView = findViewById(R.id.txtAttendants);
+        adresseTextView = findViewById(R.id.txtAddresse);
+        posterImageView  = findViewById(R.id.imgView);
 
         eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

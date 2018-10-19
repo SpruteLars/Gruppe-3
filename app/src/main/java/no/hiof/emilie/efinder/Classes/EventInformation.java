@@ -2,15 +2,16 @@ package no.hiof.emilie.efinder.Classes;
 
 import android.media.Image;
 
-import java.util.Date;
-
 public class EventInformation {
-    public String eventUID, eventTitle, eventAdress, eventDescription;
-    public Date eventDateTime;
+    public String eventUID, eventTitle, eventAdress, eventDescription, eventDateTime;
+
     public int eventPrice, eventAttendants;
     public Image eventImage;
 
-    public EventInformation(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, String eventAdress, String eventDescription) {
+    public EventInformation() {
+    }
+
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPrice, int eventAttendants, String eventAdress, String eventDescription) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
         this.eventDateTime = eventDateTime;
@@ -20,7 +21,7 @@ public class EventInformation {
         this.eventDescription = eventDescription;
     }
 
-    public EventInformation(String eventUID, String eventTitle, Date eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
         this.eventDateTime = eventDateTime;
@@ -47,11 +48,11 @@ public class EventInformation {
         this.eventAdress = eventAdress;
     }
 
-    public Date getEventDateTime() {
+    public String getEventDateTime() {
         return eventDateTime;
     }
 
-    public void setEventDateTime(Date eventDateTime) {
+    public void setEventDateTime(String eventDateTime) {
         this.eventDateTime = eventDateTime;
     }
 
@@ -63,11 +64,11 @@ public class EventInformation {
         this.eventTitle = eventTitle;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDateTime;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDateTime = eventDate;
     }
 
