@@ -1,31 +1,37 @@
-package no.hiof.emilie.efinder.Classes;
-
-import android.media.Image;
+package no.hiof.emilie.efinder.model;
 
 public class EventInformation {
-    public String eventUID, eventTitle, eventAdress, eventDescription, eventDateTime;
+    public String
+            eventUID,
+            eventTitle,
+            eventAdress,
+            eventDescription,
+            eventDate,
+            eventTime,
+            eventImage;
+    public int
+            eventPayment,
+            eventAttendants;
 
-    public int eventPrice, eventAttendants;
-    public Image eventImage;
 
     public EventInformation() {
     }
 
-    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPrice, int eventAttendants, String eventAdress, String eventDescription) {
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
-        this.eventDateTime = eventDateTime;
-        this.eventPrice = eventPrice;
+        this.eventDate = eventDateTime;
+        this.eventPayment = eventPayment;
         this.eventAttendants = eventAttendants;
         this.eventAdress = eventAdress;
         this.eventDescription = eventDescription;
     }
 
-    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPrice, int eventAttendants, Image eventImage, String eventAdress, String eventDescription) {
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventImage, String eventAdress, String eventDescription) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
-        this.eventDateTime = eventDateTime;
-        this.eventPrice = eventPrice;
+        this.eventDate = eventDateTime;
+        this.eventPayment = eventPayment;
         this.eventAttendants = eventAttendants;
         this.eventImage = eventImage;
         this.eventAdress = eventAdress;
@@ -40,22 +46,6 @@ public class EventInformation {
         this.eventUID = eventUID;
     }
 
-    public String getEventAdress() {
-        return eventAdress;
-    }
-
-    public void setEventAdress(String eventAdress) {
-        this.eventAdress = eventAdress;
-    }
-
-    public String getEventDateTime() {
-        return eventDateTime;
-    }
-
-    public void setEventDateTime(String eventDateTime) {
-        this.eventDateTime = eventDateTime;
-    }
-
     public String getEventTitle() {
         return eventTitle;
     }
@@ -64,36 +54,12 @@ public class EventInformation {
         this.eventTitle = eventTitle;
     }
 
-    public String getEventDate() {
-        return eventDateTime;
+    public String getEventAdress() {
+        return eventAdress;
     }
 
-    public void setEventDate(String eventDate) {
-        this.eventDateTime = eventDate;
-    }
-
-    public int getEventPrice() {
-        return eventPrice;
-    }
-
-    public void setEventPrice(int eventPrice) {
-        this.eventPrice = eventPrice;
-    }
-
-    public int getEventAttendants() {
-        return eventAttendants;
-    }
-
-    public void setEventAttendants(int eventAttendants) {
-        this.eventAttendants = eventAttendants;
-    }
-
-    public Image getEventImage() {
-        return eventImage;
-    }
-
-    public void setEventImage(Image eventImage) {
-        this.eventImage = eventImage;
+    public void setEventAdress(String eventAdress) {
+        this.eventAdress = eventAdress;
     }
 
     public String getEventDescription() {
@@ -102,5 +68,45 @@ public class EventInformation {
 
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    public int getEventPayment() {
+        return eventPayment;
+    }
+
+    public void setEventPayment(int eventPayment) {
+        this.eventPayment = eventPayment;
+    }
+
+    public int getEventAttendants() {
+        return eventAttendants;
+    }
+
+    public void setEventAttendants(int eventAttendants) {
+        this.eventAttendants = eventAttendants;
     }
 }
