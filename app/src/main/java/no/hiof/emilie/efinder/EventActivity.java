@@ -36,7 +36,6 @@ public class EventActivity extends AppCompatActivity {
     private ImageView posterImageView;
 
 
-    private DatabaseReference ratingReference;
     private FirebaseDatabase firebaseDatabase;
 
     private FirebaseAuth firebaseAuth;

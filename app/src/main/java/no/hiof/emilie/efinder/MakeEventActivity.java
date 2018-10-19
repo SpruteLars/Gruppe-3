@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,6 +94,26 @@ public class MakeEventActivity extends AppCompatActivity {
 
         /** Laste opp data til firebase */
         buttonSubmit.setOnClickListener(submitEventListener);
+        /** Bottom Navigation */
+        // region botnav
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_profil:
+                        startActivity(new Intent(MakeEventActivity.this, ProfileActivity.class));
+                        return true;
+                        case R.id.action_instillinger:
+                            startActivity(new Intent(MakeEventActivity.this, SettingsActivity.class));
+                            return true;
+                            }
+                            return false;
+                }
+                }
+        );
     }
     // endregion
 

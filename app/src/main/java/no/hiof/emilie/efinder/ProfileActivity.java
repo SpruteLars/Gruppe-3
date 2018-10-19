@@ -32,10 +32,10 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
-    TextView kaare;
-    TextView per;
-    ImageView kalle;
-    TextView roy;
+    TextView profNavn;
+    TextView profFollower;
+    ImageView profBilde;
+    TextView profDescription;
 
 
 
@@ -47,22 +47,22 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
-        kaare = findViewById(R.id.txtProfilNavn);
-        kalle = findViewById(R.id.imgProfilBilde);
-        roy = findViewById(R.id.txtAbout);
+        profNavn = findViewById(R.id.txtProfilNavn);
+        profBilde = findViewById(R.id.imgProfilBilde);
+        profDescription = findViewById(R.id.txtAbout);
         dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
         Uid = user.getUid();
-        per = findViewById(R.id.txtFollowers);
+        profFollower = findViewById(R.id.txtFollowers);
         dbref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Database", "Got data");
-                kaare.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
-                per.setText(dataSnapshot.child(Uid).child("folgere").getValue(String.class));
-                roy.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
-                //kalle.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
+                profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
+                profFollower.setText(dataSnapshot.child(Uid).child("folgere").getValue(String.class));
+                profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
+                //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
 
                 Log.d("Database", "Set data");
             }
