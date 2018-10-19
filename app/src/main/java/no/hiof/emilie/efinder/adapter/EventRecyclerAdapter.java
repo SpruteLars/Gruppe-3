@@ -8,16 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import no.hiof.emilie.efinder.R;
-
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import no.hiof.emilie.efinder.model.Event;
+import no.hiof.emilie.efinder.model.EventInformation;
+import no.hiof.emilie.efinder.R;
 
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.EventViewHolder>{
-    private List<Event> data;
+    private List<EventInformation> data;
     private LayoutInflater inflater;
 
     private View.OnClickListener clickListener;
@@ -26,7 +25,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         this.clickListener = clickListener;
     }
 
-    public EventRecyclerAdapter(Context context, List<Event> data) {
+    public EventRecyclerAdapter(Context context, List<EventInformation> data) {
         this.data = data;
         this.inflater = LayoutInflater.from(context);
     }
@@ -41,7 +40,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        Event currentObj = data.get(position);
+        EventInformation currentObj = data.get(position);
         holder.setData(currentObj);
 
         if (clickListener != null) {
@@ -68,15 +67,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             poster = itemView.findViewById(R.id.event_poster);
         }
 
-        public void setData(Event current) {
-            this.name.setText(current.getName());
-            String posterUrl = current.getPosterUrl();
-            this.adresse.setText(current.getAdresse());
-            this.date.setText(current.getDate());
+        public void setData(EventInformation current) {
+            this.name.setText(current.getEventTitle());
+            String eventImageVIew = current.getEventImage();
+            this.adresse.setText(current.getEventAdress());
+            this.date.setText(current.getEventDate());
 
-            if (posterUrl != null && !posterUrl.equals("")) {
+            if (eventImageVIew != null && !eventImageVIew.equals("")) {
                 Glide.with(poster.getContext())
-                        .load(posterUrl)
+                        .load(eventImageVIew)
                         .into(poster);
             }
             else

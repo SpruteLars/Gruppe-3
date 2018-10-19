@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import no.hiof.emilie.efinder.model.EventInformation;
 import no.hiof.emilie.efinder.R;
 import no.hiof.emilie.efinder.EventActivity;
 import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
-import no.hiof.emilie.efinder.model.Event;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -40,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class FeedFragment extends Fragment {
     private static final int RC_SIGN_IN = 1;
-    private List<Event> eventList;
+    private List<EventInformation> eventList;
     private List<String> eventListKeys;
     private RecyclerView recyclerView;
 
@@ -126,9 +126,9 @@ public class FeedFragment extends Fragment {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Event event = dataSnapshot.getValue(Event.class);
+                EventInformation event = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                event.setUid(eventKey);
+                event.setEventUID(eventKey);
 
                 if (!eventList.contains(event)) {
                     eventList.add(event);
@@ -138,9 +138,9 @@ public class FeedFragment extends Fragment {
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Event event = dataSnapshot.getValue(Event.class);
+                EventInformation event = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                event.setUid(eventKey);
+                event.setEventUID(eventKey);
 
                 int position = eventListKeys.indexOf(eventKey);
 
@@ -150,9 +150,9 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Event removedMovie = dataSnapshot.getValue(Event.class);
+                EventInformation removedMovie = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                removedMovie.setUid(eventKey);
+                removedMovie.setEventUID(eventKey);
                 int position = eventListKeys.indexOf(eventKey);
                 eventList.remove(removedMovie);
                 eventListKeys.remove(position);
@@ -179,10 +179,10 @@ public class FeedFragment extends Fragment {
             public void onClick(View view) {
                 int position = recyclerView.getChildAdapterPosition(view);
 
-                Event event = eventList.get(position);
+                EventInformation event = eventList.get(position);
 
                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                intent.putExtra(EventActivity.EVENT_UID, event.getUid());
+                intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());
 
                 startActivity(intent);
             }

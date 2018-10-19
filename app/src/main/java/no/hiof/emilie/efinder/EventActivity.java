@@ -17,14 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import no.hiof.emilie.efinder.model.Event;
+import no.hiof.emilie.efinder.model.EventInformation;
 
 
 
 public class EventActivity extends AppCompatActivity {
     public static final String EVENT_UID = "event_uid";
 
-    private Event event;
+    private EventInformation event;
 
     private TextView nameTextView;
     private TextView descriptionTextView;
@@ -65,20 +65,20 @@ public class EventActivity extends AppCompatActivity {
         eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                event = dataSnapshot.getValue(Event.class);
-                event.setUid(dataSnapshot.getKey());
+                event = dataSnapshot.getValue(EventInformation.class);
+                event.setEventUID(dataSnapshot.getKey());
 
-                nameTextView.setText(event.getName());
-                descriptionTextView.setText(event.getDescription());
-                dateTextView.setText(event.getDate());
-                clockTextView.setText(event.getClock());
-                paymentTextView.setText(event.getPayment());
-                attendantsTextView.setText(event.getAttendants());
-                adresseTextView.setText(event.getAdresse());
+                nameTextView.setText(event.getEventTitle());
+                descriptionTextView.setText(event.getEventDescription());
+                dateTextView.setText(event.getEventDate());
+                clockTextView.setText(event.getEventTime());
+                paymentTextView.setText(event.getEventPayment());
+                attendantsTextView.setText(event.getEventAttendants());
+                adresseTextView.setText(event.getEventAdress());
 
-                if (event.getPosterUrl() != null) {
+                if (event.getEventImage() != null) {
                     Glide.with(EventActivity.this)
-                            .load(event.getPosterUrl())
+                            .load(event.getEventImage())
                             .into(posterImageView);
                 }
             }

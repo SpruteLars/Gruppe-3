@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import no.hiof.emilie.efinder.Classes.EventInformation;
+import no.hiof.emilie.efinder.model.EventInformation;
 
 public class MakeEventActivity extends AppCompatActivity {
     EditText textViewEventName;
@@ -119,6 +119,7 @@ public class MakeEventActivity extends AppCompatActivity {
         //eventRecyclerAdapter.notifyDataSetChanged();
     }
 
+    //region onPause
     /* Brukes når data skal hentes ut
     private void createDatabaseReadListener() {
         childEventListener = new ChildEventListener() {
@@ -172,6 +173,8 @@ public class MakeEventActivity extends AppCompatActivity {
         };
     }
     */
+    //enregion
+
     /** Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
@@ -326,7 +329,14 @@ public class MakeEventActivity extends AppCompatActivity {
             }*/
 
             //Lag objekt av Event-klassekonstruktør
-            EventInformation eventInformation = new EventInformation(null, textViewEventName.getText().toString(), textViewDate.getText().toString(), Integer.parseInt(textViewPayment.getText().toString()), Integer.parseInt(textViewAttendants.getText().toString()), textViewAdresse.getText().toString(), textViewDescription.getText().toString());
+            EventInformation eventInformation = new EventInformation(
+                    null,
+                    textViewEventName.getText().toString(),
+                    textViewDate.getText().toString(),
+                    Integer.parseInt(textViewPayment.getText().toString()),
+                    Integer.parseInt(textViewAttendants.getText().toString()),
+                    textViewAdresse.getText().toString(),
+                    textViewDescription.getText().toString());
 
             //Send objektet til firebase
             eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
