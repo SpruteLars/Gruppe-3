@@ -1,7 +1,10 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
     TextView kaare;
+    TextView per;
+    ImageView kalle;
+    TextView roy;
 
 
 
@@ -38,16 +45,25 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
         kaare = findViewById(R.id.txtProfilNavn);
+        kalle = findViewById(R.id.imgProfilBilde);
+        roy = findViewById(R.id.txtAbout);
         dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
         Uid = user.getUid();
+        per = findViewById(R.id.txtFollowers);
         dbref.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Database", "Got data");
                 kaare.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
+                per.setText(dataSnapshot.child(Uid).child("folgere").getValue(String.class));
+                roy.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
+                //kalle.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
+
                 Log.d("Database", "Set data");
             }
 

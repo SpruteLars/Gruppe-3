@@ -23,6 +23,7 @@ import java.util.List;
 public class LogInActivity extends AppCompatActivity {
         private FirebaseAuth auth;
         public Button but;
+        public Button mBut;
         ArrayAdapter<String> nisse;
         public EditText editEmail;
         public EditText editPass;
@@ -38,6 +39,15 @@ public class LogInActivity extends AppCompatActivity {
 
             auth = FirebaseAuth.getInstance();
             but = findViewById(R.id.btnLogIn);
+            mBut = findViewById(R.id.btnSignUp);
+
+            mBut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(LogInActivity.this,SignUpActivity.class);
+                    startActivity(intent);
+                }
+            });
             but.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
