@@ -1,12 +1,15 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,9 +44,9 @@ public class MakeEventActivity extends AppCompatActivity {
     Button buttonSubmit;
     private List<EditText> editTextArray;
 
-    /*final int REQUEST_IMAGE_CAPTURE = 1;
+    final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
-    String mCurrentPhotoPath, fileName;*/
+    String mCurrentPhotoPath, fileName;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
@@ -60,7 +64,7 @@ public class MakeEventActivity extends AppCompatActivity {
 
         /** Få XML koblet til variabler */
         buttonSubmit = (Button) findViewById(R.id.btnSubmit);
-        //addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
+        addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
         textViewEventName = (EditText) findViewById(R.id.txtEventName);
         textViewDate = (EditText) findViewById(R.id.txtDate);
         textViewClock = (EditText) findViewById(R.id.txtClock);
@@ -181,10 +185,10 @@ public class MakeEventActivity extends AppCompatActivity {
     // endregion
 
     // region bildethumbnail
-    /*@Override
+    @Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        //ImageView imageView = findViewById(R.id.txtAddPhoto); /* TODO: Hvilken ID skal denne referere til???? */
-        /*if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
+        //ImageView imageView = findViewById(R.id.txtAddPhoto);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
             try {
                 galleryAddPic();
 
@@ -208,10 +212,10 @@ public class MakeEventActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
 
-            //imageView.setImageBitmap(imageBitmap);*/
+            //imageView.setImageBitmap(imageBitmap);
 
             /** Få tak i filnavn til bildet */
-            /*Uri returnUri = data.getData();
+            Uri returnUri = data.getData();
             Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
 
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
@@ -220,10 +224,10 @@ public class MakeEventActivity extends AppCompatActivity {
             textAddedPhoto.setText(returnCursor.getString(nameIndex));
 
             //private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
-                /*eventdataReference.push().setValue(eventList);
-            }
+                //eventdataReference.push().setValue(eventList);
+            //}
         }
-    }*/
+    }
     // endregion
 
     // region lagre bilde på enhet

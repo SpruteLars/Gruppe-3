@@ -26,11 +26,11 @@
 
     <EditText
         android:id="@+id/txtDate"
-        android:inputType="date"
         android:layout_width="325dp"
         android:layout_height="45dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_date"
+        android:inputType="date"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -40,11 +40,11 @@
 
     <EditText
         android:id="@+id/txtClock"
-        android:inputType="time"
         android:layout_width="325dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_time"
+        android:inputType="time"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -54,11 +54,11 @@
 
     <EditText
         android:id="@+id/txtPayment"
-        android:inputType="number"
         android:layout_width="325dp"
         android:layout_height="47dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_payment"
+        android:inputType="number"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -83,11 +83,11 @@
 
     <EditText
         android:id="@+id/txtAttendants"
-        android:inputType="number"
         android:layout_width="326dp"
         android:layout_height="48dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_attendants"
+        android:inputType="number"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -97,11 +97,11 @@
 
     <EditText
         android:id="@+id/txtAdress"
-        android:inputType="textPostalAddress"
         android:layout_width="326dp"
         android:layout_height="51dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_location"
+        android:inputType="textPostalAddress"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -113,8 +113,8 @@
         android:id="@+id/txtDescriptionTitle"
         android:layout_width="76dp"
         android:layout_height="22dp"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/description"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/txtDescription"
@@ -133,14 +133,14 @@
 
     <EditText
         android:id="@+id/txtDescription"
-        android:inputType="textLongMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_description"
+        android:inputType="textLongMessage"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -152,10 +152,10 @@
     <!-- Icons -->
     <ImageView
         android:id="@+id/imgDate"
-        android:contentDescription="@string/hint_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_date"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/imgTime"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,10 +164,10 @@
 
     <ImageView
         android:id="@+id/imgTime"
-        android:contentDescription="@string/hint_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_time"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/imgPayment"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,10 +176,10 @@
 
     <ImageView
         android:id="@+id/imgLocation"
-        android:contentDescription="@string/hint_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_location"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
         app:layout_constraintStart_toStartOf="parent"
@@ -188,10 +188,10 @@
 
     <ImageView
         android:id="@+id/imgAttendants"
-        android:contentDescription="@string/hint_attendants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_attendants"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/imgAddPhoto"
         app:layout_constraintStart_toStartOf="parent"
@@ -200,10 +200,10 @@
 
     <ImageView
         android:id="@+id/imgPayment"
-        android:contentDescription="@string/hint_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_payment"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/imgLocation"
         app:layout_constraintStart_toStartOf="parent"
@@ -212,10 +212,10 @@
 
     <ImageView
         android:id="@+id/imgAddPhoto"
-        android:contentDescription="@string/hint_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/hint_image"
         android:tint="@color/colorText"
         app:layout_constraintBottom_toTopOf="@+id/txtDescriptionTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -229,20 +229,22 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
         android:text="@string/button_submit"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtEventName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnAddPhoto"
+        app:layout_constraintTop_toTopOf="@+id/btnAddPhoto" />
 
-    <!--Button
+    <Button
         android:id="@+id/btnAddPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:text="@string/button_add"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/txtAddPhoto"
         app:layout_constraintStart_toEndOf="@+id/txtAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/txtAddPhoto" /-->
+        app:layout_constraintTop_toTopOf="@+id/txtAddPhoto" />
 
     <!-- Bottom Navigation -->
     <android.support.design.widget.BottomNavigationView
