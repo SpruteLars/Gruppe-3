@@ -1,5 +1,7 @@
 package no.hiof.emilie.efinder.model;
 
+import android.media.Image;
+
 public class EventInformation {
     public String
             eventUID,
