@@ -1,15 +1,12 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,21 +39,17 @@ public class MakeEventActivity extends AppCompatActivity {
     Button addPhotoButton;
     Button buttonSubmit;
     private List<EditText> editTextArray;
-    //private List<EventInformation> eventList;
-    //private List<String> eventKeyList;
 
-    final int REQUEST_IMAGE_CAPTURE = 1;
+    /*final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
-    String mCurrentPhotoPath, fileName;
+    String mCurrentPhotoPath, fileName;*/
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
-    //private EventRecyclerAdapter eventRecyclerAdapter;
-    //private ChildEventListener childEventListener;
 
     Bitmap picture;
 
-
+    // region onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +60,7 @@ public class MakeEventActivity extends AppCompatActivity {
 
         /** Få XML koblet til variabler */
         buttonSubmit = (Button) findViewById(R.id.btnSubmit);
-        addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
+        //addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
         textViewEventName = (EditText) findViewById(R.id.txtEventName);
         textViewDate = (EditText) findViewById(R.id.txtDate);
         textViewClock = (EditText) findViewById(R.id.txtClock);
@@ -76,7 +68,6 @@ public class MakeEventActivity extends AppCompatActivity {
         textViewAttendants = (EditText) findViewById(R.id.txtAttendants);
         textViewAdresse = (EditText) findViewById(R.id.txtAdress);
         textViewDescription = (EditText) findViewById(R.id.txtDescription);
-        //Skal også ha med bildet
 
         editTextArray.add(textViewEventName);
         editTextArray.add(textViewDate);
@@ -85,43 +76,22 @@ public class MakeEventActivity extends AppCompatActivity {
         editTextArray.add(textViewAttendants);
         editTextArray.add(textViewAdresse);
         editTextArray.add(textViewDescription);
-        //Skal også legge til bildet
 
+        /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         addPhotoButton.setOnClickListener(addPhotoListener);
 
         /** Firebase */
-        //https://firebase.google.com/docs/storage/android/upload-files
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
-
-        //createDatabaseReadListener();
 
         /** Laste opp data til firebase */
         buttonSubmit.setOnClickListener(submitEventListener);
     }
+    // endregion
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //if (childEventListener != null)
-            //eventdataReference.addChildEventListener(childEventListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        /*if (childEventListener != null) {
-            eventdataReference.removeEventListener(childEventListener);
-        }*/
-
-        //eventKeyList.clear();
-        //eventList.clear();
-        //eventRecyclerAdapter.notifyDataSetChanged();
-    }
-
-    //region onPause
-    /* Brukes når data skal hentes ut
-    private void createDatabaseReadListener() {
+    /** Henting av data - skal implementeres et annet sted */
+    // region database listener
+    /*private void createDatabaseReadListener() {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -171,11 +141,10 @@ public class MakeEventActivity extends AppCompatActivity {
                 //empty
             }
         };
-    }
-    */
-    //enregion
+    }*/
+    // endregion
 
-    /** Håndtering av å hente bilde og ta bilde */
+    /** Håndtering av å hente bilde og ta bilde - koden er ikke ferdigstilt */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
         @Override
@@ -183,8 +152,9 @@ public class MakeEventActivity extends AppCompatActivity {
             dispatchTakePictureIntent();
         }
     };
+    // endregion
 
-    //Forespørsel om bildetagning til OS
+    // region forespørsel om bildetagning til OS
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -204,16 +174,17 @@ public class MakeEventActivity extends AppCompatActivity {
                 Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
+    // endregion
 
-    //Get the Thumbnail
-    @Override
+    // region bildethumbnail
+    /*@Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
         //ImageView imageView = findViewById(R.id.txtAddPhoto); /* TODO: Hvilken ID skal denne referere til???? */
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
+        /*if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
             try {
                 galleryAddPic();
 
@@ -237,10 +208,10 @@ public class MakeEventActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
 
-            //imageView.setImageBitmap(imageBitmap);
+            //imageView.setImageBitmap(imageBitmap);*/
 
             /** Få tak i filnavn til bildet */
-            Uri returnUri = data.getData();
+            /*Uri returnUri = data.getData();
             Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
 
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
@@ -249,12 +220,13 @@ public class MakeEventActivity extends AppCompatActivity {
             textAddedPhoto.setText(returnCursor.getString(nameIndex));
 
             //private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
-              //  eventdataReference.push().setValue(eventList);
-            //}
+                /*eventdataReference.push().setValue(eventList);
+            }
         }
-    }
+    }*/
+    // endregion
 
-    //Save the fullsized photo to device
+    // region lagre bilde på enhet
     private File createImageFile() throws IOException {
         //Make a name for the image file
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -263,24 +235,25 @@ public class MakeEventActivity extends AppCompatActivity {
 
         File image = File.createTempFile(/*prefix*/ imageFileName, /*suffix*/ ".jpg", /*directory*/ storageDir);
 
-        fileName = imageFileName + " .jpg";
+        //fileName = imageFileName + " .jpg";
         //Save a file: the path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
+        //mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+    // endregion
 
-    //Add the picture to a gallery
+    // region legg bildet til i galleri
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File file = new File(mCurrentPhotoPath);
-        Uri contentURI = Uri.fromFile(file);
+        //File file = new File(mCurrentPhotoPath);
+        //Uri contentURI = Uri.fromFile(file);
 
-        mediaScanIntent.setData(contentURI);
+        //mediaScanIntent.setData(contentURI);
         this.sendBroadcast(mediaScanIntent);
     }
+    // endregion
 
-    //Decode image for less RAM usage
-    //region size
+    //region size decoding
     private void setPic() {
         //Dimensions used to display image
         //int targetWidth = imageView.getWidth(); /* TODO: Skal dette håndteres der eventet skal vises? CardView og EventActivity */
@@ -288,7 +261,7 @@ public class MakeEventActivity extends AppCompatActivity {
 
         //Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         bmOptions.inJustDecodeBounds = true;
         int imageWidth = bmOptions.outWidth;
         int imageHeight = bmOptions.outHeight;
@@ -301,14 +274,13 @@ public class MakeEventActivity extends AppCompatActivity {
         //bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true; //(?)
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         //imageView.setImageBitMap(bitmap);
     }
     // endregion
 
-
     /** Sende inn event */
-    //region send inn
+    //region send inn arrangement
     private View.OnClickListener submitEventListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

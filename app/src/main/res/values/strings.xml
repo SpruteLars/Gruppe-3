@@ -26,6 +26,7 @@
     <string name="description">Description</string>
     <string name="hint_description">Add a description to your event!</string>
     <string name="button_add">Add</string>
+    <string name="button_submit">Submit</string>
 
     <!-- Dummy strings -->
     <string name="button">Button</string>

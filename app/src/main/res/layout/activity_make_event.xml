@@ -22,7 +22,7 @@
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMakeEvent" />
 
     <EditText
         android:id="@+id/txtDate"
@@ -68,12 +68,12 @@
 
     <TextView
         android:id="@+id/txtAddPhoto"
-        android:inputType="textUri"
-        android:layout_width="231dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/colorText"
         android:hint="@string/hint_image"
+        android:inputType="textUri"
         android:textColor="@color/colorText"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorTextHint"
@@ -121,7 +121,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/txtDescriptionTitle2"
+        android:id="@+id/txtMakeEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -225,25 +225,24 @@
     <!-- Buttons -->
     <Button
         android:id="@+id/btnSubmit"
-        android:layout_width="89dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="248dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/button"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/button_submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddPhoto" />
+        app:layout_constraintStart_toEndOf="@+id/txtEventName"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <!--Button
         android:id="@+id/btnAddPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/button_add"
         app:layout_constraintStart_toEndOf="@+id/txtAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/txtAddPhoto" />
+        app:layout_constraintTop_toTopOf="@+id/txtAddPhoto" /-->
 
     <!-- Bottom Navigation -->
     <android.support.design.widget.BottomNavigationView
