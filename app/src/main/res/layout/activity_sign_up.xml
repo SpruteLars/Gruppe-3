@@ -23,7 +23,7 @@
 
     <EditText
         android:id="@+id/txtEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="271dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
         android:ems="10"
@@ -35,12 +35,12 @@
 
     <EditText
         android:id="@+id/txtPass"
-        android:layout_width="wrap_content"
+        android:layout_width="274dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
         android:layout_marginStart="29dp"
         android:ems="10"
-        android:hint="Password must be longer than 6 character"
+        android:hint="Password atleast 6 characters"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/txtAlder"
         app:layout_constraintStart_toStartOf="parent"

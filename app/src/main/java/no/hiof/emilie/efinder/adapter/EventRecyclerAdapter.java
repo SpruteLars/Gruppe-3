@@ -1,6 +1,7 @@
 package no.hiof.emilie.efinder.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+import no.hiof.emilie.efinder.model.*;
 
-import no.hiof.emilie.efinder.model.EventInformation;
+
 import no.hiof.emilie.efinder.R;
 
 public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdapter.EventViewHolder>{
