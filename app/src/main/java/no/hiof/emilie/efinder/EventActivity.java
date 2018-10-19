@@ -57,7 +57,7 @@ public class EventActivity extends AppCompatActivity {
         descriptionTextView = findViewById(R.id.txtDescription);
         dateTextView = findViewById(R.id.txtDate);
         clockTextView = findViewById(R.id.txtClock);
-        paymentTextView = findViewById(R.id.txtCalendar);
+        paymentTextView = findViewById(R.id.txtPayment);
         attendantsTextView = findViewById(R.id.txtAttendants);
         adresseTextView = findViewById(R.id.txtAddresse);
         posterImageView  = findViewById(R.id.imgView);
@@ -72,8 +72,8 @@ public class EventActivity extends AppCompatActivity {
                 descriptionTextView.setText(event.getEventDescription());
                 dateTextView.setText(event.getEventDate());
                 clockTextView.setText(event.getEventTime());
-                paymentTextView.setText(event.getEventPayment());
-                attendantsTextView.setText(event.getEventAttendants());
+                paymentTextView.setText(event.getEventPayment()+"");
+                attendantsTextView.setText(event.getEventAttendants()+"");
                 adresseTextView.setText(event.getEventAdress());
 
                 if (event.getEventImage() != null) {
