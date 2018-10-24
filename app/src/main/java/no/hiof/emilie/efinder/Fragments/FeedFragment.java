@@ -153,7 +153,9 @@ public class FeedFragment extends Fragment {
                 EventInformation removedMovie = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
                 removedMovie.setEventUID(eventKey);
+
                 int position = eventListKeys.indexOf(eventKey);
+
                 eventList.remove(removedMovie);
                 eventListKeys.remove(position);
                 eventAdapter.notifyItemRemoved(position);

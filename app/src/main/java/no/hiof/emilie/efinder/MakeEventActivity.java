@@ -3,7 +3,6 @@ package no.hiof.emilie.efinder;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -117,61 +116,6 @@ public class MakeEventActivity extends AppCompatActivity {
     }
     // endregion
 
-    /** Henting av data - skal implementeres et annet sted */
-    // region database listener
-    /*private void createDatabaseReadListener() {
-        childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                eventInformation.setEventUID(eventKey);
-
-                if (!eventList.contains(eventInformation)) {
-                    eventList.add(eventInformation);
-                    eventKeyList.add(eventKey);
-                    eventRecyclerAdapter.notifyItemInserted(eventList.size()-1);
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                eventInformation.setEventUID(eventKey);
-
-                int position = eventKeyList.indexOf(eventKey);
-
-                eventList.set(position, eventInformation);
-                eventRecyclerAdapter.notifyItemChanged(position);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                EventInformation removedEventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                removedEventInformation.setEventUID(eventKey);
-
-                int position = eventKeyList.indexOf(eventKey);
-
-                eventList.remove(removedEventInformation);
-                eventKeyList.remove(position);
-                eventRecyclerAdapter.notifyItemRemoved(position);
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //empty
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //empty
-            }
-        };
-    }*/
-    // endregion
-
     /** Håndtering av å hente bilde og ta bilde - koden er ikke ferdigstilt */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
@@ -278,32 +222,6 @@ public class MakeEventActivity extends AppCompatActivity {
 
         //mediaScanIntent.setData(contentURI);
         this.sendBroadcast(mediaScanIntent);
-    }
-    // endregion
-
-    //region size decoding
-    private void setPic() {
-        //Dimensions used to display image
-        //int targetWidth = imageView.getWidth(); /* TODO: Skal dette håndteres der eventet skal vises? CardView og EventActivity */
-        //int targetHeight = imageView.getHeight();
-
-        //Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        bmOptions.inJustDecodeBounds = true;
-        int imageWidth = bmOptions.outWidth;
-        int imageHeight = bmOptions.outHeight;
-
-        //Determine how much to scale down the image
-        //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
-
-        //Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        //bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true; //(?)
-
-        //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        //imageView.setImageBitMap(bitmap);
     }
     // endregion
 
