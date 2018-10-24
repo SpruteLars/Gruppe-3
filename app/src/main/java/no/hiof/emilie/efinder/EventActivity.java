@@ -36,7 +36,6 @@ public class EventActivity extends AppCompatActivity {
     private ImageView posterImageView;
 
 
-    private DatabaseReference ratingReference;
     private FirebaseDatabase firebaseDatabase;
 
     private FirebaseAuth firebaseAuth;
@@ -89,8 +88,33 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
+        //region size decoding
+        /*private void setPic() {
+            //Dimensions used to display image
+            //int targetWidth = imageView.getWidth();
+            //int targetHeight = imageView.getHeight();
 
-        //Bottom Nav
+            //Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            bmOptions.inJustDecodeBounds = true;
+            int imageWidth = bmOptions.outWidth;
+            int imageHeight = bmOptions.outHeight;
+
+            //Determine how much to scale down the image
+            //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
+
+            //Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            //bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true; //(?)
+
+            //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            //imageView.setImageBitMap(bitmap);
+        }*/
+        // endregion
+        
+        //region botnav
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
@@ -110,5 +134,6 @@ public class EventActivity extends AppCompatActivity {
                     }
                 }
         );
+        //endregion
     }
 }

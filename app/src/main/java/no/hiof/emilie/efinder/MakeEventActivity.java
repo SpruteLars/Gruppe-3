@@ -3,15 +3,18 @@ package no.hiof.emilie.efinder;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +46,6 @@ public class MakeEventActivity extends AppCompatActivity {
     Button addPhotoButton;
     Button buttonSubmit;
     private List<EditText> editTextArray;
-    //private List<EventInformation> eventList;
-    //private List<String> eventKeyList;
 
     final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
@@ -52,12 +53,10 @@ public class MakeEventActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
-    //private EventRecyclerAdapter eventRecyclerAdapter;
-    //private ChildEventListener childEventListener;
 
     Bitmap picture;
 
-
+    // region onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +75,6 @@ public class MakeEventActivity extends AppCompatActivity {
         textViewAttendants = (EditText) findViewById(R.id.txtAttendants);
         textViewAdresse = (EditText) findViewById(R.id.txtAdress);
         textViewDescription = (EditText) findViewById(R.id.txtDescription);
-        //Skal også ha med bildet
 
         editTextArray.add(textViewEventName);
         editTextArray.add(textViewDate);
@@ -85,97 +83,40 @@ public class MakeEventActivity extends AppCompatActivity {
         editTextArray.add(textViewAttendants);
         editTextArray.add(textViewAdresse);
         editTextArray.add(textViewDescription);
-        //Skal også legge til bildet
 
+        /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         addPhotoButton.setOnClickListener(addPhotoListener);
 
         /** Firebase */
-        //https://firebase.google.com/docs/storage/android/upload-files
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
 
-        //createDatabaseReadListener();
-
         /** Laste opp data til firebase */
         buttonSubmit.setOnClickListener(submitEventListener);
-    }
+        /** Bottom Navigation */
+        // region botnav
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //if (childEventListener != null)
-            //eventdataReference.addChildEventListener(childEventListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        /*if (childEventListener != null) {
-            eventdataReference.removeEventListener(childEventListener);
-        }*/
-
-        //eventKeyList.clear();
-        //eventList.clear();
-        //eventRecyclerAdapter.notifyDataSetChanged();
-    }
-
-    //region onPause
-    /* Brukes når data skal hentes ut
-    private void createDatabaseReadListener() {
-        childEventListener = new ChildEventListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                eventInformation.setEventUID(eventKey);
-
-                if (!eventList.contains(eventInformation)) {
-                    eventList.add(eventInformation);
-                    eventKeyList.add(eventKey);
-                    eventRecyclerAdapter.notifyItemInserted(eventList.size()-1);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_profil:
+                        startActivity(new Intent(MakeEventActivity.this, ProfileActivity.class));
+                        return true;
+                        case R.id.action_instillinger:
+                            startActivity(new Intent(MakeEventActivity.this, SettingsActivity.class));
+                            return true;
+                            }
+                            return false;
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                EventInformation eventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                eventInformation.setEventUID(eventKey);
-
-                int position = eventKeyList.indexOf(eventKey);
-
-                eventList.set(position, eventInformation);
-                eventRecyclerAdapter.notifyItemChanged(position);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                EventInformation removedEventInformation = dataSnapshot.getValue(EventInformation.class);
-                String eventKey = dataSnapshot.getKey();
-                removedEventInformation.setEventUID(eventKey);
-
-                int position = eventKeyList.indexOf(eventKey);
-
-                eventList.remove(removedEventInformation);
-                eventKeyList.remove(position);
-                eventRecyclerAdapter.notifyItemRemoved(position);
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //empty
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //empty
-            }
-        };
+                }
+        );
     }
-    */
-    //enregion
+    // endregion
 
-    /** Håndtering av å hente bilde og ta bilde */
+    /** Håndtering av å hente bilde og ta bilde - koden er ikke ferdigstilt */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
         @Override
@@ -183,8 +124,9 @@ public class MakeEventActivity extends AppCompatActivity {
             dispatchTakePictureIntent();
         }
     };
+    // endregion
 
-    //Forespørsel om bildetagning til OS
+    // region forespørsel om bildetagning til OS
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -204,15 +146,16 @@ public class MakeEventActivity extends AppCompatActivity {
                 Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
+    // endregion
 
-    //Get the Thumbnail
+    // region bildethumbnail
     @Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        //ImageView imageView = findViewById(R.id.txtAddPhoto); /* TODO: Hvilken ID skal denne referere til???? */
+        //ImageView imageView = findViewById(R.id.txtAddPhoto);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
             try {
                 galleryAddPic();
@@ -249,12 +192,13 @@ public class MakeEventActivity extends AppCompatActivity {
             textAddedPhoto.setText(returnCursor.getString(nameIndex));
 
             //private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
-              //  eventdataReference.push().setValue(eventList);
+                //eventdataReference.push().setValue(eventList);
             //}
         }
     }
+    // endregion
 
-    //Save the fullsized photo to device
+    // region lagre bilde på enhet
     private File createImageFile() throws IOException {
         //Make a name for the image file
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -263,52 +207,26 @@ public class MakeEventActivity extends AppCompatActivity {
 
         File image = File.createTempFile(/*prefix*/ imageFileName, /*suffix*/ ".jpg", /*directory*/ storageDir);
 
-        fileName = imageFileName + " .jpg";
+        //fileName = imageFileName + " .jpg";
         //Save a file: the path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
+        //mCurrentPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    //Add the picture to a gallery
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File file = new File(mCurrentPhotoPath);
-        Uri contentURI = Uri.fromFile(file);
-
-        mediaScanIntent.setData(contentURI);
-        this.sendBroadcast(mediaScanIntent);
-    }
-
-    //Decode image for less RAM usage
-    //region size
-    private void setPic() {
-        //Dimensions used to display image
-        //int targetWidth = imageView.getWidth(); /* TODO: Skal dette håndteres der eventet skal vises? CardView og EventActivity */
-        //int targetHeight = imageView.getHeight();
-
-        //Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        bmOptions.inJustDecodeBounds = true;
-        int imageWidth = bmOptions.outWidth;
-        int imageHeight = bmOptions.outHeight;
-
-        //Determine how much to scale down the image
-        //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
-
-        //Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        //bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true; //(?)
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        //imageView.setImageBitMap(bitmap);
     }
     // endregion
 
+    // region legg bildet til i galleri
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        //File file = new File(mCurrentPhotoPath);
+        //Uri contentURI = Uri.fromFile(file);
+
+        //mediaScanIntent.setData(contentURI);
+        this.sendBroadcast(mediaScanIntent);
+    }
+    // endregion
 
     /** Sende inn event */
-    //region send inn
+    //region send inn arrangement
     private View.OnClickListener submitEventListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
