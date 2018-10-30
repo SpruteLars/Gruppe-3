@@ -273,7 +273,7 @@
             android:elevation="6dp"
             android:scaleType="center"
             app:backgroundTint="@color/colorAccent"
-            app:srcCompat="@drawable/ic_baseline_search_24px" />
+            app:srcCompat="@drawable/ic_baseline_create_24px" />
     </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>

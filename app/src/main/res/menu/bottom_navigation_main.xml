@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_feed"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_filter_list_24px"
+        android:title="Feed"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_profil"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24px"
         android:title="Profil"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_instillinger"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_settings_20px"
-        android:title="Instillinger"
         app:showAsAction="ifRoom" />
 
 </menu>

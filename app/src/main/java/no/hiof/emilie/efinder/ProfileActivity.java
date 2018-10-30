@@ -1,14 +1,13 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,27 +77,25 @@ public class ProfileActivity extends AppCompatActivity {
         floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_profil:
-                                startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
-                                return true;
-                            case R.id.action_instillinger:
-                                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
-                                return true;
-                        }
-                        return false;
-                    }
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(ProfileActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_profil:
+                        startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
+                        return true;
                 }
-        );
+                return false;
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, MakeEventActivity.class));
+                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
             }
         });
     }

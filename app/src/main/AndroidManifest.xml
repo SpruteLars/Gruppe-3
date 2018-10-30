@@ -15,15 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LogInActivity">
+                    </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-        </activity>
-        <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
@@ -32,7 +30,7 @@
         <activity android:name=".SignUpActivity"/>
         <!--activity android:name=".GoogleMapActivity"></activity-->
 
-        <!--provider
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="no.hiof.emilie.efinder"
             android:exported="false"
@@ -41,7 +39,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
-        </provider-->
+        </provider>
     </application>
 
     <!--paths xmlns:android="http://schemas.android.com/apk/res/android">

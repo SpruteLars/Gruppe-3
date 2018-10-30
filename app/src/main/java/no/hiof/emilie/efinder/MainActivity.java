@@ -69,20 +69,19 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                                                                     @Override
-                                                                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                                                                         switch (item.getItemId()) {
-                                                                             case R.id.action_profil:
-                                                                                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                                                                                 return true;
-                                                                             case R.id.action_instillinger:
-                                                                                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                                                                                 return true;
-                                                                         }
-                                                                         return false;
-                                                                     }
-                                                                 }
-        );
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(MainActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_profil:
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        return true;
+                }
+                return false;
+            }
+        });
 
         /* Vurdere om vi skal endre Bot Nav til Bot App Bar
          * BottomAppBar bottomAppBar = (BottomAppBar) findViewById(R.id.bottom_navigation);

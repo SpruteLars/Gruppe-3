@@ -113,27 +113,25 @@ public class EventActivity extends AppCompatActivity {
             //imageView.setImageBitMap(bitmap);
         }*/
         // endregion
-        
+
         //region botnav
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_profil:
-                                startActivity(new Intent(EventActivity.this, ProfileActivity.class));
-                                return true;
-                            case R.id.action_instillinger:
-                                startActivity(new Intent(EventActivity.this, SettingsActivity.class));
-                                return true;
-                        }
-                        return false;
-                    }
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(EventActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_profil:
+                        startActivity(new Intent(EventActivity.this, ProfileActivity.class));
+                        return true;
                 }
-        );
+                return false;
+            }
+        });
         //endregion
     }
 }
