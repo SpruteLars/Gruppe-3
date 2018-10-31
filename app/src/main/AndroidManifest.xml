@@ -20,20 +20,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".GoogleMapsActivity">
-=======
-        <activity android:name=".LogInActivity">
-                    </activity>
+        <activity android:name=".LogInActivity"></activity>
         <activity android:name=".MainActivity">
->>>>>>> master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".GoogleMapsActivity"></activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EventActivity" />
@@ -41,13 +36,11 @@
         <activity android:name=".SignUpActivity" />
         <!-- activity android:name=".GoogleMapActivity"></activity -->
 
-<<<<<<< HEAD
+
 
         <!--
         provider
-=======
         <provider
->>>>>>> master
             android:name="android.support.v4.content.FileProvider"
             android:authorities="no.hiof.emilie.efinder"
             android:exported="false"
@@ -56,7 +49,6 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
-<<<<<<< HEAD
         </provider
         -->
         <!--
@@ -71,15 +63,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0" />
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
-=======
-        </provider>
     </application>
 
     <!--paths xmlns:android="http://schemas.android.com/apk/res/android">
         <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
     </paths-->
->>>>>>> master
-
-    </application>
-
 </manifest>
