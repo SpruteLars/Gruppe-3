@@ -60,8 +60,7 @@
             android:elevation="6dp"
             android:scaleType="center"
             app:backgroundTint="@color/colorAccent"
-            app:srcCompat="@drawable/ic_baseline_add_24px"
-             />
+            app:srcCompat="@drawable/ic_baseline_settings_20px" />
     </android.support.design.widget.BottomNavigationView>
 
     <!-- Følgere -->
