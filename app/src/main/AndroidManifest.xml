@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GoogleMapsActivity"></activity>
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EventActivity" />
@@ -35,6 +36,10 @@
         <activity android:name=".SignUpActivity" />
         <!-- activity android:name=".GoogleMapActivity"></activity -->
 
+
+
+        <!--
+        provider
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="no.hiof.emilie.efinder"
@@ -47,6 +52,24 @@
         </provider>
 
         <activity android:name=".DiscoveryActivity"></activity>
+                android:resource="@xml/file_paths"/>
+        </provider
+        -->
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0" />
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 
+    <!--paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
+    </paths-->
 </manifest>

@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ public class EventActivity extends AppCompatActivity {
     private TextView attendantsTextView;
     private TextView adresseTextView;
     private ImageView posterImageView;
+    public ImageButton myButton;
 
 
     private FirebaseDatabase firebaseDatabase;
@@ -60,6 +63,15 @@ public class EventActivity extends AppCompatActivity {
         attendantsTextView = findViewById(R.id.txtAttendants);
         adresseTextView = findViewById(R.id.txtAddresse);
         posterImageView  = findViewById(R.id.imgView);
+        myButton = findViewById(R.id.mapButton);
+
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EventActivity.this,GoogleMapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
