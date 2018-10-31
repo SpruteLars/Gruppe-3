@@ -1,7 +1,5 @@
 package no.hiof.emilie.efinder.model;
 
-import android.media.Image;
-
 public class EventInformation {
     public String
             eventUID,
@@ -15,6 +13,16 @@ public class EventInformation {
             eventPayment,
             eventAttendants;
 
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
+        this.eventUID = eventUID;
+        this.eventTitle = eventTitle;
+        this.eventDate = eventDateTime;
+        this.eventPayment = eventPayment;
+        this.eventAttendants = eventAttendants;
+        this.eventAdress = eventAdress;
+        this.eventDescription = eventDescription;
+        this.eventImage = eventImage;
+    }
 
     public EventInformation() {
     }
@@ -28,18 +36,6 @@ public class EventInformation {
         this.eventAdress = eventAdress;
         this.eventDescription = eventDescription;
     }
-
-    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventImage, String eventAdress, String eventDescription) {
-        this.eventUID = eventUID;
-        this.eventTitle = eventTitle;
-        this.eventDate = eventDateTime;
-        this.eventPayment = eventPayment;
-        this.eventAttendants = eventAttendants;
-        this.eventImage = eventImage;
-        this.eventAdress = eventAdress;
-        this.eventDescription = eventDescription;
-    }
-
     public String getEventUID() {
         return eventUID;
     }

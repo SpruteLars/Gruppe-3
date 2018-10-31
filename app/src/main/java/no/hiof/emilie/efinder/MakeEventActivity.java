@@ -1,13 +1,11 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -21,8 +19,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,26 +38,26 @@ import java.util.List;
 import no.hiof.emilie.efinder.model.EventInformation;
 
 public class MakeEventActivity extends AppCompatActivity {
-    EditText textViewEventName;
-    EditText textViewDate;
-    EditText textViewClock;
-    EditText textViewPayment;
-    EditText textViewAttendants;
-    EditText textViewAdresse;
-    EditText textViewDescription;
+    EditText textViewEventName,
+            textViewDate,
+            textViewClock,
+            textViewPayment,
+            textViewAttendants,
+            textViewAdresse,
+            textViewDescription;
     TextView textAddedPhoto;
-    Button addPhotoButton;
-    Button buttonSubmit;
+    Button addPhotoButton,
+            buttonSubmit;
     private List<EditText> editTextArray;
 
     final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap imageBitmap;
+    Bitmap picture;
     String mCurrentPhotoPath, fileName;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
-
-    Bitmap picture;
+    private StorageReference storageReference;
 
     // region onCreate
     @Override
@@ -90,6 +93,7 @@ public class MakeEventActivity extends AppCompatActivity {
         /** Firebase */
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         /** Laste opp data til firebase */
         buttonSubmit.setOnClickListener(submitEventListener);
@@ -105,11 +109,11 @@ public class MakeEventActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(MakeEventActivity.this, ProfileActivity.class));
                         return true;
-                        case R.id.action_instillinger:
-                            startActivity(new Intent(MakeEventActivity.this, SettingsActivity.class));
-                            return true;
-                            }
-                            return false;
+                    case R.id.action_feed:
+                        startActivity(new Intent(MakeEventActivity.this, MainActivity.class));
+                        return true;
+                    }
+                    return false;
                 }
                 }
         );
@@ -135,6 +139,7 @@ public class MakeEventActivity extends AppCompatActivity {
             //Create a File where the picture should go
             File picFile = null;
 
+            /* TODO: Er rekkefølgen på ting her feil? */
             try {
                 picFile = createImageFile();
             } catch (IOException e) {
@@ -146,7 +151,7 @@ public class MakeEventActivity extends AppCompatActivity {
                 Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
 
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
-                //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
@@ -155,7 +160,6 @@ public class MakeEventActivity extends AppCompatActivity {
     // region bildethumbnail
     @Override
     protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        //ImageView imageView = findViewById(R.id.txtAddPhoto);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
             try {
                 galleryAddPic();
@@ -174,22 +178,14 @@ public class MakeEventActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-
-
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-
-            //imageView.setImageBitmap(imageBitmap);
-
             /** Få tak i filnavn til bildet */
-            Uri returnUri = data.getData();
+            /*Uri returnUri = data.getData();
             Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
 
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
             returnCursor.moveToFirst();
             textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
-            textAddedPhoto.setText(returnCursor.getString(nameIndex));
+            textAddedPhoto.setText(returnCursor.getString(nameIndex));*/
 
             //private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
                 //eventdataReference.push().setValue(eventList);
@@ -200,16 +196,17 @@ public class MakeEventActivity extends AppCompatActivity {
 
     // region lagre bilde på enhet
     private File createImageFile() throws IOException {
-        //Make a name for the image file
+        //Make a unique name for the image file
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "event_" + timestamp;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(/*prefix*/ imageFileName, /*suffix*/ ".jpg", /*directory*/ storageDir);
 
-        //fileName = imageFileName + " .jpg";
+        fileName = imageFileName + " .jpg";
         //Save a file: the path for use with ACTION_VIEW intents
-        //mCurrentPhotoPath = image.getAbsolutePath();
+        mCurrentPhotoPath = image.getAbsolutePath();
+
         return image;
     }
     // endregion
@@ -217,10 +214,10 @@ public class MakeEventActivity extends AppCompatActivity {
     // region legg bildet til i galleri
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        //File file = new File(mCurrentPhotoPath);
-        //Uri contentURI = Uri.fromFile(file);
+        File file = new File(mCurrentPhotoPath);
+        Uri contentURI = Uri.fromFile(file);
 
-        //mediaScanIntent.setData(contentURI);
+        mediaScanIntent.setData(contentURI);
         this.sendBroadcast(mediaScanIntent);
     }
     // endregion
@@ -246,27 +243,55 @@ public class MakeEventActivity extends AppCompatActivity {
                 return;
             }*/
 
-            //Lag objekt av Event-klassekonstruktør
-            EventInformation eventInformation = new EventInformation(
-                    null,
-                    textViewEventName.getText().toString(),
-                    textViewDate.getText().toString(),
-                    Integer.parseInt(textViewPayment.getText().toString()),
-                    Integer.parseInt(textViewAttendants.getText().toString()),
-                    textViewAdresse.getText().toString(),
-                    textViewDescription.getText().toString());
+            Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
+            StorageReference imageRef = storageReference.child("events/images/" + file.getLastPathSegment());
+            UploadTask uploadTask = imageRef.putFile(file);
 
-            //Send objektet til firebase
-            eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
-            String uid = eventdataReference.getKey();
+            //Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(MakeEventActivity.this, "File not uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                    // ...
 
-            // picture - bitmap
-            // Laste opp til Firebase Storage
+
+                    //Lag objekt av Event-klassekonstruktør
+                    EventInformation eventInformation = new EventInformation(
+                            null,
+                            textViewEventName.getText().toString(),
+                            textViewDate.getText().toString(),
+                            Integer.parseInt(textViewPayment.getText().toString()),
+                            Integer.parseInt(textViewAttendants.getText().toString()),
+                            textViewAdresse.getText().toString(),
+                            textViewDescription.getText().toString(),
+                            taskSnapshot.getStorage().toString());
+
+                    //Send objektet til firebase
+                    eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
+                    String uid = eventdataReference.getKey();
+
+                    // new intent til Event, send med uid
+                    Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
+
+                    //Sendes videre til aktiviteten som blir lagd
+                    startActivity(new Intent(MakeEventActivity.this, EventActivity.class));
+                    /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
+                }
+            });
+
+            /*StorageReference imgBitmapRef = storageReference.child(image);
+            StorageReference imgBitmapImagesRef = storageReference.child(events/images/imageBitmap);
+
+            imgBitmapRef.getName().equals(imgBitmapImagesRef.getName());    //true
+            imgBitmapRef.getPath().equals(imgBitmapImagesRef.getPath());    //false
+            */
             // Få tilbake URL
-
-            // Lage intent til EventDetaljerActivity
-            // Send med uid som extra
-            // I EventDetaljerActivity -> hent ut fra FireBase med uid
         }
     };
     //endregion
