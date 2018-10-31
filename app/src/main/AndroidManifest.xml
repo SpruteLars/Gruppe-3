@@ -7,12 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!--
-    paths xmlns:android="http://schemas.android.com/apk/res/android">
-        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
-    </paths
-    -->
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,12 +28,11 @@
         <activity android:name=".EventActivity" />
         <activity android:name=".MakeEventActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".DiscoveryActivity" />
         <!-- activity android:name=".GoogleMapActivity"></activity -->
 
 
 
-        <!--
-        provider
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="no.hiof.emilie.efinder"
@@ -51,10 +44,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".DiscoveryActivity"></activity>
-                android:resource="@xml/file_paths"/>
-        </provider
-        -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
