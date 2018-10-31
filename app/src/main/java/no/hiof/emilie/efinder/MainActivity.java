@@ -12,12 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import no.hiof.emilie.efinder.Fragments.FeedFragment;
 import no.hiof.emilie.efinder.Fragments.PaameldtFragment;
@@ -63,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /** Bottom Navigation */
+        /* Bottom Navigation */
         // region botnav
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
@@ -78,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         return true;
+                    case R.id.action_make_event:
+                        startActivity(new Intent(MainActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_discovery:
+                        startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
                 }
                 return false;
             }
@@ -86,23 +88,23 @@ public class MainActivity extends AppCompatActivity {
         /* Vurdere om vi skal endre Bot Nav til Bot App Bar */
         /*BottomAppBar bottomAppBar = (BottomAppBar) findViewById(R.id.bottom_navigation);
 
-        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        bottomAppBar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                case R.id.action_feed:
-                startActivity(new Intent(MainActivity.this, MainActivity.this));
-                return true;
-                case R.id.action_profil:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                return true;
-            }
-            return false;
-
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(MainActivity.this, MainActivity.this));
+                        return true;
+                    case R.id.action_profil:
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        return true;
+                }
+                return false;
             }
         });*/
 
         //Størrelse på ikoner i Bot Nav
-        for (int i = 0; i < bottomNavigationMenuView.getChildCount(); i++) {
+        /*for (int i = 0; i < bottomNavigationMenuView.getChildCount(); i++) {
             final View iconView = bottomNavigationMenuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             //Høyde & bredde
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, displayMetrics);
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, displayMetrics);
-        }
+        }*/
         // endregion
     }
 

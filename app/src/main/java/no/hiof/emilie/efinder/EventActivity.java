@@ -128,6 +128,12 @@ public class EventActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(EventActivity.this, ProfileActivity.class));
                         return true;
+                    case R.id.action_make_event:
+                        startActivity(new Intent(EventActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_discovery:
+                        startActivity(new Intent(EventActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
                 }
                 return false;
             }

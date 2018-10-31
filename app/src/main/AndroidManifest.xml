@@ -7,6 +7,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!--
+    paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
+    </paths
+    -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,8 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogInActivity">
-                    </activity>
+        <activity android:name=".LogInActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +32,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".MakeEventActivity" />
-        <activity android:name=".SignUpActivity"/>
-        <!--activity android:name=".GoogleMapActivity"></activity-->
+        <activity android:name=".SignUpActivity" />
+        <!-- activity android:name=".GoogleMapActivity"></activity -->
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -38,13 +43,10 @@
             tools:ignore="WrongManifestParent">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".DiscoveryActivity"></activity>
     </application>
-
-    <!--paths xmlns:android="http://schemas.android.com/apk/res/android">
-        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
-    </paths-->
-
 
 </manifest>

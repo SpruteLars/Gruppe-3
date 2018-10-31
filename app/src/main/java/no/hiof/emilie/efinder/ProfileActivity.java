@@ -87,6 +87,12 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
                         return true;
+                    case R.id.action_make_event:
+                        startActivity(new Intent(ProfileActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_discovery:
+                        startActivity(new Intent(ProfileActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
                 }
                 return false;
             }

@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -46,8 +47,7 @@ public class MakeEventActivity extends AppCompatActivity {
             textViewAdresse,
             textViewDescription;
     TextView textAddedPhoto;
-    Button addPhotoButton,
-            buttonSubmit;
+    Button addPhotoButton;
     private List<EditText> editTextArray;
 
     final int REQUEST_IMAGE_CAPTURE = 1;
@@ -65,11 +65,8 @@ public class MakeEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
         editTextArray = new ArrayList<>();
-        //eventList = new ArrayList<>();
-        //eventKeyList = new ArrayList<>();
 
         /** Få XML koblet til variabler */
-        buttonSubmit = (Button) findViewById(R.id.btnSubmit);
         addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
         textViewEventName = (EditText) findViewById(R.id.txtEventName);
         textViewDate = (EditText) findViewById(R.id.txtDate);
@@ -95,12 +92,11 @@ public class MakeEventActivity extends AppCompatActivity {
         eventdataReference = firebaseDatabase.getReference("events");
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        /** Laste opp data til firebase */
-        buttonSubmit.setOnClickListener(submitEventListener);
         /** Bottom Navigation */
         // region botnav
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -112,15 +108,84 @@ public class MakeEventActivity extends AppCompatActivity {
                     case R.id.action_feed:
                         startActivity(new Intent(MakeEventActivity.this, MainActivity.class));
                         return true;
+                    case R.id.action_make_event:
+                        startActivity(new Intent(MakeEventActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_discovery:
+                        startActivity(new Intent(MakeEventActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
                     }
                     return false;
                 }
                 }
         );
+
+        //Sende inn et arrangement
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (EditText textView : editTextArray) {
+                    //textView.setError("Feilmelding");
+                    if (textView.getText().length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                /* TODO: Hvordan sjekke om bildet eksisterer? */
+                /*if (imageView.getDrawable() == 0) {
+                    return;
+                }*/
+
+                Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
+                StorageReference imageRef = storageReference.child("events/images/" + file.getLastPathSegment());
+                UploadTask uploadTask = imageRef.putFile(file);
+
+                //Register observers to listen for when the download is done or if it fails
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        Toast.makeText(MakeEventActivity.this, "File not uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+
+                        //Lag objekt av Event-klassekonstruktør
+                        EventInformation eventInformation = new EventInformation(
+                            null,
+                            textViewEventName.getText().toString(),
+                            textViewDate.getText().toString(),
+                            Integer.parseInt(textViewPayment.getText().toString()),
+                            Integer.parseInt(textViewAttendants.getText().toString()),
+                            textViewAdresse.getText().toString(),
+                            textViewDescription.getText().toString(),
+                            taskSnapshot.getStorage().toString());
+
+                        //Send objektet til firebase
+                        eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
+                        String uid = eventdataReference.getKey();
+
+                        // new intent til Event, send med uid
+                        Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
+
+                        //Sendes videre til aktiviteten som blir lagd
+                        startActivity(new Intent(MakeEventActivity.this, EventActivity.class));
+                        /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
+                    }
+                });
+            }
+        });
+
     }
     // endregion
 
-    /** Håndtering av å hente bilde og ta bilde - koden er ikke ferdigstilt */
+    /** Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
         @Override
@@ -221,78 +286,4 @@ public class MakeEventActivity extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
     // endregion
-
-    /** Sende inn event */
-    //region send inn arrangement
-    private View.OnClickListener submitEventListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            for (EditText textView : editTextArray) {
-                //textView.setError("Feilmelding");
-                if (textView.getText().length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            /* TODO: Hvordan sjekke om bildet eksisterer? */
-            /*if (imageView.getDrawable() == 0) {
-                return;
-            }*/
-
-            Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
-            StorageReference imageRef = storageReference.child("events/images/" + file.getLastPathSegment());
-            UploadTask uploadTask = imageRef.putFile(file);
-
-            //Register observers to listen for when the download is done or if it fails
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(MakeEventActivity.this, "File not uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                    // ...
-
-
-                    //Lag objekt av Event-klassekonstruktør
-                    EventInformation eventInformation = new EventInformation(
-                            null,
-                            textViewEventName.getText().toString(),
-                            textViewDate.getText().toString(),
-                            Integer.parseInt(textViewPayment.getText().toString()),
-                            Integer.parseInt(textViewAttendants.getText().toString()),
-                            textViewAdresse.getText().toString(),
-                            textViewDescription.getText().toString(),
-                            taskSnapshot.getStorage().toString());
-
-                    //Send objektet til firebase
-                    eventdataReference.push().setValue(eventInformation); /* TODO: Ønsker også å sende med bildet i Event-objektet, hvordan???? OG blir dette gjort riktig nå? */
-                    String uid = eventdataReference.getKey();
-
-                    // new intent til Event, send med uid
-                    Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
-
-                    //Sendes videre til aktiviteten som blir lagd
-                    startActivity(new Intent(MakeEventActivity.this, EventActivity.class));
-                    /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
-                }
-            });
-
-            /*StorageReference imgBitmapRef = storageReference.child(image);
-            StorageReference imgBitmapImagesRef = storageReference.child(events/images/imageBitmap);
-
-            imgBitmapRef.getName().equals(imgBitmapImagesRef.getName());    //true
-            imgBitmapRef.getPath().equals(imgBitmapImagesRef.getPath());    //false
-            */
-            // Få tilbake URL
-        }
-    };
-    //endregion
 }

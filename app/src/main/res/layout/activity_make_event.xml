@@ -7,244 +7,248 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".MakeEventActivity">
 
-    <!-- Text -->
-    <EditText
-        android:id="@+id/txtEventName"
-        android:layout_width="257dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:autofillHints="@string/hint_name"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_name"
-        android:inputType="text"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMakeEvent" />
-
-    <EditText
-        android:id="@+id/txtDate"
-        android:layout_width="325dp"
-        android:layout_height="45dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_date"
-        android:inputType="date"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDate"
-        app:layout_constraintStart_toStartOf="@+id/txtClock"
-        app:layout_constraintTop_toTopOf="@+id/imgDate" />
-
-    <EditText
-        android:id="@+id/txtClock"
-        android:layout_width="325dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_time"
-        android:inputType="time"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgTime"
-        app:layout_constraintStart_toStartOf="@+id/txtPayment"
-        app:layout_constraintTop_toTopOf="@+id/imgTime" />
-
-    <EditText
-        android:id="@+id/txtPayment"
-        android:layout_width="325dp"
-        android:layout_height="47dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_payment"
-        android:inputType="number"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
-        app:layout_constraintStart_toStartOf="@+id/txtAdress"
-        app:layout_constraintTop_toTopOf="@+id/imgPayment" />
-
-    <TextView
-        android:id="@+id/txtAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_image"
-        android:inputType="textUri"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAddPhoto"
-        app:layout_constraintStart_toEndOf="@+id/imgAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/imgAddPhoto" />
-
-    <EditText
-        android:id="@+id/txtAttendants"
-        android:layout_width="326dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_attendants"
-        android:inputType="number"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
-        app:layout_constraintStart_toStartOf="@+id/txtAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/imgAttendants" />
-
-    <EditText
-        android:id="@+id/txtAdress"
-        android:layout_width="326dp"
-        android:layout_height="51dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_location"
-        android:inputType="textPostalAddress"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
-        app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
-        app:layout_constraintStart_toStartOf="@+id/txtAttendants"
-        app:layout_constraintTop_toTopOf="@+id/imgLocation" />
-
-    <TextView
-        android:id="@+id/txtDescriptionTitle"
-        android:layout_width="76dp"
-        android:layout_height="22dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/description"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/txtDescription"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtMakeEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/make_event"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/colorText"
-        android:hint="@string/hint_description"
-        android:inputType="textLongMessage"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorTextHint"
+    <ScrollView
+        android:layout_width="368dp"
+        android:layout_height="471dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Icons -->
-    <ImageView
-        android:id="@+id/imgDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_date"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgTime"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEventName"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imgTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_time"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgPayment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDate"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <ImageView
-        android:id="@+id/imgLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_location"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPayment"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
+            <!-- Text -->
+            <EditText
+                android:id="@+id/txtEventName"
+                android:layout_width="257dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/hint_name"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_name"
+                android:inputType="text"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtMakeEvent" />
 
-    <ImageView
-        android:id="@+id/imgAttendants"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_attendants"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgAddPhoto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLocation"
-        app:srcCompat="@drawable/ic_baseline_group_24px" />
+            <EditText
+                android:id="@+id/txtDate"
+                android:layout_width="325dp"
+                android:layout_height="45dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_date"
+                android:inputType="date"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDate"
+                app:layout_constraintStart_toStartOf="@+id/txtClock"
+                app:layout_constraintTop_toTopOf="@+id/imgDate" />
 
-    <ImageView
-        android:id="@+id/imgPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_payment"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/imgLocation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgTime"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
+            <EditText
+                android:id="@+id/txtClock"
+                android:layout_width="325dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_time"
+                android:inputType="time"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgTime"
+                app:layout_constraintStart_toStartOf="@+id/txtPayment"
+                app:layout_constraintTop_toTopOf="@+id/imgTime" />
 
-    <ImageView
-        android:id="@+id/imgAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/hint_image"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/txtDescriptionTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgAttendants"
-        app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
+            <EditText
+                android:id="@+id/txtPayment"
+                android:layout_width="325dp"
+                android:layout_height="47dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_payment"
+                android:inputType="number"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
+                app:layout_constraintStart_toStartOf="@+id/txtAdress"
+                app:layout_constraintTop_toTopOf="@+id/imgPayment" />
 
-    <!-- Buttons -->
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/button_submit"
-        app:layout_constraintBottom_toBottomOf="@+id/btnAddPhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/btnAddPhoto" />
+            <TextView
+                android:id="@+id/txtAddPhoto"
+                android:layout_width="230dp"
+                android:layout_height="21dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_image"
+                android:inputType="textUri"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAddPhoto"
+                app:layout_constraintStart_toEndOf="@+id/imgAddPhoto"
+                app:layout_constraintTop_toTopOf="@+id/imgAddPhoto"
+                app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/btnAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="@string/button_add"
-        android:backgroundTint="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/txtAddPhoto"
-        app:layout_constraintStart_toEndOf="@+id/txtAddPhoto"
-        app:layout_constraintTop_toTopOf="@+id/txtAddPhoto" />
+            <EditText
+                android:id="@+id/txtAttendants"
+                android:layout_width="326dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_attendants"
+                android:inputType="number"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
+                app:layout_constraintStart_toStartOf="@+id/txtAddPhoto"
+                app:layout_constraintTop_toTopOf="@+id/imgAttendants" />
+
+            <EditText
+                android:id="@+id/txtAdress"
+                android:layout_width="326dp"
+                android:layout_height="51dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_location"
+                android:inputType="textPostalAddress"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
+                app:layout_constraintStart_toStartOf="@+id/txtAttendants"
+                app:layout_constraintTop_toTopOf="@+id/imgLocation" />
+
+            <TextView
+                android:id="@+id/txtDescriptionTitle"
+                android:layout_width="76dp"
+                android:layout_height="22dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/description"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/txtMakeEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/make_event"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/txtDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_description"
+                android:inputType="textLongMessage"
+                android:textColor="@color/colorText"
+                android:textColorHighlight="@color/colorAccent"
+                android:textColorHint="@color/colorTextHint"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Icons -->
+            <ImageView
+                android:id="@+id/imgDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_date"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/imgTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventName"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+
+            <ImageView
+                android:id="@+id/imgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_time"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/imgPayment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDate"
+                app:srcCompat="@drawable/ic_baseline_access_time_24px" />
+
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_location"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/imgAttendants"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPayment"
+                app:srcCompat="@drawable/ic_baseline_location_on_24px" />
+
+            <ImageView
+                android:id="@+id/imgAttendants"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_attendants"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/imgAddPhoto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgLocation"
+                app:srcCompat="@drawable/ic_baseline_group_24px" />
+
+            <ImageView
+                android:id="@+id/imgPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_payment"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/imgLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgTime"
+                app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
+
+            <ImageView
+                android:id="@+id/imgAddPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/hint_image"
+                android:tint="@color/colorText"
+                app:layout_constraintBottom_toTopOf="@+id/txtDescriptionTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgAttendants"
+                app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
+
+            <!-- Buttons -->
+
+            <Button
+                android:id="@+id/btnAddPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/button_add"
+                app:layout_constraintBottom_toBottomOf="@+id/txtAddPhoto"
+                app:layout_constraintStart_toEndOf="@+id/txtAddPhoto"
+                app:layout_constraintTop_toTopOf="@+id/txtAddPhoto"
+                app:layout_constraintVertical_bias="0.451" />
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
     <!-- Bottom Navigation -->
     <android.support.design.widget.BottomNavigationView
