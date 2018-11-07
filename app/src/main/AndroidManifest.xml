@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="no.hiof.emilie.efinder">
 
@@ -8,6 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!--
+    paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
+    </paths
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,46 +19,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogInActivity"/>
+        <activity android:name=".LogInActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".GoogleMapsActivity" />
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".ProfileActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".EventActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".MakeEventActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".SignUpActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.LogInActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity"></activity>
         <activity
             android:name=".DiscoveryActivity"
-            android:parentActivityName="no.hiof.emilie.efinder.LogInActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -70,12 +69,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0" />
+
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
+
+        <activity android:name=".NotificationListActivity"></activity>
     </application>
 
-    <!--paths xmlns:android="http://schemas.android.com/apk/res/android">
-        <external-path name="my_images" path="Android/data/no.hiof.emilie.efinder/files/Pictures" />
-    </paths-->
 </manifest>

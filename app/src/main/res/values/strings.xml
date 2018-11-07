@@ -40,4 +40,8 @@
 
     Ja, broren rente føre, og trollene dro etter. Imens kom den eldste gutten bak dem og hugg til det bakerste trollet i fotleddet, så det slo opp et fælslig skrik, og det første ble så skremt at det skvatt, og slapp øyet, og gutten var ikke sen til å snappe det. Det var større enn om en hadde lagt i hop to potteskåler, og så klart var det, at enda det var fullmørke natten ble det som lyse dagen da han så igjennom det.</string>
 
+    <!-- Notifications -->
+    <string name="channel_name">Channel1</string>
+    <string name="channel_description">Channel description 12345</string>
+
 </resources>

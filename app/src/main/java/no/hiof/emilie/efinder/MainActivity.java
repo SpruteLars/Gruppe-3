@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,7 @@ import no.hiof.emilie.efinder.Fragments.PaameldtFragment;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     FragmentStatePagerAdapter eksempelPagerAdapter;
+    public static final String CHANNEL_ID = "1A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         // View pageren som vi har definert i XML-layouten.
         ViewPager viewPager = findViewById(R.id.view_pager);
+
+        //region Notification
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_notifications_24px)
+            .setContentTitle("Du har fått et annet varsel")
+            .setContentText("Dette er ditt andre varsel")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //endregion
 
         //region Tablayout
         TabLayout tabLayout = findViewById(R.id.tabs);

@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import no.hiof.emilie.efinder.model.EventInformation;
 
@@ -25,9 +27,7 @@ import no.hiof.emilie.efinder.model.EventInformation;
 
 public class EventActivity extends AppCompatActivity {
     public static final String EVENT_UID = "event_uid";
-
     private no.hiof.emilie.efinder.model.EventInformation event;
-
     private TextView nameTextView;
     private TextView descriptionTextView;
     private TextView dateTextView;
@@ -36,11 +36,13 @@ public class EventActivity extends AppCompatActivity {
     private TextView attendantsTextView;
     private TextView adresseTextView;
     private ImageView posterImageView;
+    private String imageName;
+    //Google Maps
     public ImageButton myButton;
-
-
+    //Firebase
+    private FirebaseStorage firebaseStorage;
+    private StorageReference imagePath;
     private FirebaseDatabase firebaseDatabase;
-
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -52,9 +54,9 @@ public class EventActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
-
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //region XML items
         nameTextView = findViewById(R.id.txtEventName);
         descriptionTextView = findViewById(R.id.txtDescription);
         dateTextView = findViewById(R.id.txtDate);
@@ -64,7 +66,9 @@ public class EventActivity extends AppCompatActivity {
         adresseTextView = findViewById(R.id.txtAddresse);
         posterImageView  = findViewById(R.id.imgView);
         myButton = findViewById(R.id.mapButton);
+        //endregion
 
+        //region Google Maps
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +76,9 @@ public class EventActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //endregion
 
+        //region Display clicked event
         eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -87,10 +93,14 @@ public class EventActivity extends AppCompatActivity {
                 attendantsTextView.setText(event.getEventAttendants()+"");
                 adresseTextView.setText(event.getEventAdress());
 
+                //Hente path til bildet i Storage
+                imageName = event.getEventImage();
+                imagePath = FirebaseStorage.getInstance().getReference().child("events/images/" + imageName);
+
                 if (event.getEventImage() != null) {
                     Glide.with(EventActivity.this)
-                            .load(event.getEventImage())
-                            .into(posterImageView);
+                        .load(imagePath) //path to image in Firebase Storage
+                        .into(posterImageView); //Upload picture to imgView in EventActivity
                 }
             }
 
@@ -99,6 +109,7 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
+        //endregion
 
         //region size decoding
         /*private void setPic() {
