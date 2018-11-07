@@ -6,6 +6,12 @@
     <string name="password">Password</string>
     <string name="login">Log in</string>
 
+    <!-- Bottom Navigation Title -->
+    <string name="botnav_feed">Feed</string>
+    <string name="botnav_discover">Discover</string>
+    <string name="botnav_make_event">Make Event</string>
+    <string name="botnav_profile">Profile</string>
+
     <!-- Profil strings -->
     <string name="profile_name">Trond Dåse</string>
     <string name="about">Om meg</string>

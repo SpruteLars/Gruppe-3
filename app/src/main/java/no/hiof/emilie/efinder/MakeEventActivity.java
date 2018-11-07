@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -130,9 +131,6 @@ public class MakeEventActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
-                    }
                 }
 
                 /* TODO: Hvordan sjekke om bildet eksisterer? */
@@ -155,6 +153,7 @@ public class MakeEventActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
 
                         //Lag objekt av Event-klassekonstruktør
                         EventInformation eventInformation = new EventInformation(
@@ -172,10 +171,11 @@ public class MakeEventActivity extends AppCompatActivity {
                         String uid = eventdataReference.getKey();
 
                         // new intent til Event, send med uid
+                        SystemClock.sleep(3000);
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
 
                         //Sendes videre til aktiviteten som blir lagd
-                        startActivity(new Intent(MakeEventActivity.this, EventActivity.class));
+                        startActivity(new Intent(MakeEventActivity.this, MainActivity.class));
                         /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
                     }
                 });

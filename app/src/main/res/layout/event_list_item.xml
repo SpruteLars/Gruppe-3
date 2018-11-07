@@ -15,15 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
             android:id="@+id/event_poster"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="-1"
             android:adjustViewBounds="true"
-            android:contentDescription="bilde"
             android:scaleType="fitCenter"
+            android:background="@drawable/border_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -42,7 +41,6 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="5"
-            android:text="telttur"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="36sp"
@@ -63,7 +61,6 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:text="Halden, Østfold, Norge"
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -84,7 +81,6 @@
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="1"
-            android:text="10. Desember 2018"
             android:textColor="#ffffff"
             android:textSize="24sp"
             android:textStyle="bold"

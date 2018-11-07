@@ -7,185 +7,216 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".EventActivity">
 
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="388dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-    <TextView
-        android:id="@+id/txtEventName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgView" />
-
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDate"
-        app:layout_constraintStart_toEndOf="@+id/imgDate" />
-
-    <TextView
-        android:id="@+id/txtClock"
-        android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgTime"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/txtPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
-        app:layout_constraintEnd_toStartOf="@+id/imgAttendants"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imgPayment" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/txtAttendants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/txtAddresse"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginEnd="284dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <!-- TextViews -->
+            <TextView
+                android:id="@+id/txtEventName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorAccent"
+                android:textSize="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgView" />
 
-    <TextView
-        android:id="@+id/txtDescriptionTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="140dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLocation" />
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDate"
+                app:layout_constraintEnd_toStartOf="@+id/imgTime"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imgDate" />
 
-    <TextView
-        android:id="@+id/txtDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/filler"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
+            <TextView
+                android:id="@+id/txtClock"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="96dp"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="@+id/imgTime"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:tint="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEventName"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+            <TextView
+                android:id="@+id/txtPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
+                app:layout_constraintStart_toEndOf="@+id/imgPayment" />
 
-    <ImageView
-        android:id="@+id/imgTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDate"
-        app:layout_constraintEnd_toEndOf="@+id/imgAttendants"
-        app:layout_constraintEnd_toStartOf="@+id/txtClock"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toEndOf="@+id/txtDate"
-        app:layout_constraintStart_toStartOf="@+id/imgAttendants"
-        app:srcCompat="@drawable/ic_baseline_access_time_24px" />
+            <TextView
+                android:id="@+id/txtAttendants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
+                tools:layout_editor_absoluteX="230dp" />
 
-    <ImageView
-        android:id="@+id/imgLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:tint="@color/colorText"
-        app:layout_constraintEnd_toEndOf="@+id/imgPayment"
-        app:layout_constraintEnd_toStartOf="@+id/txtAdress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPayment"
-        app:srcCompat="@drawable/ic_baseline_location_on_24px" />
+            <TextView
+                android:id="@+id/txtAddresse"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginEnd="284dp"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgAttendants"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:tint="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
-        app:layout_constraintEnd_toStartOf="@+id/txtAttendants"
-        app:srcCompat="@drawable/ic_baseline_group_24px" />
+            <TextView
+                android:id="@+id/txtDescriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/description"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgLocation" />
 
-    <android.support.constraint.Barrier
-        android:id="@+id/barrier2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/filler"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
 
-    <ImageView
-        android:id="@+id/imgPayment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:tint="@color/colorText"
-        app:layout_constraintEnd_toEndOf="@+id/imgDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDate"
-        app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
+            <!-- ImageViews -->
+            <ImageView
+                android:id="@+id/imgView"
+                android:layout_width="388dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+            <ImageView
+                android:id="@+id/imgDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:tint="@color/colorText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventName"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+
+            <ImageView
+                android:id="@+id/imgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/colorText"
+                app:layout_constraintEnd_toEndOf="@+id/imgAttendants"
+                app:layout_constraintStart_toStartOf="@+id/imgAttendants"
+                app:srcCompat="@drawable/ic_baseline_access_time_24px"
+                tools:layout_editor_absoluteY="253dp" />
+
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:tint="@color/colorText"
+                app:layout_constraintEnd_toEndOf="@+id/imgPayment"
+                app:layout_constraintEnd_toStartOf="@+id/txtAdress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPayment"
+                app:srcCompat="@drawable/ic_baseline_location_on_24px" />
+
+            <ImageView
+                android:id="@+id/imgAttendants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:tint="@color/colorText"
+                app:layout_constraintEnd_toStartOf="@+id/txtAttendants"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/txtPayment"
+                app:layout_constraintTop_toBottomOf="@+id/imgTime"
+                app:srcCompat="@drawable/ic_baseline_group_24px" />
+
+            <ImageView
+                android:id="@+id/imgPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:tint="@color/colorText"
+                app:layout_constraintEnd_toEndOf="@+id/imgDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDate"
+                app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
+
+            <!-- Google Maps -->
+            <!--android.support.constraint.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="left" /-->
+
+            <ImageButton
+                android:id="@+id/mapButton"
+                android:layout_width="89dp"
+                android:layout_height="91dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDescription"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/tools"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="@+id/view_pager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_comment_24px" />
 
     <android.support.design.widget.BottomNavigationView
@@ -205,20 +236,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_main" />
-
-    <ImageButton
-        android:id="@+id/mapButton"
-        android:layout_width="89dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789"
-        app:srcCompat="@mipmap/ic_launcher" />
-
 </android.support.constraint.ConstraintLayout>
