@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "no.hiof.emilie.efinder"
         minSdkVersion 21
@@ -49,3 +50,13 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+//BotAppBar
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
+}

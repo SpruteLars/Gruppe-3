@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,13 +14,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import no.hiof.emilie.efinder.Fragments.FeedFragment;
 import no.hiof.emilie.efinder.Fragments.PaameldtFragment;
 
 public class MainActivity extends AppCompatActivity {
-    //Debug tag
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     FragmentStatePagerAdapter eksempelPagerAdapter;
 
     @Override
@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
         // View pageren som vi har definert i XML-layouten.
         ViewPager viewPager = findViewById(R.id.view_pager);
 
-        eksempelPagerAdapter = new MainActivity.EksempelPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(eksempelPagerAdapter);
-
+        //region Tablayout
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        //endregion
+
+        //region Viewpager
+        eksempelPagerAdapter = new MainActivity.EksempelPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(eksempelPagerAdapter);
 
         /* Her kontrolleres hva som skal skje når brukeren interagerer med viewet
          * Skal noe i aktiviteten reagere på endringer i view-pageren, skal dette gjøres her
@@ -57,12 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "State endret!");
             }
         });
+        //endregion
 
+        //region BotNav
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
 
-        /* Bottom Navigation */
-        // region botnav
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -84,39 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        /* Vurdere om vi skal endre Bot Nav til Bot App Bar */
-        /*BottomAppBar bottomAppBar = (BottomAppBar) findViewById(R.id.bottom_navigation);
-
-        bottomAppBar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_feed:
-                        startActivity(new Intent(MainActivity.this, MainActivity.this));
-                        return true;
-                    case R.id.action_profil:
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                        return true;
-                }
-                return false;
-            }
-        });*/
-
-        //Størrelse på ikoner i Bot Nav
-        /*for (int i = 0; i < bottomNavigationMenuView.getChildCount(); i++) {
-            final View iconView = bottomNavigationMenuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
-            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
-            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-            //Høyde & bredde
-            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, displayMetrics);
-            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, displayMetrics);
-        }*/
-        // endregion
+        //endregion
     }
 
-    //Adapteren
+    // region Fragments
     public class EksempelPagerAdapter extends FragmentStatePagerAdapter {
         //Lettvint metode - burde gjøres dynamisk
         private final int NUMBER_OF_FRAGMENTS = 2;
@@ -153,4 +133,5 @@ public class MainActivity extends AppCompatActivity {
             return tabTitles[position];
         }
     }
+    // endregion
 }

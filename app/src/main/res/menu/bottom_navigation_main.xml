@@ -2,31 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/action_feed"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_view_day_24px"
-        android:title="Feed"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_feed"
+            android:icon="@drawable/ic_baseline_view_day_24px"
+            android:title="Feed"
+            app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_make_event"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_add_24px"
-        android:title="Make event"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_make_event"
+            android:icon="@drawable/ic_baseline_add_24px"
+            android:title="Make event"
+            app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_discovery"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_supervised_user_circle_24px"
-        android:title="Discover"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_discovery"
+            android:icon="@drawable/ic_baseline_supervised_user_circle_24px"
+            android:title="Discover"
+            app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_profil"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_person_24px"
-        android:title="Profil"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/action_profil"
+            android:icon="@drawable/ic_baseline_person_24px"
+            android:title="Profil"
+            app:showAsAction="always" />
 </menu>
