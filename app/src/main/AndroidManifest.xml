@@ -16,19 +16,45 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LogInActivity"/>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".GoogleMapsActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".EventActivity" />
-        <activity android:name=".MakeEventActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".DiscoveryActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".EventActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".MakeEventActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.MainActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.LogInActivity"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".DiscoveryActivity"
+            android:parentActivityName="no.hiof.emilie.efinder.LogInActivity"
+            android:launchMode="singleTop">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
