@@ -11,6 +11,7 @@
     <string name="botnav_discover">Discover</string>
     <string name="botnav_make_event">Make Event</string>
     <string name="botnav_profile">Profile</string>
+    <string name="botnav_notification">Notifications</string>
 
     <!-- Profil strings -->
     <string name="profile_name">Trond Dåse</string>

@@ -32,8 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(SettingsActivity.this, ProfileActivity.class));
                         return true;
-                    case R.id.action_make_event:
-                        startActivity(new Intent(SettingsActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                    case R.id.action_notification:
+                        startActivity(new Intent(SettingsActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(SettingsActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????

@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         return true;
-                    case R.id.action_make_event:
-                        startActivity(new Intent(MainActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                    case R.id.action_notification:
+                        startActivity(new Intent(MainActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????

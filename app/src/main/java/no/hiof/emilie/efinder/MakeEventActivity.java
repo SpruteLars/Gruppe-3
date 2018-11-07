@@ -108,8 +108,8 @@ public class MakeEventActivity extends AppCompatActivity {
                     case R.id.action_feed:
                         startActivity(new Intent(MakeEventActivity.this, MainActivity.class));
                         return true;
-                    case R.id.action_make_event:
-                        startActivity(new Intent(MakeEventActivity.this, MakeEventActivity.class)); //Få denne til å ikke lage en ny intent????
+                    case R.id.action_notification:
+                        startActivity(new Intent(MakeEventActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(MakeEventActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
