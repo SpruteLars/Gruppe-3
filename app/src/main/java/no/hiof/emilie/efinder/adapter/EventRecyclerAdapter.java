@@ -71,13 +71,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         public void setData(EventInformation current) {
             this.name.setText(current.getEventTitle());
-            String eventImageVIew = current.getEventImage();
+            String eventImageView = current.getEventImage();
             this.adresse.setText(current.getEventAdress());
             this.date.setText(current.getEventDate());
 
-            if (eventImageVIew != null && !eventImageVIew.equals("")) {
+            if (eventImageView != null && !eventImageView.equals("")) {
                 Glide.with(poster.getContext())
-                        .load(eventImageVIew)
+                        .load(eventImageView)
                         .into(poster);
             }
             else

@@ -173,8 +173,10 @@ public class MakeEventActivity extends AppCompatActivity {
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
 
                         //Sendes videre til aktiviteten som blir lagd
-                        startActivity(new Intent(MakeEventActivity.this, MainActivity.class));
-                        /* TODO: Send med uid som extra og i EventActivity -> hent ut fra fireBase med uid */
+                        Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);
+                        intent.putExtra(EventActivity.EVENT_UID, uid);
+                        startActivity(intent);
+                        /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
                     }
                 });
             }
