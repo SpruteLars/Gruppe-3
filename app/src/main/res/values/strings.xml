@@ -35,6 +35,9 @@
     <string name="button_add">Add</string>
     <string name="button_submit">Submit</string>
 
+    <!-- Google maps -->
+    <string name="no_location_permission">Vi trenger din tilatelse for å kunne hente din lokasjon</string>
+
     <!-- Dummy strings -->
     <string name="button">Button</string>
     <string name="filler">det samme så de trollene komme settende, og de var så store og digre at hodene på dem var jevnhøye med furutoppene. Men de hadde bare ett øye sammen alle tre, og det skiftedes de til å bruke; de hadde et hull i pannen, som de la det i, og styrte det med hånden; den som gikk foran, han måtte ha det, og de andre gikk etter og holdt seg i den første.</string>
