@@ -23,14 +23,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogInActivity"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".EventActivity" />
-        <activity android:name=".MakeEventActivity" />
-        <activity android:name=".SignUpActivity" />
-        <!-- activity android:name=".GoogleMapActivity"></activity -->
+        <activity android:name=".LogInActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GoogleMapsActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".EventActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".MakeEventActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity"/>
+        <activity
+            android:name=".DiscoveryActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity"/>
+
+        <activity android:name=".NotificationListActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -43,14 +72,13 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".DiscoveryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SearchActivity"></activity>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

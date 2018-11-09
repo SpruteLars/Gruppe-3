@@ -1,9 +1,13 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,5 +63,38 @@ public class SearchActivity extends AppCompatActivity {
         for(String key : map.values()){
             Log.d("mapper2", key);
         }
+
+        //region BotNav
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SearchActivity.this, MakeEventActivity.class));
+            }
+        });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_feed:
+                        startActivity(new Intent(SearchActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_profil:
+                        startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
+                        return true;
+                    case R.id.action_notification:
+                        startActivity(new Intent(SearchActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                    case R.id.action_discovery:
+                        startActivity(new Intent(SearchActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        return true;
+                }
+                return false;
+            }
+        });
+        //endregion
     }
 }
