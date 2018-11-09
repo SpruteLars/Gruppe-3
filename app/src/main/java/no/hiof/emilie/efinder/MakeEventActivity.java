@@ -233,8 +233,8 @@ public class MakeEventActivity extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_INT_CALENDAR)
             return new DatePickerDialog(this, datePickerListener, year_x, month_x, day_x);
-        /*if (id == DIALOG_INT_TIME)
-            return new TimePickerDialog(this, timePickerListener, hour_x, minute_x);*/
+        if (id == DIALOG_INT_TIME)
+            return new TimePickerDialog(this, timePickerListener, hour_x, minute_x, true);
         else
             return null;
     }
