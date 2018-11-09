@@ -45,7 +45,7 @@
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_time"
                 android:inputType="time"
@@ -75,10 +75,10 @@
 
             <TextView
                 android:id="@+id/txtAddPhoto"
-                android:layout_width="230dp"
-                android:layout_height="23dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="199dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_image"
@@ -167,20 +167,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtDescriptionTitle" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtDate"
-                android:layout_width="325dp"
-                android:layout_height="45dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="28dp"
                 android:backgroundTint="@color/colorText"
+                android:clickable="true"
                 android:hint="@string/hint_date"
-                android:inputType="date"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/imgDate"
+                app:layout_constraintEnd_toStartOf="@+id/btnDatePicker"
                 app:layout_constraintStart_toEndOf="@+id/imgDate"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
@@ -251,7 +253,7 @@
                 android:id="@+id/btnAddPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/button_add"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -268,6 +270,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgPayment"
                 app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
+
+            <Button
+                android:id="@+id/btnDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="49dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="16dp"
+                android:text="Pick a date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

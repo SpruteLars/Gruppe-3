@@ -7,32 +7,140 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".ProfileActivity">
 
-    <ImageView
-        android:id="@+id/imgProfilBilde"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/colorAccent"
-        android:tint="@color/colorPrimaryDark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtProfilNavn"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="55dp"
-        android:textColor="@color/colorText"
-        android:textSize="16pt"
-        app:layout_constraintBottom_toBottomOf="@+id/imgProfilBilde"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgProfilBilde"
-        app:layout_constraintTop_toTopOf="@+id/imgProfilBilde" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
+            <ImageView
+                android:id="@+id/imgProfilBilde"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorAccent"
+                android:tint="@color/colorPrimaryDark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+            <TextView
+                android:id="@+id/txtProfilNavn"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="55dp"
+                android:textColor="@color/colorText"
+                android:textSize="16pt"
+                app:layout_constraintBottom_toBottomOf="@+id/imgProfilBilde"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgProfilBilde"
+                app:layout_constraintTop_toTopOf="@+id/imgProfilBilde" />
+
+            <!-- Følgere -->
+            <ImageView
+                android:id="@+id/imgFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:tint="@color/colorText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde"
+                app:srcCompat="@drawable/ic_baseline_group_24px" />
+
+            <TextView
+                android:id="@+id/txtFollowers"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:text="Antall følgere"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgFollowers"
+                app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde" />
+
+            <!-- Fødselsdato -->
+            <ImageView
+                android:id="@+id/imgDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:tint="@color/colorText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgFollowers"
+                app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
+
+            <TextView
+                android:id="@+id/txtCalendar"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Dato"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imgDate"
+                app:layout_constraintTop_toBottomOf="@+id/txtFollowers" />
+
+            <!-- Om meg -->
+            <TextView
+                android:id="@+id/txtAboutTitle"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/about"
+                android:textSize="13pt"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgDate" />
+
+            <TextView
+                android:id="@+id/txtAbout"
+                android:layout_width="0dp"
+                android:layout_height="165dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/filler"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAboutTitle" />
+
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Sign out"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAbout" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/tools"
         android:layout_width="56dp"
@@ -45,7 +153,7 @@
         android:focusable="true"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_baseline_settings_20px" />
 
     <android.support.design.widget.BottomNavigationView
@@ -59,103 +167,11 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/colorText"
         app:itemTextColor="@color/colorText"
+        app:labelVisibilityMode="labeled"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/scrollView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_main" />
-
-    <!-- Følgere -->
-    <ImageView
-        android:id="@+id/imgFollowers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:tint="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde"
-        app:srcCompat="@drawable/ic_baseline_group_24px" />
-
-    <TextView
-        android:id="@+id/txtFollowers"
-        android:layout_width="0dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
-        android:text="Antall følgere"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgFollowers"
-        app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde" />
-
-    <!-- Fødselsdato -->
-    <ImageView
-        android:id="@+id/imgDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:tint="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgFollowers"
-        app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
-
-    <TextView
-        android:id="@+id/txtCalendar"
-        android:layout_width="0dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Dato"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imgDate"
-        app:layout_constraintTop_toBottomOf="@+id/txtFollowers" />
-
-    <!-- Om meg -->
-    <TextView
-        android:id="@+id/txtAboutTitle"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/about"
-        android:textSize="13pt"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDate" />
-
-    <TextView
-        android:id="@+id/txtAbout"
-        android:layout_width="0dp"
-        android:layout_height="165dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/filler"
-        android:textAlignment="viewStart"
-        android:textColor="@color/colorText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAboutTitle" />
-
-    <Button
-        android:id="@+id/btnSignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Sign out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAbout" />
 
 </android.support.constraint.ConstraintLayout>

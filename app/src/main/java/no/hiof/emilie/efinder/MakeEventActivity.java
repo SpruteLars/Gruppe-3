@@ -1,5 +1,7 @@
 package no.hiof.emilie.efinder;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,24 +36,31 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import no.hiof.emilie.efinder.model.EventInformation;
 
 public class MakeEventActivity extends AppCompatActivity {
     EditText textViewEventName,
-            textViewDate,
             textViewClock,
             textViewPayment,
             textViewAttendants,
             textViewAdresse,
             textViewDescription;
-    TextView textAddedPhoto;
+    TextView textAddedPhoto,
+        textViewDate;
+    Button buttonPickDate;
     Button addPhotoButton;
-    private List<EditText> editTextArray;
+    private List<String> editTextArray;
+    private DatePickerDialog startDate;
+    private SimpleDateFormat simpleDateFormatter;
+    int year_x, month_x, day_x;
 
     final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int DIALOG_INT = 1;
     private Bitmap imageBitmap;
     Bitmap picture;
     String mCurrentPhotoPath, fileName;
@@ -64,25 +74,16 @@ public class MakeEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
+
         editTextArray = new ArrayList<>();
+        simpleDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        final Calendar calendar = Calendar.getInstance();
+        year_x = calendar.get(Calendar.YEAR);
+        month_x = calendar.get(Calendar.MONTH);
+        day_x = calendar.get(Calendar.DAY_OF_MONTH);
 
-        /** Få XML koblet til variabler */
-        addPhotoButton = (Button) findViewById(R.id.btnAddPhoto);
-        textViewEventName = (EditText) findViewById(R.id.txtEventName);
-        textViewDate = (EditText) findViewById(R.id.txtDate);
-        textViewClock = (EditText) findViewById(R.id.txtClock);
-        textViewPayment = (EditText) findViewById(R.id.txtPayment);
-        textViewAttendants = (EditText) findViewById(R.id.txtAttendants);
-        textViewAdresse = (EditText) findViewById(R.id.txtAdress);
-        textViewDescription = (EditText) findViewById(R.id.txtDescription);
-
-        editTextArray.add(textViewEventName);
-        editTextArray.add(textViewDate);
-        editTextArray.add(textViewClock);
-        editTextArray.add(textViewPayment);
-        editTextArray.add(textViewAttendants);
-        editTextArray.add(textViewAdresse);
-        editTextArray.add(textViewDescription);
+        findViewById();
+        onClickedDateListener();
 
         /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         addPhotoButton.setOnClickListener(addPhotoListener);
@@ -94,9 +95,9 @@ public class MakeEventActivity extends AppCompatActivity {
 
         /** Bottom Navigation */
         // region botnav
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
+        FloatingActionButton floatingActionButton = findViewById(R.id.tools);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -125,18 +126,14 @@ public class MakeEventActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (EditText textView : editTextArray) {
+                for (String textView : editTextArray) {
                     //textView.setError("Feilmelding");
-                    if (textView.getText().length() == 0) {
+                    if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
-
-                /* TODO: Hvordan sjekke om bildet eksisterer? */
-                /*if (imageView.getDrawable() == 0) {
-                    return;
-                }*/
+                //endregion
 
                 Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
                 StorageReference imageRef = storageReference.child("events/images/" + file.getLastPathSegment());
@@ -152,7 +149,6 @@ public class MakeEventActivity extends AppCompatActivity {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                         Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
 
                         //Lag objekt av Event-klassekonstruktør
@@ -184,6 +180,61 @@ public class MakeEventActivity extends AppCompatActivity {
         //endregion
     }
     // endregion
+
+    //region XML items
+    private void findViewById() {
+        addPhotoButton = findViewById(R.id.btnAddPhoto);
+        buttonPickDate = findViewById(R.id.btnDatePicker);
+        textViewEventName = findViewById(R.id.txtEventName);
+        textViewDate = findViewById(R.id.txtDate);
+        textViewClock = findViewById(R.id.txtClock);
+        textViewPayment = findViewById(R.id.txtPayment);
+        textViewAttendants = findViewById(R.id.txtAttendants);
+        textViewAdresse = findViewById(R.id.txtAdress);
+        textViewDescription = findViewById(R.id.txtDescription);
+
+        editTextArray.add(textViewEventName.getText().toString());
+        editTextArray.add(textViewDate.getText().toString());
+        editTextArray.add(textViewClock.getText().toString());
+        editTextArray.add(textViewPayment.getText().toString());
+        editTextArray.add(textViewAttendants.getText().toString());
+        editTextArray.add(textViewAdresse.getText().toString());
+        editTextArray.add(textViewDescription.getText().toString());
+    }
+    //endregion XML-items
+
+    //region Datepicker
+    private void onClickedDateListener() {
+        buttonPickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_INT);
+            }
+        });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id == DIALOG_INT)
+            return new DatePickerDialog(this, datePickerListener, year_x, month_x, day_x);
+        else
+            return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            year_x = year;
+            month_x = month + 1;
+            day_x = dayOfMonth;
+
+            String chosenDate = day_x + "-" + month_x + "-" + year_x;
+            textViewDate.setText(chosenDate);
+            //Toast.makeText(MakeEventActivity.this, dayOfMonth + "/" + month + "-" + year, Toast.LENGTH_LONG);
+        }
+    };
+    //endregion
+
 
     /* Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
@@ -235,7 +286,7 @@ public class MakeEventActivity extends AppCompatActivity {
 
                 picture = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
 
-                textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
+                textAddedPhoto = findViewById(R.id.txtAddPhoto);
                 textAddedPhoto.setText(fileName);
 
             } catch (FileNotFoundException e) {
