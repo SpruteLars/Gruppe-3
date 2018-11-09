@@ -19,9 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 public class DiscoveryActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -39,8 +37,8 @@ public class DiscoveryActivity extends AppCompatActivity {
         personMap = new HashMap<String, String>();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        btnSook = findViewById(R.id.btnSook);
-        editSook = findViewById(R.id.txtSokNavn);
+        btnSook = findViewById(R.id.btnSoook);
+        editSook = findViewById(R.id.editSook);
         btnSook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
