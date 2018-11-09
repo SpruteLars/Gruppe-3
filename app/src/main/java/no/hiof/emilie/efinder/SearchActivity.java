@@ -2,6 +2,8 @@ package no.hiof.emilie.efinder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.graphics.Color;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -9,13 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +42,14 @@ public class SearchActivity extends AppCompatActivity {
         final HashMap<String, String> map = (HashMap<String, String>)intent.getSerializableExtra("map");
         final List<String> list = new ArrayList<String>(map.keySet());
         final List<String> name = new ArrayList<String>(map.values());
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, name);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, name){
+            public View getView(int position,View convertView, ViewGroup parent) {
+                View view =super.getView(position,convertView,parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                textView.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
