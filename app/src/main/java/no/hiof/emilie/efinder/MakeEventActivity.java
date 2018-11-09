@@ -177,7 +177,6 @@ public class MakeEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);
                         intent.putExtra(EventActivity.EVENT_UID, uid);
                         startActivity(intent);
-
                     }
                 });
             }
