@@ -14,8 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,37 +28,34 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
-    String editNavn;
-    EditText editAlder;
-    EditText editTlf;
     DatabaseReference dbref;
-    int folgere;
-    int followed = 0;
     FirebaseUser user;
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
-    TextView profNavn;
-    TextView profFollower;
+    TextView profNavn, profFollower, profDescription;
+    ImageButton signOut, follow;
     ImageView profBilde;
-    TextView profDescription;
     String Uid;
-    Button signOut;
-    Button follow;
+    int folgere;
+    int followed = 0;
     public static final String CHANNEL_ID = "1A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        dbref = FirebaseDatabase.getInstance().getReference("users");
+        FirebaseAuth fbdb = FirebaseAuth.getInstance();
+        user = fbdb.getCurrentUser();
+        Intent intent = getIntent();
+
         follow = findViewById(R.id.btnSub);
         signOut = findViewById(R.id.btnSignOut);
-        FirebaseAuth fbdb = FirebaseAuth.getInstance();
         profNavn = findViewById(R.id.txtProfilNavn);
         profBilde = findViewById(R.id.imgProfilBilde);
         profDescription = findViewById(R.id.txtAbout);
-        dbref = FirebaseDatabase.getInstance().getReference("users");
-        user = fbdb.getCurrentUser();
-        Intent intent = getIntent();
+
         if(intent.getExtras() == null){
             Uid = user.getUid();
             follow.setVisibility(View.GONE);

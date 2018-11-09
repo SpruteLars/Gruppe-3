@@ -60,12 +60,10 @@
                 android:id="@+id/txtFollowers"
                 android:layout_width="0dp"
                 android:layout_height="16dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="35dp"
                 android:text="Antall følgere"
                 android:textColor="@color/colorText"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgFollowers"
                 app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde" />
 
@@ -124,27 +122,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtAboutTitle" />
 
-            <Button
-                android:id="@+id/btnSignOut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Sign out"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAbout" />
-
-            <Button
+            <ImageButton
                 android:id="@+id/btnSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="32dp"
-                android:text="Følg"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimaryDark"
+                android:tint="@color/colorTextHint"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toEndOf="@+id/txtFollowers"
+                app:layout_constraintTop_toBottomOf="@+id/txtProfilNavn"
+                app:srcCompat="@drawable/ic_baseline_person_add_24px" />
+
+            <ImageButton
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimaryDark"
+                android:tint="@color/colorTextHint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_exit_to_app_24px" />
 
         </android.support.constraint.ConstraintLayout>
 
