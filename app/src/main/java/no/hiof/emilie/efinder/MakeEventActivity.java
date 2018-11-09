@@ -87,7 +87,7 @@ public class MakeEventActivity extends AppCompatActivity {
         /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         addPhotoButton.setOnClickListener(addPhotoListener);
 
-        /** Firebase */
+        /* Firebase */
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -119,8 +119,9 @@ public class MakeEventActivity extends AppCompatActivity {
                 }
                 }
         );
+        //endregion
 
-        //Sende inn et arrangement
+        // region Sende inn et arrangement
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,8 +167,8 @@ public class MakeEventActivity extends AppCompatActivity {
                             taskSnapshot.getStorage().toString());
 
                         //Send objektet til firebase
-                        eventdataReference.push().setValue(eventInformation);
-                        String uid = eventdataReference.getKey();
+                        String uid = eventdataReference.push().getKey();
+                        eventdataReference.child(uid).setValue(eventInformation);
 
                         // TODO: new intent til Event, send med uid
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
@@ -176,16 +177,16 @@ public class MakeEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);
                         intent.putExtra(EventActivity.EVENT_UID, uid);
                         startActivity(intent);
-                        /* TODO: Send med uid som extra og i EventDetaljerActivity -> hent ut fra fireBase med uid */
+
                     }
                 });
             }
         });
-
+        //endregion
     }
     // endregion
 
-    /** Håndtering av å hente bilde og ta bilde */
+    /* Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
         @Override
@@ -198,13 +199,13 @@ public class MakeEventActivity extends AppCompatActivity {
     // region forespørsel om bildetagning til OS
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
 
         //Make sure there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            //Create a File where the picture should go
+            //Lager en fil hvor bildet skal
             File picFile = null;
 
-            /* TODO: Er rekkefølgen på ting her feil? */
             try {
                 picFile = createImageFile();
             } catch (IOException e) {
@@ -231,6 +232,7 @@ public class MakeEventActivity extends AppCompatActivity {
 
                 File f = new File(mCurrentPhotoPath);
                 Uri contentURI = Uri.fromFile(f);
+                //InputStream imageStream = getContentResolver().openInputStream(contentURI);
 
                 picture = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
 

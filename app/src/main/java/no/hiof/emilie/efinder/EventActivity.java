@@ -1,6 +1,7 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,8 +24,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import no.hiof.emilie.efinder.model.EventInformation;
-
-
 
 public class EventActivity extends AppCompatActivity {
     public static final String EVENT_UID = "event_uid";
@@ -37,8 +37,10 @@ public class EventActivity extends AppCompatActivity {
     private TextView adresseTextView;
     private ImageView posterImageView;
     private String imageName;
+
     //Google Maps
     public ImageButton myButton;
+
     //Firebase
     private FirebaseStorage firebaseStorage;
     private StorageReference imagePath;
@@ -80,6 +82,7 @@ public class EventActivity extends AppCompatActivity {
 
         //region Display clicked event
         eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 event = dataSnapshot.getValue(EventInformation.class);
@@ -89,18 +92,24 @@ public class EventActivity extends AppCompatActivity {
                 descriptionTextView.setText(event.getEventDescription());
                 dateTextView.setText(event.getEventDate());
                 clockTextView.setText(event.getEventTime());
-                paymentTextView.setText(event.getEventPayment()+"");
-                attendantsTextView.setText(event.getEventAttendants()+"");
+                paymentTextView.setText(String.valueOf(event.getEventPayment()));
+                attendantsTextView.setText(String.valueOf(event.getEventAttendants()));
                 adresseTextView.setText(event.getEventAdress());
 
                 //Hente path til bildet i Storage
                 imageName = event.getEventImage();
-                imagePath = FirebaseStorage.getInstance().getReference().child("events/images/" + imageName);
+                imagePath = FirebaseStorage.getInstance().getReferenceFromUrl(imageName);
+                    //getReference().child("events/images/" + imageName);
 
-                if (event.getEventImage() != null) {
-                    Glide.with(EventActivity.this)
-                        .load(imagePath) //path to image in Firebase Storage
-                        .into(posterImageView); //Upload picture to imgView in EventActivity
+                if (event.getEventImage() != null ) {
+                    imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(EventActivity.this)
+                                .load(uri.toString()) //path to image in Firebase Storage
+                                .into(posterImageView);  //Upload picture to imgView in EventActivity
+                        }
+                    });
                 }
             }
 
