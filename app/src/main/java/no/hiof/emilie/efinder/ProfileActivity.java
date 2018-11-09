@@ -94,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        /** Bottom Nav */
+        //region BotNav
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
 
@@ -126,6 +126,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
             }
         });
+        //endregion
     }
 
     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)

@@ -39,27 +39,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtMakeEvent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtClock"
-                android:layout_width="325dp"
-                android:layout_height="50dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="36dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_time"
-                android:inputType="time"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/imgTime"
+                app:layout_constraintEnd_toStartOf="@+id/btnTimePicker"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toEndOf="@+id/imgTime"
                 app:layout_constraintTop_toBottomOf="@+id/txtDate" />
 
             <EditText
                 android:id="@+id/txtPayment"
                 android:layout_width="325dp"
-                android:layout_height="47dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -76,10 +77,10 @@
             <TextView
                 android:id="@+id/txtAddPhoto"
                 android:layout_width="199dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_image"
                 android:inputType="textUri"
@@ -93,7 +94,7 @@
             <EditText
                 android:id="@+id/txtAttendants"
                 android:layout_width="326dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -110,10 +111,10 @@
             <EditText
                 android:id="@+id/txtAdress"
                 android:layout_width="326dp"
-                android:layout_height="51dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_location"
                 android:inputType="textPostalAddress"
@@ -169,11 +170,11 @@
 
             <TextView
                 android:id="@+id/txtDate"
-                android:layout_width="0dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="28dp"
                 android:backgroundTint="@color/colorText"
                 android:clickable="true"
@@ -183,6 +184,7 @@
                 android:textColorHint="@color/colorTextHint"
                 app:layout_constraintBottom_toBottomOf="@+id/imgDate"
                 app:layout_constraintEnd_toStartOf="@+id/btnDatePicker"
+                app:layout_constraintHorizontal_bias="0.15"
                 app:layout_constraintStart_toEndOf="@+id/imgDate"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
@@ -228,7 +230,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 android:contentDescription="@string/hint_attendants"
                 android:tint="@color/colorText"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/button_add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
@@ -280,6 +282,16 @@
                 android:text="Pick a date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
+
+            <Button
+                android:id="@+id/btnTimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Pick a time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnDatePicker" />
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

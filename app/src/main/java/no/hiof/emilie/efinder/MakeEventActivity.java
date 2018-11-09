@@ -2,6 +2,7 @@ package no.hiof.emilie.efinder;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,23 +46,25 @@ import java.util.Locale;
 import no.hiof.emilie.efinder.model.EventInformation;
 
 public class MakeEventActivity extends AppCompatActivity {
-    EditText textViewEventName,
-            textViewClock,
-            textViewPayment,
-            textViewAttendants,
-            textViewAdresse,
-            textViewDescription;
-    TextView textAddedPhoto,
-        textViewDate;
-    Button buttonPickDate;
-    Button addPhotoButton;
+    EditText    textViewEventName,
+                textViewPayment,
+                textViewAttendants,
+                textViewAdresse,
+                textViewDescription;
+    TextView    textAddedPhoto,
+                textViewDate,
+                textViewClock;
+    Button  buttonPickDate,
+            buttonTimePicker,
+            addPhotoButton;
     private List<String> editTextArray;
     private DatePickerDialog startDate;
     private SimpleDateFormat simpleDateFormatter;
-    int year_x, month_x, day_x;
+    int year_x, month_x, day_x, hour_x, minute_x;
 
     final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int DIALOG_INT = 1;
+    static final int DIALOG_INT_CALENDAR = 1;
+    static final int DIALOG_INT_TIME = 2;
     private Bitmap imageBitmap;
     Bitmap picture;
     String mCurrentPhotoPath, fileName;
@@ -81,9 +85,12 @@ public class MakeEventActivity extends AppCompatActivity {
         year_x = calendar.get(Calendar.YEAR);
         month_x = calendar.get(Calendar.MONTH);
         day_x = calendar.get(Calendar.DAY_OF_MONTH);
+        hour_x = calendar.get(Calendar.HOUR);
+        minute_x = calendar.get(Calendar.MINUTE);
 
         findViewById();
         onClickedDateListener();
+        onClickedTimeListener();
 
         /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         addPhotoButton.setOnClickListener(addPhotoListener);
@@ -133,7 +140,6 @@ public class MakeEventActivity extends AppCompatActivity {
                         return;
                     }
                 }
-                //endregion
 
                 Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
                 StorageReference imageRef = storageReference.child("events/images/" + file.getLastPathSegment());
@@ -185,6 +191,7 @@ public class MakeEventActivity extends AppCompatActivity {
     private void findViewById() {
         addPhotoButton = findViewById(R.id.btnAddPhoto);
         buttonPickDate = findViewById(R.id.btnDatePicker);
+        buttonTimePicker = findViewById(R.id.btnTimePicker);
         textViewEventName = findViewById(R.id.txtEventName);
         textViewDate = findViewById(R.id.txtDate);
         textViewClock = findViewById(R.id.txtClock);
@@ -203,20 +210,31 @@ public class MakeEventActivity extends AppCompatActivity {
     }
     //endregion XML-items
 
-    //region Datepicker
+    //region Datepicker & Timepicker
     private void onClickedDateListener() {
         buttonPickDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(DIALOG_INT);
+                showDialog(DIALOG_INT_CALENDAR);
+            }
+        });
+    }
+
+    public void onClickedTimeListener() {
+        buttonTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_INT_TIME);
             }
         });
     }
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        if (id == DIALOG_INT)
+        if (id == DIALOG_INT_CALENDAR)
             return new DatePickerDialog(this, datePickerListener, year_x, month_x, day_x);
+        /*if (id == DIALOG_INT_TIME)
+            return new TimePickerDialog(this, timePickerListener, hour_x, minute_x);*/
         else
             return null;
     }
@@ -230,11 +248,21 @@ public class MakeEventActivity extends AppCompatActivity {
 
             String chosenDate = day_x + "-" + month_x + "-" + year_x;
             textViewDate.setText(chosenDate);
-            //Toast.makeText(MakeEventActivity.this, dayOfMonth + "/" + month + "-" + year, Toast.LENGTH_LONG);
         }
     };
-    //endregion
 
+    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+            hour_x = hour;
+            minute_x = minute;
+
+            String chosenTime = hour_x + ":" + minute_x;
+            textViewClock.setText(chosenTime);
+        }
+    };
+
+    //endregion
 
     /* Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
