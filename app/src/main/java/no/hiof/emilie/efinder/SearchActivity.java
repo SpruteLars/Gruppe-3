@@ -1,11 +1,11 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
     FirebaseUser User;
@@ -32,7 +31,6 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         final ListView listView = findViewById(R.id.listEdit);
-
 
         Intent intent = getIntent();
         final HashMap<String, String> map = (HashMap<String, String>)intent.getSerializableExtra("map");
