@@ -1,5 +1,7 @@
 package no.hiof.emilie.efinder.model;
 
+import java.util.Comparator;
+
 public class EventInformation {
     public String
             eventUID,
@@ -107,4 +109,11 @@ public class EventInformation {
     public void setEventAttendants(int eventAttendants) {
         this.eventAttendants = eventAttendants;
     }
+
+    public static final Comparator<EventInformation> Sortering = new Comparator<EventInformation>(){
+        @Override
+        public int compare(EventInformation eventObject1, EventInformation eventObject2){
+            return eventObject1.getEventDate().compareTo(eventObject2.getEventDate());
+        }
+    };
 }

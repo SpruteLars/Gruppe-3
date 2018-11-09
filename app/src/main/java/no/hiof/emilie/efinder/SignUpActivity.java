@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     //String password;
     TextView textPassword;
     Button but;
+    Integer harald = 0;
     String Uid;
     TextView Username;
     TextView Userage;
@@ -80,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                     dbref.child(Uid).child("Navn").setValue(Username.getText().toString());
                     dbref.child(Uid).child("alder").setValue(Userage.getText().toString());
                     dbref.child(Uid).child("personinfo").setValue(Userabout.getText().toString());
-                    dbref.child(Uid).child("folgere").setValue("0");
+                    dbref.child(Uid).child("folgere").setValue(harald);
                     Intent intent =new Intent(SignUpActivity.this,LogInActivity.class);
                     startActivity(intent);
 

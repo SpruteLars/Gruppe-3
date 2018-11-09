@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView profBilde;
     TextView profDescription;
     String Uid;
+    Button signOut;
     public static final String CHANNEL_ID = "1A";
 
     @Override
@@ -46,14 +48,23 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        signOut = findViewById(R.id.btnSignOut);
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
         profNavn = findViewById(R.id.txtProfilNavn);
         profBilde = findViewById(R.id.imgProfilBilde);
         profDescription = findViewById(R.id.txtAbout);
         dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
-        Uid = user.getUid();
+        Intent intent = getIntent();
+        if(intent.getExtras() == null){
+            Uid = user.getUid();
+        }else{
+            signOut.setVisibility(View.GONE);
+             String hey = (String) getIntent().getSerializableExtra("Key");
+             Log.d("Key", hey);
+             Uid = hey;
+        }
+
         profFollower = findViewById(R.id.txtFollowers);
         dbref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -61,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Database", "Got data");
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
-                profFollower.setText(dataSnapshot.child(Uid).child("folgere").getValue(String.class));
+                profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
                 //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
 
@@ -71,6 +82,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(ProfileActivity.this,LogInActivity.class);
+                startActivity(intent);
             }
         });
 

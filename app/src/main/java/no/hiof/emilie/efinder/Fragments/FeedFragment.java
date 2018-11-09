@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import no.hiof.emilie.efinder.model.EventInformation;
@@ -70,7 +71,6 @@ public class FeedFragment extends Fragment {
 
         createAuthenticationListener();
         createDatabaseReadListener();
-
         setUpRecyclerView(fragmentView);
 
         return fragmentView;
@@ -132,6 +132,7 @@ public class FeedFragment extends Fragment {
 
                 if (!eventList.contains(event)) {
                     eventList.add(event);
+                    Collections.sort(eventList, EventInformation.Sortering);
                     eventListKeys.add(eventKey);
                     eventAdapter.notifyItemInserted(eventList.size()-1);
                 }
@@ -189,7 +190,6 @@ public class FeedFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
     }

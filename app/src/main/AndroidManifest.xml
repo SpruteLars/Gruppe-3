@@ -55,9 +55,14 @@
             android:launchMode="singleTop"
             android:parentActivityName=".LogInActivity"/>
         <activity
+            android:name=".SearchActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LogInActivity"/>
+        <activity
             android:name=".DiscoveryActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".LogInActivity"/>
+
         <activity android:name=".NotificationListActivity"/>
 
         <provider
