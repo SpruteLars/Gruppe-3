@@ -51,7 +51,15 @@ public class ProfileActivity extends AppCompatActivity {
         profDescription = findViewById(R.id.txtAbout);
         dbref = FirebaseDatabase.getInstance().getReference("users");
         user = fbdb.getCurrentUser();
-        Uid = user.getUid();
+        Intent intent = getIntent();
+        if(intent.getExtras() == null){
+            Uid = user.getUid();
+        }else{
+             String hey = (String) getIntent().getSerializableExtra("Key");
+             Log.d("Key", hey);
+             Uid = hey;
+        }
+
         profFollower = findViewById(R.id.txtFollowers);
         dbref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -59,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Database", "Got data");
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
-                profFollower.setText(dataSnapshot.child(Uid).child("folgere").getValue(String.class));
+                profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
                 //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
 
