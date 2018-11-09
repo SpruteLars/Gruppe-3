@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView profBilde;
     TextView profDescription;
     String Uid;
+    Button signOut;
     public static final String CHANNEL_ID = "1A";
 
     @Override
@@ -46,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        signOut = findViewById(R.id.btnSignOut);
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
         profNavn = findViewById(R.id.txtProfilNavn);
         profBilde = findViewById(R.id.imgProfilBilde);
@@ -57,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         if(intent.getExtras() == null){
             Uid = user.getUid();
         }else{
+            signOut.setVisibility(View.GONE);
              String hey = (String) getIntent().getSerializableExtra("Key");
              Log.d("Key", hey);
              Uid = hey;
@@ -79,6 +82,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(ProfileActivity.this,LogInActivity.class);
+                startActivity(intent);
             }
         });
 
