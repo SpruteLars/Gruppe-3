@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,8 @@ public class ProfileActivity extends AppCompatActivity {
     EditText editAlder;
     EditText editTlf;
     DatabaseReference dbref;
+    int folgere;
+    int followed = 0;
     FirebaseUser user;
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
@@ -41,13 +44,14 @@ public class ProfileActivity extends AppCompatActivity {
     TextView profDescription;
     String Uid;
     Button signOut;
+    Button follow;
     public static final String CHANNEL_ID = "1A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        follow = findViewById(R.id.btnSub);
         signOut = findViewById(R.id.btnSignOut);
         FirebaseAuth fbdb = FirebaseAuth.getInstance();
         profNavn = findViewById(R.id.txtProfilNavn);
@@ -58,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.getExtras() == null){
             Uid = user.getUid();
+            follow.setVisibility(View.GONE);
         }else{
             signOut.setVisibility(View.GONE);
              String hey = (String) getIntent().getSerializableExtra("Key");
@@ -73,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("Database", "Got data");
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
                 profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
+                folgere = dataSnapshot.child(Uid).child("folgere").getValue(Integer.class);
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
                 //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
 
@@ -81,6 +87,21 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(followed == 0){
+                    folgere = folgere+1;
+                    followed += 1;
+                    dbref.child(Uid).child("folgere").setValue(folgere);
+                    }else{
+                    Toast.makeText(ProfileActivity.this, "Already Following this person", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });
