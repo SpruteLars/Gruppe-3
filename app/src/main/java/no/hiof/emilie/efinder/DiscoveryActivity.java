@@ -43,7 +43,7 @@ public class DiscoveryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sookNavn = editSook.getText().toString();
-                // Log.d("Bruk",sookNavn);
+                Log.d("Bruk",sookNavn);
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference followingRef = rootRef.child("users");
                 ValueEventListener valueEventListener = new ValueEventListener() {

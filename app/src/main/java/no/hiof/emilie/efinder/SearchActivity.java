@@ -43,8 +43,8 @@ public class SearchActivity extends AppCompatActivity {
         final List<String> list = new ArrayList<String>(map.keySet());
         final List<String> name = new ArrayList<String>(map.values());
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, name){
-            public View getView(int position,View convertView, ViewGroup parent) {
-                View view =super.getView(position,convertView,parent);
+            public View getView(int pos,View convert, ViewGroup par) {
+                View view =super.getView(pos,convert,par);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 textView.setTextColor(Color.WHITE);
                 return view;
