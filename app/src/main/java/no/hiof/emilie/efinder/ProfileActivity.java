@@ -73,10 +73,15 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Database", "Got data");
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
-                profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
-                folgere = dataSnapshot.child(Uid).child("folgere").getValue(Integer.class);
+               // profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
+                //folgere = dataSnapshot.child(Uid).child("folgere").getValue(Integer.class);
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
                 //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
+                int i = -1;
+                for(DataSnapshot ks : dataSnapshot.child(Uid).child("FolgereList").getChildren()){
+                    i += 1;
+                }
+                profFollower.setText(""+i);
 
                 Log.d("Database", "Set data");
             }
@@ -94,28 +99,34 @@ public class ProfileActivity extends AppCompatActivity {
 
                 final DatabaseReference root = FirebaseDatabase.getInstance().getReference();
                 //String Navn = dbref.child(Marcus).child("Navn").getValue(String.class);
-                final DatabaseReference following = root.child("users").child(Uid).child("FolgereList");
+                final DatabaseReference following = root.child("users").child(Uid);
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                             //String followCase = dataSnapshot.child("Folgere").getValue(String.class);
-                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        for(DataSnapshot ds : dataSnapshot.child("FolgereList").getChildren()) {
                             String Marcus = FirebaseAuth.getInstance().getUid();
-                            Log.d("datasnap", Marcus);
+                            Log.d("datasnaper", "Marcus " + Marcus);
                            // String Navn = dbname.child("users").child(Marcus).child("Navn").getValue(String.class);
                             String Kid = dataSnapshot.getKey();
-                            Log.d("datasnap", Kid);
-                            Log.d("datasnap",""+ds.getValue());
-                            if (ds.getValue().equals(Marcus)) {
-                                Toast.makeText(ProfileActivity.this, "Already Following this person", Toast.LENGTH_LONG).show();
+                            Log.d("datasnap", "Kid "+ Kid);
+                            Log.d("datasnaper","Ds value "+ds.getValue());
+                            if (ds.getKey().equals(Marcus)) {
+                                Log.d("datasnape", "allerede følger");
+                                following.child("FolgereList").child(Marcus).removeValue();
+                                Toast.makeText(ProfileActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
                             } else {
-                                //folgere = dbref.child(Kid).child("folgere").getValue(Integer.class);
+                                //folgere = ds.child(Kid).child("folgere").getValue(Integer.class);
                                 //followingRef.child(Uid).setValue();
-                                folgere = folgere + 1;
-                                //dbref.child(Kid).child("folgere").setValue(folgere);
-                                following.child(Marcus).setValue("");
-                                //followingRef.child("FolgereList").child(Uid).setValue(dataSnapshot);
-                                Log.d("datasnap",""+dataSnapshot);
+                                //folgere = folgere + 1;
+                               // root.child("users").child(Kid).child("folgere").setValue(folgere);
+                                //following.child(Marcus).setValue(Uid);
+                                Log.d("datasnap","Dette her "+Marcus+" "+dataSnapshot);
+                                following.child("FolgereList").child(Marcus).setValue("q");
+                                Toast.makeText(ProfileActivity.this, "Followed", Toast.LENGTH_LONG).show();
+
+
+
                             }
                         }
 
