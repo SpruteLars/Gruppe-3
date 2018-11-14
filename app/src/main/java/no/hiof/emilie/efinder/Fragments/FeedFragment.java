@@ -30,28 +30,26 @@ import no.hiof.emilie.efinder.model.EventInformation;
 import no.hiof.emilie.efinder.R;
 import no.hiof.emilie.efinder.EventActivity;
 import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
+import no.hiof.emilie.efinder.model.FirebaseAccessModel;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
-
-
-/*
-    NB: Veldig enkelt utgangspunkt!
- */
 
 public class FeedFragment extends Fragment {
     private static final int RC_SIGN_IN = 1;
     private List<EventInformation> eventList;
     private List<String> eventListKeys;
     private RecyclerView recyclerView;
-
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference eventdataReference;
     private ChildEventListener childEventListener;
+    private EventRecyclerAdapter eventAdapter;
 
+    //Forslag til å importere alt av Firebase connections på denne måten
+    FirebaseAccessModel firebaseAccessModel = new FirebaseAccessModel();
+    FirebaseDatabase firebaseDatabase = firebaseAccessModel.getFirebaseDatabase();
+
+    private DatabaseReference eventdataReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private EventRecyclerAdapter eventAdapter;
 
     public FeedFragment() {}
 
@@ -64,10 +62,7 @@ public class FeedFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        eventdataReference = firebaseDatabase.getReference("events");
-
-        // Run this _once_ to set up some testdata in your firebase database
-        // generateTestData();
+        eventdataReference = firebaseAccessModel.getFirebaseDatabase().getReference("events");
 
         createAuthenticationListener();
         createDatabaseReadListener();
@@ -101,27 +96,7 @@ public class FeedFragment extends Fragment {
         eventAdapter.notifyDataSetChanged();
     }
 
-    private void createAuthenticationListener() {
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser == null) {
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
-                                    .setAvailableProviders(
-                                            Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-                                                    new AuthUI.IdpConfig.GoogleBuilder().build()))
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-            }
-        };
-    }
-
+    //region Database reader
     private void createDatabaseReadListener() {
         childEventListener = new ChildEventListener() {
             @Override
@@ -193,6 +168,29 @@ public class FeedFragment extends Fragment {
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
     }
+    //endregion
+
+    //region Innlogging
+    private void createAuthenticationListener() {
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser == null) {
+                    startActivityForResult(
+                        AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setAvailableProviders(
+                                Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
+                                    new AuthUI.IdpConfig.GoogleBuilder().build()))
+                            .build(),
+                        RC_SIGN_IN);
+                }
+            }
+        };
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -208,4 +206,5 @@ public class FeedFragment extends Fragment {
             }
         }
     }
+    //endregion
 }

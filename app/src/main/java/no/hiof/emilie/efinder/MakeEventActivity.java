@@ -63,18 +63,22 @@ public class MakeEventActivity extends AppCompatActivity {
             buttonTimePicker,
             addPhotoButton,
             buttonChoosePlace;
+    String  mCurrentPhotoPath,
+            fileName;
+    int     year_x,
+            month_x,
+            day_x,
+            hour_x,
+            minute_x;
+    Bitmap picture;
     private List<String> editTextArray;
     private DatePickerDialog startDate;
     private SimpleDateFormat simpleDateFormatter;
-    int year_x, month_x, day_x, hour_x, minute_x;
 
-    final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int DIALOG_INT_CALENDAR = 1;
-    static final int DIALOG_INT_TIME = 2;
-    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 3;
-    private Bitmap imageBitmap;
-    Bitmap picture;
-    String mCurrentPhotoPath, fileName;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int DIALOG_INT_CALENDAR = 2;
+    static final int DIALOG_INT_TIME = 3;
+    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;

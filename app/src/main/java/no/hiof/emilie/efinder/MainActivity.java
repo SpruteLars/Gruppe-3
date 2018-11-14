@@ -16,22 +16,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
+import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.SearchResultListener;
+import ir.mirrajabi.searchdialog.core.Searchable;
 import no.hiof.emilie.efinder.Fragments.FeedFragment;
 import no.hiof.emilie.efinder.Fragments.PaameldtFragment;
+import no.hiof.emilie.efinder.model.SearchModel;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
-    FragmentStatePagerAdapter eksempelPagerAdapter;
     public static final String CHANNEL_ID = "1A";
+    FragmentStatePagerAdapter eksempelPagerAdapter;
+
+    public FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // View pageren som vi har definert i XML-layouten.
-        ViewPager viewPager = findViewById(R.id.view_pager);
 
         //region Notification
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -41,12 +50,9 @@ public class MainActivity extends AppCompatActivity {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         //endregion
 
-        //region Tablayout
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        //endregion
-
         //region Viewpager
+        // View pageren som vi har definert i XML-layouten.
+        ViewPager viewPager = findViewById(R.id.view_pager);
         eksempelPagerAdapter = new MainActivity.EksempelPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(eksempelPagerAdapter);
 
@@ -72,14 +78,38 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region Tablayout
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        //endregion
+
         //region BotNav
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
+        FloatingActionButton fabMakeEvent = (FloatingActionButton) findViewById(R.id.tools);
+        FloatingActionButton fabSearchEvents = (FloatingActionButton) findViewById(R.id.tools2);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        fabMakeEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MakeEventActivity.class));
+            }
+        });
+
+        fabSearchEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SimpleSearchDialogCompat(MainActivity.this,
+                    "Search...",
+                    "What events are you looking for...?",
+                    null,
+                    initData(),
+                    new SearchResultListener<Searchable>() {
+                        @Override
+                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
+                            Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
+                            baseSearchDialogCompat.dismiss();
+                        }
+                    }).show();
             }
         });
 
@@ -106,6 +136,20 @@ public class MainActivity extends AppCompatActivity {
         //endregion
     }
 
+    //region Search Events Dialog Items
+    private ArrayList<SearchModel> initData() {
+        ArrayList<SearchModel> items = new ArrayList<>();
+
+        items.add(new SearchModel("Captain America"));
+        items.add(new SearchModel("Batman"));
+        items.add(new SearchModel("Deadpool"));
+        items.add(new SearchModel("Spiderman"));
+        items.add(new SearchModel("Stan Lee cameo"));
+
+        return items;
+    }
+    //endregion
+
     // region Fragments
     public class EksempelPagerAdapter extends FragmentStatePagerAdapter {
         //Lettvint metode - burde gjøres dynamisk
@@ -117,8 +161,6 @@ public class MainActivity extends AppCompatActivity {
         public EksempelPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
-
 
         @Override
         public Fragment getItem (int i) {
