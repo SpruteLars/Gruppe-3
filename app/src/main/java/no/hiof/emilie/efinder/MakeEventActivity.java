@@ -25,6 +25,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -49,14 +54,15 @@ public class MakeEventActivity extends AppCompatActivity {
     EditText    textViewEventName,
                 textViewPayment,
                 textViewAttendants,
-                textViewAdresse,
                 textViewDescription;
     TextView    textAddedPhoto,
                 textViewDate,
+                textViewAdresse,
                 textViewClock;
     Button  buttonPickDate,
             buttonTimePicker,
-            addPhotoButton;
+            addPhotoButton,
+            buttonChoosePlace;
     private List<String> editTextArray;
     private DatePickerDialog startDate;
     private SimpleDateFormat simpleDateFormatter;
@@ -65,6 +71,7 @@ public class MakeEventActivity extends AppCompatActivity {
     final int REQUEST_IMAGE_CAPTURE = 1;
     static final int DIALOG_INT_CALENDAR = 1;
     static final int DIALOG_INT_TIME = 2;
+    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 3;
     private Bitmap imageBitmap;
     Bitmap picture;
     String mCurrentPhotoPath, fileName;
@@ -85,7 +92,7 @@ public class MakeEventActivity extends AppCompatActivity {
         year_x = calendar.get(Calendar.YEAR);
         month_x = calendar.get(Calendar.MONTH);
         day_x = calendar.get(Calendar.DAY_OF_MONTH);
-        hour_x = calendar.get(Calendar.HOUR);
+        hour_x = calendar.get(Calendar.HOUR_OF_DAY);
         minute_x = calendar.get(Calendar.MINUTE);
 
         findViewById();
@@ -184,6 +191,13 @@ public class MakeEventActivity extends AppCompatActivity {
             }
         });
         //endregion
+
+        buttonChoosePlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findPlace(v);
+            }
+        });
     }
     // endregion
 
@@ -192,6 +206,7 @@ public class MakeEventActivity extends AppCompatActivity {
         addPhotoButton = findViewById(R.id.btnAddPhoto);
         buttonPickDate = findViewById(R.id.btnDatePicker);
         buttonTimePicker = findViewById(R.id.btnTimePicker);
+        buttonChoosePlace = findViewById(R.id.btnPlaces);
         textViewEventName = findViewById(R.id.txtEventName);
         textViewDate = findViewById(R.id.txtDate);
         textViewClock = findViewById(R.id.txtClock);
@@ -264,6 +279,20 @@ public class MakeEventActivity extends AppCompatActivity {
 
     //endregion
 
+    //region Google Places
+    public void findPlace(View view) {
+        try {
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+    //endregion
+
     /* Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
     private View.OnClickListener addPhotoListener = new View.OnClickListener() {
@@ -301,10 +330,11 @@ public class MakeEventActivity extends AppCompatActivity {
     }
     // endregion
 
-    // region bildethumbnail
+    // region bildethumbnail & Places Intent
     @Override
-    protected void onActivityResult (int requestCode, int resultCOde, @Nullable Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCOde == RESULT_OK) {
+    protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
+        //Bilde
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try {
                 galleryAddPic();
 
@@ -322,19 +352,23 @@ public class MakeEventActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
 
-            /** Få tak i filnavn til bildet */
-            /*Uri returnUri = data.getData();
-            Cursor returnCursor = getContentResolver().query(returnUri, null, null, null,null);
+        //Places
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                textViewAdresse.setText(place.getAddress());
 
-            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            returnCursor.moveToFirst();
-            textAddedPhoto = (TextView) findViewById(R.id.txtAddPhoto);
-            textAddedPhoto.setText(returnCursor.getString(nameIndex));*/
-
-            //private void sendEventDataToFirebase(){ /* TODO: Håndteres denne riktig? Sende bildet til Storage eller Database? */
-                //eventdataReference.push().setValue(eventList);
-            //}
+                Toast.makeText(this, "Place: " + place.getName() + " has been added!", Toast.LENGTH_SHORT);
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // Handles error
+                Toast.makeText(this, status.getStatusMessage(), Toast.LENGTH_SHORT);
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+                Toast.makeText(this, "Operation canceled", Toast.LENGTH_SHORT);
+            }
         }
     }
     // endregion
