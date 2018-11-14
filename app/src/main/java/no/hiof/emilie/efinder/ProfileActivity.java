@@ -90,15 +90,41 @@ public class ProfileActivity extends AppCompatActivity {
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(followed == 0){
-                    folgere = folgere+1;
-                    followed += 1;
-                    dbref.child(Uid).child("folgere").setValue(folgere);
-                    }else{
-                    Toast.makeText(ProfileActivity.this, "Already Following this person", Toast.LENGTH_LONG).show();
-                }
 
 
+                final DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+                //String Navn = dbref.child(Marcus).child("Navn").getValue(String.class);
+                final DatabaseReference following = root.child("users").child(Uid).child("FolgereList");
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                            //String followCase = dataSnapshot.child("Folgere").getValue(String.class);
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            String Marcus = FirebaseAuth.getInstance().getUid();
+                            Log.d("datasnap", Marcus);
+                           // String Navn = dbname.child("users").child(Marcus).child("Navn").getValue(String.class);
+                            String Kid = dataSnapshot.getKey();
+                            Log.d("datasnap", Kid);
+                            Log.d("datasnap",""+ds.getValue());
+                            if (ds.getValue().equals(Marcus)) {
+                                Toast.makeText(ProfileActivity.this, "Already Following this person", Toast.LENGTH_LONG).show();
+                            } else {
+                                //folgere = dbref.child(Kid).child("folgere").getValue(Integer.class);
+                                //followingRef.child(Uid).setValue();
+                                folgere = folgere + 1;
+                                //dbref.child(Kid).child("folgere").setValue(folgere);
+                                following.child(Marcus).setValue("");
+                                //followingRef.child("FolgereList").child(Uid).setValue(dataSnapshot);
+                                Log.d("datasnap",""+dataSnapshot);
+                            }
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                following.addListenerForSingleValueEvent(valueEventListener);
             }
         });
 
