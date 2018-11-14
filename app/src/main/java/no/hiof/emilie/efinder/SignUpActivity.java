@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                     dbref.child(Uid).child("Navn").setValue(Username.getText().toString());
                     dbref.child(Uid).child("alder").setValue(Userage.getText().toString());
                     dbref.child(Uid).child("personinfo").setValue(Userabout.getText().toString());
-                    dbref.child(Uid).child("folgere").setValue(harald);
+                    dbref.child(Uid).child("FolgereList").child("key").setValue("value");
                     Intent intent =new Intent(SignUpActivity.this,LogInActivity.class);
                     startActivity(intent);
 
