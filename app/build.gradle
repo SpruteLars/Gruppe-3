@@ -44,7 +44,7 @@ dependencies {
     implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     implementation 'pub.devrel:easypermissions:2.0.0'
 
-    //Google Maps
+    //Google Maps & Places
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-places:15.0.1'
 
@@ -54,6 +54,9 @@ dependencies {
 
     //Search Dialog
     implementation 'com.github.mirrajabi:search-dialog:1.2.3'
+
+    //FAB
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -63,6 +66,6 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://maven.google.com" }
-        maven { url "https://jitpack.io" }
+        maven { url "https://jitpack.io" } //https://github.com/mirrajabi/search-dialog
     }
 }

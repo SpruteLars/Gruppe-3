@@ -9,29 +9,45 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorText"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/colorText"/>
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/view_pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabs" />
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/tools"
+    <io.github.yavski.fabspeeddial.FabSpeedDial
+        android:id="@+id/fabSpeedDial"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:gravity="bottom|end"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="6dp"
+        app:fabGravity="bottom_end"
+        app:fabMenu="@menu/fab_list_main"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="@+id/view_pager"
+        app:miniFabBackgroundTint="@android:color/white"
+        app:miniFabDrawableTint="@color/colorPrimaryDark"
+        app:miniFabTitleTextColor="@color/colorPrimaryDark"/>
+
+        <!--android.support.design.widget.FloatingActionButton
+            android:id="@+id/slettMeg"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="end|bottom"
@@ -43,10 +59,10 @@
             app:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="@+id/view_pager"
-            app:srcCompat="@drawable/ic_baseline_add_24px" />
+            app:srcCompat="@drawable/ic_baseline_add_24px" /-->
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/tools2"
+        <!--android.support.design.widget.FloatingActionButton
+            android:id="@+id/slettMegOgså"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="end|bottom"
@@ -58,7 +74,7 @@
             app:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toTopOf="@+id/tools"
             app:layout_constraintEnd_toEndOf="@+id/view_pager"
-            app:srcCompat="@drawable/ic_baseline_search_24px" />
+            app:srcCompat="@drawable/ic_baseline_search_24px" /-->
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"

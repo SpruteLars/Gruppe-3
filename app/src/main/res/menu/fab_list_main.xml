@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/make_event_item"
+        android:icon="@drawable/ic_baseline_add_24px"
+        android:title="Make an Event"
+        />
+
+    <item
+        android:id="@+id/search_event_item"
+        android:icon="@drawable/ic_baseline_search_24px"
+        android:title="Search for Event"
+        />
+
+</menu>

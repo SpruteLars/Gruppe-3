@@ -45,8 +45,8 @@ public class FeedFragment extends Fragment {
 
     //Forslag til å importere alt av Firebase connections på denne måten
     FirebaseAccessModel firebaseAccessModel = new FirebaseAccessModel();
-    FirebaseDatabase firebaseDatabase = firebaseAccessModel.getFirebaseDatabase();
 
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -62,7 +62,7 @@ public class FeedFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        eventdataReference = firebaseAccessModel.getFirebaseDatabase().getReference("events");
+        eventdataReference = firebaseDatabase.getReference("events");
 
         createAuthenticationListener();
         createDatabaseReadListener();

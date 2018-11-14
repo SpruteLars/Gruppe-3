@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,13 +15,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import io.github.yavski.fabspeeddial.FabSpeedDial;
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     public static final String CHANNEL_ID = "1A";
     FragmentStatePagerAdapter eksempelPagerAdapter;
-
     public FirebaseDatabase firebaseDatabase;
 
     @Override
@@ -84,18 +83,49 @@ public class MainActivity extends AppCompatActivity {
         //endregion
 
         //region BotNav
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        FloatingActionButton fabMakeEvent = (FloatingActionButton) findViewById(R.id.tools);
-        FloatingActionButton fabSearchEvents = (FloatingActionButton) findViewById(R.id.tools2);
-
-        fabMakeEvent.setOnClickListener(new View.OnClickListener() {
+        FabSpeedDial fabSpeedDial = (FabSpeedDial)findViewById(R.id.fabSpeedDial);
+        fabSpeedDial.setMenuListener(new FabSpeedDial.MenuListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MakeEventActivity.class));
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                //Vis meny
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                String strMakeEvent = "Make an Event";
+                String strSearchEvent = "Search for Event";
+
+                //Sendes til MakeEventActivity
+                if (menuItem.getTitle().toString().equals(strMakeEvent))
+                    startActivity(new Intent(MainActivity.this, MakeEventActivity.class));
+
+                //Sendes til SearchDialog
+                if (menuItem.getTitle().toString().equals(strSearchEvent)) {
+                    new SimpleSearchDialogCompat(MainActivity.this,
+                        "Search...",
+                        "What events are you looking for...?",
+                        null,
+                        initData(),
+                        new SearchResultListener<Searchable>() {
+                            @Override
+                            public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
+                                Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
+                                baseSearchDialogCompat.dismiss();
+                            }
+                        }).show();
+                }
+
+                return true;
+            }
+
+            @Override
+            public void onMenuClosed() {
+
             }
         });
 
-        fabSearchEvents.setOnClickListener(new View.OnClickListener() {
+        /*fabSearchEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SimpleSearchDialogCompat(MainActivity.this,
@@ -111,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }).show();
             }
-        });
+        });*/
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
