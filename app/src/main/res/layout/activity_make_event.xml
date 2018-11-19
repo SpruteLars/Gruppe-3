@@ -25,8 +25,9 @@
             <!-- Text -->
             <EditText
                 android:id="@+id/txtEventName"
-                android:layout_width="257dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:autofillHints="@string/hint_name"
@@ -36,6 +37,7 @@
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtMakeEvent" />
 
@@ -78,7 +80,7 @@
                 android:id="@+id/txtAddPhoto"
                 android:layout_width="199dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:backgroundTint="@color/colorText"
@@ -87,7 +89,7 @@
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
-                app:layout_constraintEnd_toStartOf="@+id/btnAddPhoto"
+                app:layout_constraintEnd_toStartOf="@+id/btnTakePic"
                 app:layout_constraintStart_toEndOf="@+id/imgAddPhoto"
                 app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
 
@@ -252,16 +254,6 @@
 
             <!-- Buttons -->
 
-            <Button
-                android:id="@+id/btnAddPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/button_add"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
-
             <ImageView
                 android:id="@+id/imgAddPhoto"
                 android:layout_width="wrap_content"
@@ -278,7 +270,7 @@
                 android:id="@+id/btnDatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="49dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Pick a date"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -288,7 +280,7 @@
                 android:id="@+id/btnTimePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Pick a time"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -298,11 +290,30 @@
                 android:id="@+id/btnPlaces"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Pick a place"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnTimePicker" />
+
+            <ImageButton
+                android:id="@+id/btnTakePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnGalleryPic"
+                app:layout_constraintEnd_toStartOf="@+id/btnGalleryPic"
+                app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
+
+            <ImageButton
+                android:id="@+id/btnGalleryPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPayment"
+                app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24px" />
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

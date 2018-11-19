@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,8 +64,9 @@ public class MakeEventActivity extends AppCompatActivity {
                 textViewClock;
     Button  buttonPickDate,
             buttonTimePicker,
-            addPhotoButton,
             buttonChoosePlace;
+    ImageButton btnTakePicture,
+                btnChooseGalleryPicture;
     String  mCurrentPhotoPath,
             fileName;
     int     year_x,
@@ -79,6 +83,7 @@ public class MakeEventActivity extends AppCompatActivity {
     static final int DIALOG_INT_CALENDAR = 2;
     static final int DIALOG_INT_TIME = 3;
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
+    static final int IMAGE_GALLERY_REQUEST = 5;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
@@ -104,7 +109,8 @@ public class MakeEventActivity extends AppCompatActivity {
         onClickedTimeListener();
 
         /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
-        addPhotoButton.setOnClickListener(addPhotoListener);
+        btnTakePicture.setOnClickListener(addTakePictureListener);
+        btnChooseGalleryPicture.setOnClickListener(addImageFromGalleryListener);
 
         /* Firebase */
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -207,7 +213,8 @@ public class MakeEventActivity extends AppCompatActivity {
 
     //region XML items
     private void findViewById() {
-        addPhotoButton = findViewById(R.id.btnAddPhoto);
+        btnTakePicture = findViewById(R.id.btnTakePic);
+        btnChooseGalleryPicture = findViewById(R.id.btnGalleryPic);
         buttonPickDate = findViewById(R.id.btnDatePicker);
         buttonTimePicker = findViewById(R.id.btnTimePicker);
         buttonChoosePlace = findViewById(R.id.btnPlaces);
@@ -299,18 +306,37 @@ public class MakeEventActivity extends AppCompatActivity {
 
     /* Håndtering av å hente bilde og ta bilde */
     // region bildehåndtering
-    private View.OnClickListener addPhotoListener = new View.OnClickListener() {
+    private View.OnClickListener addTakePictureListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            dispatchTakePictureIntent();
+            dispatchPictureIntent();
         }
     };
     // endregion
 
+    //region Gallery testing
+    private View.OnClickListener addImageFromGalleryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dispatchGalleryIntent();
+        }
+    };
+
+    private void dispatchGalleryIntent() {
+        Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
+
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = file.getPath();
+        Uri uriData = Uri.parse(pictureDirectoryPath);
+
+        getPictureFromGalleryIntent.setDataAndType(uriData, "image/*");
+        startActivityForResult(getPictureFromGalleryIntent, IMAGE_GALLERY_REQUEST);
+    }
+    //endregion
+
     // region forespørsel om bildetagning til OS
-    private void dispatchTakePictureIntent() {
+    private void dispatchPictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
 
         //Make sure there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -355,6 +381,23 @@ public class MakeEventActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+
+        //Galleri
+        if (requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData(); //Adressen ti bildet på SD kortet
+            InputStream inputStream; //deklarerer en stream for å lese bildedata fra SD kortet
+
+            try {
+                inputStream = getContentResolver().openInputStream(imageUri);
+
+                Bitmap bitmapImage = BitmapFactory.decodeStream(inputStream);
+
+                btnChooseGalleryPicture.setImageBitmap(bitmapImage); //TODO: Få dette til å bli bildeteksten i stedet
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Unable to open image", Toast.LENGTH_SHORT).show();
             }
         }
 
