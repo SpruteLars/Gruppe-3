@@ -17,6 +17,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,7 @@ import java.util.Locale;
 import no.hiof.emilie.efinder.model.EventInformation;
 
 public class MakeEventActivity extends AppCompatActivity {
+    //region Field Variables
     EditText    textViewEventName,
                 textViewPayment,
                 textViewAttendants,
@@ -84,16 +86,23 @@ public class MakeEventActivity extends AppCompatActivity {
     static final int DIALOG_INT_TIME = 3;
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
     static final int IMAGE_GALLERY_REQUEST = 5;
+    static final String TAG = "INPUTFIELDS";
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
     private StorageReference storageReference;
+
+    //endregion
 
     // region onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
+
+        findViewById();
+        onClickedDateListener();
+        onClickedTimeListener();
 
         editTextArray = new ArrayList<>();
         simpleDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -104,10 +113,6 @@ public class MakeEventActivity extends AppCompatActivity {
         hour_x = calendar.get(Calendar.HOUR_OF_DAY);
         minute_x = calendar.get(Calendar.MINUTE);
 
-        findViewById();
-        onClickedDateListener();
-        onClickedTimeListener();
-
         /* Listener til å legge til bildet - ikke helt funksjonabel ennå */
         btnTakePicture.setOnClickListener(addTakePictureListener);
         btnChooseGalleryPicture.setOnClickListener(addImageFromGalleryListener);
@@ -117,7 +122,6 @@ public class MakeEventActivity extends AppCompatActivity {
         eventdataReference = firebaseDatabase.getReference("events");
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        /** Bottom Navigation */
         // region botnav
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         BottomNavigationMenuView bottomNavigationMenuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
@@ -150,12 +154,16 @@ public class MakeEventActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int i = 1;
                 for (String textView : editTextArray) {
                     //textView.setError("Feilmelding");
                     if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    else
+                        Log.d(TAG, "Linje nr " + i + " inneholder ikke data.");
+                    i++;
                 }
 
                 Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
@@ -312,9 +320,7 @@ public class MakeEventActivity extends AppCompatActivity {
             dispatchPictureIntent();
         }
     };
-    // endregion
 
-    //region Gallery testing
     private View.OnClickListener addImageFromGalleryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -360,7 +366,7 @@ public class MakeEventActivity extends AppCompatActivity {
     }
     // endregion
 
-    // region bildethumbnail & Places Intent
+    // region onActivityResult - camera, gallery & places
     @Override
     protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
         //Bilde
