@@ -4,8 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -370,7 +370,6 @@ public class MakeEventActivity extends AppCompatActivity {
 
                 File f = new File(mCurrentPhotoPath);
                 Uri contentURI = Uri.fromFile(f);
-                //InputStream imageStream = getContentResolver().openInputStream(contentURI);
 
                 picture = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
 
@@ -389,16 +388,19 @@ public class MakeEventActivity extends AppCompatActivity {
             Uri imageUri = data.getData(); //Adressen ti bildet på SD kortet
             InputStream inputStream; //deklarerer en stream for å lese bildedata fra SD kortet
 
-            try {
-                inputStream = getContentResolver().openInputStream(imageUri);
+            String[] filePathColumn = { MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
+            cursor.moveToFirst();
 
-                Bitmap bitmapImage = BitmapFactory.decodeStream(inputStream);
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
 
-                btnChooseGalleryPicture.setImageBitmap(bitmapImage); //TODO: Få dette til å bli bildeteksten i stedet
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Unable to open image", Toast.LENGTH_SHORT).show();
-            }
+            File f = new File(picturePath);
+            String imageName = f.getName();
+
+            textAddedPhoto = findViewById(R.id.txtAddPhoto);
+            textAddedPhoto.setText(imageName);
         }
 
         //Places
