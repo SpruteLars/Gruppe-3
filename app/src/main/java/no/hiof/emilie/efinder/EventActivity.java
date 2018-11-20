@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -155,10 +156,12 @@ public class EventActivity extends AppCompatActivity {
                             if(ds.getKey().equals(Uid)){
                                 dbref.child("paameldte").child(Uid).removeValue();
                                 Userdbref.child("Event").child(evenUid).removeValue();
+                                Toast.makeText(EventActivity.this,"NOT GOING anymore",Toast.LENGTH_LONG).show();
                                 break;
                             }else {
                                 dbref.child("paameldte").child(Uid).setValue("q");
                                 Userdbref.child("Event").child(evenUid).setValue("q");
+                                Toast.makeText(EventActivity.this,"Going",Toast.LENGTH_LONG).show();
                             }
                         }
 
