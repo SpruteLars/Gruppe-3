@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class EventActivity extends AppCompatActivity {
     private String evenUid;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String Uid = user.getUid();
+    String eventUid;
     //Google Maps
     public ImageButton myButton;
 
@@ -56,9 +58,17 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        if(getIntent().equals("event_uid")){
+            eventUid = getIntent().getStringExtra(EVENT_UID);
+            Log.d("eventIkke",""+eventUid);
+            evenUid = eventUid;
+        }else{
+            eventUid = getIntent().getStringExtra("EventUid");
+            Log.d("eventSøk",""+eventUid);
+            evenUid = eventUid;
+        }
+        Log.d("event",""+eventUid);
 
-        String eventUid = getIntent().getStringExtra(EVENT_UID);
-        evenUid = eventUid;
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
         firebaseAuth = FirebaseAuth.getInstance();
