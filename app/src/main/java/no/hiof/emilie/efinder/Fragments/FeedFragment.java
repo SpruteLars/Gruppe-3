@@ -171,7 +171,8 @@ public class FeedFragment extends Fragment {
                 EventInformation event = eventList.get(position);
 
                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());
+                //intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());
+                intent.putExtra("event_uid",""+event.getEventUID());
 
                 startActivity(intent);
             }

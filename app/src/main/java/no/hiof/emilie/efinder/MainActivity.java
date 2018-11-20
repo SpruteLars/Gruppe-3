@@ -180,21 +180,20 @@ public class MainActivity extends AppCompatActivity {
                         null,
                         initData(),
                         new SearchResultListener<Searchable>() {
-
                             @Override
                             public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, final Searchable searchable, int i) {
                                 kntent = new Intent(MainActivity.this, EventActivity.class);
                                 Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
 
-                                final String marcus = searchable.getTitle();
+                                final String searchedTitle = searchable.getTitle();
 
                                 ValueEventListener valueListener = (new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                             // Log.d("eventsPlease","Nøkkel "+ds.getKey()+" Title "+searchable.getTitle());
-                                            if (ds.child("eventTitle").getValue().equals(marcus)) {
-                                                Log.d("eventsPlease", "Nøkkel " + ds.getKey() + " Title " + marcus);
+                                            if (ds.child("eventTitle").getValue().equals(searchedTitle)) {
+                                                Log.d("eventsPlease", "Nøkkel " + ds.getKey() + " Title " + searchedTitle);
                                                 kntent.putExtra("EventUid", "" + ds.getKey());
                                             }
                                         }
@@ -207,15 +206,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                 });
-
-
                                 baseSearchDialogCompat.dismiss();
                                 Eventdbref.addValueEventListener(valueListener);
 
                             }
                         }).show();
                 }
-
                 return true;
             }
 
@@ -253,11 +249,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SearchModel> initData() {
 
 
-        items.add(new SearchModel("Captain America"));
+        /*+items.add(new SearchModel("Captain America"));
         items.add(new SearchModel("Batman"));
         items.add(new SearchModel("Deadpool"));
         items.add(new SearchModel("Spiderman"));
-        items.add(new SearchModel("Stan Lee cameo"));
+        items.add(new SearchModel("Stan Lee cameo"));*/
 
         return items;
     }
@@ -297,11 +293,6 @@ public class MainActivity extends AppCompatActivity {
             //Bruker string-arrayen til å hente ut tittel ut i fra brukerens posisjon
             return tabTitles[position];
         }
-
-
-
-        }
-
-
+    }
     // endregion
 }

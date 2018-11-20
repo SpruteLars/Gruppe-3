@@ -58,15 +58,19 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        if(getIntent().equals("event_uid")){
+        Log.d("eventIkke",""+getIntent().getStringExtra(EVENT_UID));
+
+        if(getIntent().getStringExtra("event_uid") != null){
+            //Log.d("eventIkke",""+eventUid);
             eventUid = getIntent().getStringExtra(EVENT_UID);
-            Log.d("eventIkke",""+eventUid);
+
             evenUid = eventUid;
-        }else{
+        } else {
             eventUid = getIntent().getStringExtra("EventUid");
             Log.d("eventSøk",""+eventUid);
             evenUid = eventUid;
         }
+
         Log.d("event",""+eventUid);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -103,7 +107,6 @@ public class EventActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 event = dataSnapshot.getValue(EventInformation.class);
                 event.setEventUID(dataSnapshot.getKey());
-
 
                 nameTextView.setText(event.getEventTitle());
                 descriptionTextView.setText(event.getEventDescription());
@@ -170,6 +173,7 @@ public class EventActivity extends AppCompatActivity {
             }
         });
         //region size decoding
+        //IKKE SLETT
         /*private void setPic() {
             //Dimensions used to display image
             //int targetWidth = imageView.getWidth();
