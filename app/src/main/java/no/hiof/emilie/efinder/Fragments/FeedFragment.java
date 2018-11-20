@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -20,12 +22,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+import no.hiof.emilie.efinder.DiscoveryActivity;
+import no.hiof.emilie.efinder.SearchActivity;
 import no.hiof.emilie.efinder.model.EventInformation;
 import no.hiof.emilie.efinder.R;
 import no.hiof.emilie.efinder.EventActivity;
@@ -50,6 +56,8 @@ public class FeedFragment extends Fragment {
     private DatabaseReference eventdataReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    HashMap<String, String> personMap;
+    Button btnsook;
 
     public FeedFragment() {}
 
@@ -67,6 +75,9 @@ public class FeedFragment extends Fragment {
         createAuthenticationListener();
         createDatabaseReadListener();
         setUpRecyclerView(fragmentView);
+
+
+
 
         return fragmentView;
     }
@@ -206,5 +217,11 @@ public class FeedFragment extends Fragment {
             }
         }
     }
-    //endregion
+
+
+
+
 }
+
+    //endregion
+

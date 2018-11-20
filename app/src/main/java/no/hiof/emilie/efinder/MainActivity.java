@@ -17,9 +17,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
@@ -34,12 +39,79 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     public static final String CHANNEL_ID = "1A";
     FragmentStatePagerAdapter eksempelPagerAdapter;
-    public FirebaseDatabase firebaseDatabase;
+    public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    public HashMap<String, String> personMap;
+    DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
+    ArrayList<SearchModel> items = new ArrayList<>();;
+    Intent kntent;
+    public HashMap<String, String> SearchDataBase(String sook){
+
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("events");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String followCase = ds.child("eventTitle").getValue(String.class);
+                    String Marcus = "Marcus Olsen";
+                    String Uid = ds.getKey();
+
+
+                    //if (followCase.contains(sookEvent)) {
+                    // Log.d("Bruk", followCase);
+                    // Log.d("Bruk", Uid);
+                    if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
+
+                    } else {
+                        personMap.put(Uid, followCase);
+                    }
+
+                    for (String key : personMap.keySet()) {
+                        Log.d("mapper", key);
+                    }
+                    for (String loop : personMap.values()) {
+                        Log.d("mapper", loop);
+                    }
+                    //}
+
+                }
+                //Intent intent = new Intent(DiscoveryActivity.this, SearchActivity.class);
+                //intent.putExtra("map", personMap);
+                //startActivity(intent);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        };
+        dbref.addListenerForSingleValueEvent(valueEventListener);
+
+        return personMap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        ValueEventListener ValueListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String kaffe = ds.child("eventTitle").getValue(String.class);
+                    items.add(new SearchModel(kaffe));
+                    Log.d("ItemLog",""+ds.child("eventTitle").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        Eventdbref.addListenerForSingleValueEvent(ValueListener);
 
         //region Notification
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -108,10 +180,38 @@ public class MainActivity extends AppCompatActivity {
                         null,
                         initData(),
                         new SearchResultListener<Searchable>() {
+
                             @Override
-                            public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
+                            public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, final Searchable searchable, int i) {
+                                kntent = new Intent(MainActivity.this, EventActivity.class);
                                 Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
+
+                                final String marcus = searchable.getTitle();
+
+                                ValueEventListener valueListener = (new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                            // Log.d("eventsPlease","Nøkkel "+ds.getKey()+" Title "+searchable.getTitle());
+                                            if (ds.child("eventTitle").getValue().equals(marcus)) {
+                                                Log.d("eventsPlease", "Nøkkel " + ds.getKey() + " Title " + marcus);
+                                                kntent.putExtra("EventUid", "" + ds.getKey());
+                                            }
+                                        }
+                                        startActivity(kntent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+
+                                });
+
+
                                 baseSearchDialogCompat.dismiss();
+                                Eventdbref.addValueEventListener(valueListener);
+
                             }
                         }).show();
                 }
@@ -151,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
     //region Search Events Dialog Items
     private ArrayList<SearchModel> initData() {
-        ArrayList<SearchModel> items = new ArrayList<>();
+
 
         items.add(new SearchModel("Captain America"));
         items.add(new SearchModel("Batman"));
@@ -197,6 +297,11 @@ public class MainActivity extends AppCompatActivity {
             //Bruker string-arrayen til å hente ut tittel ut i fra brukerens posisjon
             return tabTitles[position];
         }
-    }
+
+
+
+        }
+
+
     // endregion
 }
