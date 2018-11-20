@@ -248,11 +248,12 @@ public class MainActivity extends AppCompatActivity {
     //region Search Events Dialog Items
     private ArrayList<SearchModel> initData() {
 
-        items.add(new SearchModel("Captain America"));
+
+        /*+items.add(new SearchModel("Captain America"));
         items.add(new SearchModel("Batman"));
         items.add(new SearchModel("Deadpool"));
         items.add(new SearchModel("Spiderman"));
-        items.add(new SearchModel("Stan Lee cameo"));
+        items.add(new SearchModel("Stan Lee cameo"));*/
 
         return items;
     }

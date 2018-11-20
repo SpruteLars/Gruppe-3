@@ -58,10 +58,12 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        Log.d("eventIkke",""+getIntent().getStringExtra(EVENT_UID));
 
-        if (getIntent().equals("event_uid")) {
+        if(getIntent().getStringExtra("event_uid") != null){
+            //Log.d("eventIkke",""+eventUid);
             eventUid = getIntent().getStringExtra(EVENT_UID);
-            Log.d("eventIkke",""+eventUid);
+
             evenUid = eventUid;
         } else {
             eventUid = getIntent().getStringExtra("EventUid");

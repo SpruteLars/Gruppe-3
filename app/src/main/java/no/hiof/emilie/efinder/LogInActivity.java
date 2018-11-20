@@ -53,8 +53,14 @@ public class LogInActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     editEmail = findViewById(R.id.txtEmail);
                     editPass = findViewById(R.id.txtPassword);
+                    if(editEmail.equals("")){
+                        Toast.makeText(LogInActivity.this,"Fill in your Email",Toast.LENGTH_LONG).show();
+                    }else if(editPass.equals("")){
+                        Toast.makeText(LogInActivity.this,"Fill in your Password",Toast.LENGTH_LONG).show();
+                    }else{
+                        signIn(editEmail.getText().toString(), editPass.getText().toString());
+                    }
 
-                    signIn(editEmail.getText().toString(), editPass.getText().toString());
                 }
             });
 
