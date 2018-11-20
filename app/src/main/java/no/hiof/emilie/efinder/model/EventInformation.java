@@ -15,16 +15,14 @@ public class EventInformation {
             eventPayment,
             eventAttendants;
 
-
-
-    public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
+    public EventInformation(String eventUID, String eventTitle, String eventDateTime, String eventTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
         this.eventUID = eventUID;
         this.eventTitle = eventTitle;
         this.eventDate = eventDateTime;
         this.eventPayment = eventPayment;
         this.eventAttendants = eventAttendants;
         this.eventAdress = eventAdress;
-
+        this.eventTime = eventTime;
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
     }

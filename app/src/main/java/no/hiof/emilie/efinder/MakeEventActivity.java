@@ -197,6 +197,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                             null,
                             textViewEventName.getText().toString(),
                             textViewDate.getText().toString(),
+                            textViewClock.getText().toString(),
                             Integer.parseInt(textViewPayment.getText().toString()),
                             Integer.parseInt(textViewAttendants.getText().toString()),
                             textViewAdresse.getText().toString(),
