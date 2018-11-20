@@ -91,7 +91,6 @@ public class MakeEventActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
     private StorageReference storageReference;
-
     //endregion
 
     // region onCreate
@@ -154,16 +153,22 @@ public class MakeEventActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i = 1;
+                editTextArray.add(textViewEventName.getText().toString());
+                editTextArray.add(textViewDate.getText().toString());
+                editTextArray.add(textViewClock.getText().toString());
+                editTextArray.add(textViewPayment.getText().toString());
+                editTextArray.add(textViewAttendants.getText().toString());
+                editTextArray.add(textViewAdresse.getText().toString());
+                editTextArray.add(textViewDescription.getText().toString());
+
+                Log.d(TAG, "Filnavn: " + mCurrentPhotoPath);
+
                 for (String textView : editTextArray) {
                     //textView.setError("Feilmelding");
                     if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    else
-                        Log.d(TAG, "Linje nr " + i + " inneholder ikke data.");
-                    i++;
                 }
 
                 Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
@@ -174,6 +179,8 @@ public class MakeEventActivity extends AppCompatActivity {
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        Log.d(TAG, "Dette gikk ikke bra!");
+                        exception.printStackTrace();
                         // Handle unsuccessful uploads
                         Toast.makeText(MakeEventActivity.this, "File not uploaded", Toast.LENGTH_SHORT).show();
                     }
@@ -233,14 +240,6 @@ public class MakeEventActivity extends AppCompatActivity {
         textViewAttendants = findViewById(R.id.txtAttendants);
         textViewAdresse = findViewById(R.id.txtAdress);
         textViewDescription = findViewById(R.id.txtDescription);
-
-        editTextArray.add(textViewEventName.getText().toString());
-        editTextArray.add(textViewDate.getText().toString());
-        editTextArray.add(textViewClock.getText().toString());
-        editTextArray.add(textViewPayment.getText().toString());
-        editTextArray.add(textViewAttendants.getText().toString());
-        editTextArray.add(textViewAdresse.getText().toString());
-        editTextArray.add(textViewDescription.getText().toString());
     }
     //endregion XML-items
 
@@ -404,6 +403,8 @@ public class MakeEventActivity extends AppCompatActivity {
 
             File f = new File(picturePath);
             String imageName = f.getName();
+
+            mCurrentPhotoPath = picturePath;
 
             textAddedPhoto = findViewById(R.id.txtAddPhoto);
             textAddedPhoto.setText(imageName);

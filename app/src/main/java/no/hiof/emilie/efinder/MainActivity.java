@@ -125,24 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*fabSearchEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SimpleSearchDialogCompat(MainActivity.this,
-                    "Search...",
-                    "What events are you looking for...?",
-                    null,
-                    initData(),
-                    new SearchResultListener<Searchable>() {
-                        @Override
-                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
-                            Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
-                            baseSearchDialogCompat.dismiss();
-                        }
-                    }).show();
-            }
-        });*/
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
