@@ -325,7 +325,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     //endregion
 
     /* Håndtering av å hente bilde og ta bilde */
-    // region bildehåndtering
+    // region onClicks
     private View.OnClickListener addTakePictureListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -339,35 +339,10 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
             dispatchGalleryIntent();
         }
     };
-
-    private void dispatchGalleryIntent() {
-        Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
-
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = file.getPath();
-        Uri uriData = Uri.parse(pictureDirectoryPath);
-
-        getPictureFromGalleryIntent.setDataAndType(uriData, "image/*");
-        startActivityForResult(getPictureFromGalleryIntent, IMAGE_GALLERY_REQUEST);
-    }
     //endregion
 
     // region forespørsel om bildetagning til OS
-    @AfterPermissionGranted(123)
     private void dispatchPictureIntent() {
-        String[] perms = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
-
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            Toast.makeText(this, "Opening camera", Toast.LENGTH_SHORT).show();
-        } else {
-            EasyPermissions.requestPermissions(this, "We need permission for you to upload an event.", 123, perms);
-        }
-
-
-
-
-
-
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //Make sure there's a camera activity to handle the intent
@@ -391,6 +366,26 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
         }
     }
 
+    @AfterPermissionGranted(123)
+    private void dispatchGalleryIntent() {
+        String[] perms = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            Toast.makeText(this, "Opening camera", Toast.LENGTH_SHORT).show();
+
+            Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
+
+            File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            String pictureDirectoryPath = file.getPath();
+            Uri uriData = Uri.parse(pictureDirectoryPath);
+
+            getPictureFromGalleryIntent.setDataAndType(uriData, "image/*");
+            startActivityForResult(getPictureFromGalleryIntent, IMAGE_GALLERY_REQUEST);
+        } else {
+            EasyPermissions.requestPermissions(this, "We need permission for you to upload an event.", 123, perms);
+        }
+    }
+
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
 
@@ -407,64 +402,65 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     // region onActivityResult - camera, gallery & places
     @Override
     protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
-        //Bilde
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                galleryAddPic();
+        super.onActivityResult(requestCode, resultCode, data);
+            //Bilde
+            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                try {
+                    galleryAddPic();
 
-                File f = new File(mCurrentPhotoPath);
-                Uri contentURI = Uri.fromFile(f);
+                    File f = new File(mCurrentPhotoPath);
+                    Uri contentURI = Uri.fromFile(f);
 
-                picture = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
+                    picture = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
+
+                    textAddedPhoto = findViewById(R.id.txtAddPhoto);
+                    textAddedPhoto.setText(fileName);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //Galleri
+            if (requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK) {
+                Uri imageUri = data.getData(); //Adressen ti bildet på SD kortet
+                InputStream inputStream; //deklarerer en stream for å lese bildedata fra SD kortet
+
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                File f = new File(picturePath);
+                String imageName = f.getName();
+
+                mCurrentPhotoPath = picturePath;
 
                 textAddedPhoto = findViewById(R.id.txtAddPhoto);
-                textAddedPhoto.setText(fileName);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                textAddedPhoto.setText(imageName);
             }
-        }
 
-        //Galleri
-        if (requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK) {
-            Uri imageUri = data.getData(); //Adressen ti bildet på SD kortet
-            InputStream inputStream; //deklarerer en stream for å lese bildedata fra SD kortet
+            //Places
+            if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+                if (resultCode == RESULT_OK) {
+                    Place place = PlaceAutocomplete.getPlace(this, data);
+                    textViewAdresse.setText(place.getAddress());
 
-            String[] filePathColumn = { MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            File f = new File(picturePath);
-            String imageName = f.getName();
-
-            mCurrentPhotoPath = picturePath;
-
-            textAddedPhoto = findViewById(R.id.txtAddPhoto);
-            textAddedPhoto.setText(imageName);
-        }
-
-        //Places
-        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(this, data);
-                textViewAdresse.setText(place.getAddress());
-
-                Toast.makeText(this, "Place: " + place.getName() + " has been added!", Toast.LENGTH_SHORT);
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(this, data);
-                // Handles error
-                Toast.makeText(this, status.getStatusMessage(), Toast.LENGTH_SHORT);
-            } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
-                Toast.makeText(this, "Operation canceled", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Place: " + place.getName() + " has been added!", Toast.LENGTH_SHORT);
+                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                    Status status = PlaceAutocomplete.getStatus(this, data);
+                    // Handles error
+                    Toast.makeText(this, status.getStatusMessage(), Toast.LENGTH_SHORT);
+                } else if (resultCode == RESULT_CANCELED) {
+                    // The user canceled the operation.
+                    Toast.makeText(this, "Operation canceled", Toast.LENGTH_SHORT);
+                }
             }
-        }
     }
     // endregion
 
