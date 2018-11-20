@@ -17,7 +17,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -49,7 +48,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import no.hiof.emilie.efinder.model.EventInformation;
@@ -77,7 +75,7 @@ public class MakeEventActivity extends AppCompatActivity {
             hour_x,
             minute_x;
     Bitmap picture;
-    private List<String> editTextArray;
+    private ArrayList<String> editTextArray;
     private DatePickerDialog startDate;
     private SimpleDateFormat simpleDateFormatter;
 
@@ -99,12 +97,12 @@ public class MakeEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_event);
+        editTextArray = new ArrayList<>();
 
         findViewById();
         onClickedDateListener();
         onClickedTimeListener();
 
-        editTextArray = new ArrayList<>();
         simpleDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         final Calendar calendar = Calendar.getInstance();
         year_x = calendar.get(Calendar.YEAR);
@@ -154,16 +152,20 @@ public class MakeEventActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i = 1;
+                editTextArray.add(textViewEventName.getText().toString());
+                editTextArray.add(textViewDate.getText().toString());
+                editTextArray.add(textViewClock.getText().toString());
+                editTextArray.add(textViewPayment.getText().toString());
+                editTextArray.add(textViewAttendants.getText().toString());
+                editTextArray.add(textViewAdresse.getText().toString());
+                editTextArray.add(textViewDescription.getText().toString());
+
                 for (String textView : editTextArray) {
                     //textView.setError("Feilmelding");
                     if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    else
-                        Log.d(TAG, "Linje nr " + i + " inneholder ikke data.");
-                    i++;
                 }
 
                 Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
@@ -233,14 +235,6 @@ public class MakeEventActivity extends AppCompatActivity {
         textViewAttendants = findViewById(R.id.txtAttendants);
         textViewAdresse = findViewById(R.id.txtAdress);
         textViewDescription = findViewById(R.id.txtDescription);
-
-        editTextArray.add(textViewEventName.getText().toString());
-        editTextArray.add(textViewDate.getText().toString());
-        editTextArray.add(textViewClock.getText().toString());
-        editTextArray.add(textViewPayment.getText().toString());
-        editTextArray.add(textViewAttendants.getText().toString());
-        editTextArray.add(textViewAdresse.getText().toString());
-        editTextArray.add(textViewDescription.getText().toString());
     }
     //endregion XML-items
 
@@ -313,7 +307,7 @@ public class MakeEventActivity extends AppCompatActivity {
     //endregion
 
     /* Håndtering av å hente bilde og ta bilde */
-    // region bildehåndtering
+    // region forespørsel om bildetagning til OS
     private View.OnClickListener addTakePictureListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -328,19 +322,6 @@ public class MakeEventActivity extends AppCompatActivity {
         }
     };
 
-    private void dispatchGalleryIntent() {
-        Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
-
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = file.getPath();
-        Uri uriData = Uri.parse(pictureDirectoryPath);
-
-        getPictureFromGalleryIntent.setDataAndType(uriData, "image/*");
-        startActivityForResult(getPictureFromGalleryIntent, IMAGE_GALLERY_REQUEST);
-    }
-    //endregion
-
-    // region forespørsel om bildetagning til OS
     private void dispatchPictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -363,6 +344,17 @@ public class MakeEventActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+    }
+
+    private void dispatchGalleryIntent() {
+        Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
+
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = file.getPath();
+        Uri uriData = Uri.parse(pictureDirectoryPath);
+
+        getPictureFromGalleryIntent.setDataAndType(uriData, "image/*");
+        startActivityForResult(getPictureFromGalleryIntent, IMAGE_GALLERY_REQUEST);
     }
     // endregion
 
