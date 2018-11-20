@@ -57,6 +57,9 @@ dependencies {
 
     //FAB
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+
+    //Gallery permission
+    implementation 'pub.devrel:easypermissions:2.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

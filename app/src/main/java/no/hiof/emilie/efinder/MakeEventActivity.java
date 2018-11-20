@@ -1,5 +1,6 @@
 package no.hiof.emilie.efinder;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -53,8 +54,11 @@ import java.util.List;
 import java.util.Locale;
 
 import no.hiof.emilie.efinder.model.EventInformation;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MakeEventActivity extends AppCompatActivity {
+public class MakeEventActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     //region Field Variables
     EditText    textViewEventName,
                 textViewPayment,
@@ -297,6 +301,15 @@ public class MakeEventActivity extends AppCompatActivity {
 
     //endregion
 
+    //region EasyPermission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    //endregion
     //region Google Places
     public void findPlace(View view) {
         try {
@@ -340,7 +353,21 @@ public class MakeEventActivity extends AppCompatActivity {
     //endregion
 
     // region forespørsel om bildetagning til OS
+    @AfterPermissionGranted(123)
     private void dispatchPictureIntent() {
+        String[] perms = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            Toast.makeText(this, "Opening camera", Toast.LENGTH_SHORT).show();
+        } else {
+            EasyPermissions.requestPermissions(this, "We need permission for you to upload an event.", 123, perms);
+        }
+
+
+
+
+
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //Make sure there's a camera activity to handle the intent
@@ -361,6 +388,18 @@ public class MakeEventActivity extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
         }
     }
     // endregion
