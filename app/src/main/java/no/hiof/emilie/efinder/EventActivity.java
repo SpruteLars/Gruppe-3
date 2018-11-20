@@ -155,6 +155,7 @@ public class EventActivity extends AppCompatActivity {
                             if(ds.getKey().equals(Uid)){
                                 dbref.child("paameldte").child(Uid).removeValue();
                                 Userdbref.child("Event").child(evenUid).removeValue();
+                                break;
                             }else {
                                 dbref.child("paameldte").child(Uid).setValue("q");
                                 Userdbref.child("Event").child(evenUid).setValue("q");

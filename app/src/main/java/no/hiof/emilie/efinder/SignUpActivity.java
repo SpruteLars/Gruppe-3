@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,12 +50,29 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 textEmail = findViewById(R.id.txtEmail);
-                textPassword= findViewById(R.id.txtPass);
+                String tEmail = textEmail.getText().toString();
+                textPassword = findViewById(R.id.txtPass);
+                String tPass =  textPassword.getText().toString();
+                Username = findViewById(R.id.txtName);
+                String uName = Username.getText().toString();
+                Log.d("Bruker",Username.getText().toString());
+                Userabout = findViewById(R.id.txtInfo);
+                String uAbout = Userabout.getText().toString();
+                Log.d("Bruker",Userabout.getText().toString());
+                Userage = findViewById(R.id.txtAlder);
+                String uAge = Userage.getText().toString();
+                if (uName.matches("")){
+                    Toast.makeText(SignUpActivity.this,"Fill out your full name", Toast.LENGTH_LONG).show();
+                }else if(uAbout.matches("")){
+                    Toast.makeText(SignUpActivity.this,"Fill out about you", Toast.LENGTH_LONG).show();
+                }else if(uAge.matches("")){
+                    Toast.makeText(SignUpActivity.this,"Fill out your age", Toast.LENGTH_LONG).show();
+                } else if(tPass.matches("") && tEmail.matches("")){
 
-                if(textEmail != null && textPassword != null){
-
+                    Toast.makeText(SignUpActivity.this,"Fill out a email and a password", Toast.LENGTH_LONG).show();
+                }else{
                     CreateUser(textEmail.getText().toString(),textPassword.getText().toString());
-
+                    Toast.makeText(SignUpActivity.this,"success", Toast.LENGTH_LONG).show();
                 }
 
             }
