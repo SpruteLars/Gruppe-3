@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +39,10 @@ public class EventActivity extends AppCompatActivity {
     private TextView adresseTextView;
     private ImageView posterImageView;
     private String imageName;
-
+    private Button melde;
+    private String evenUid;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String Uid = user.getUid();
     //Google Maps
     public ImageButton myButton;
 
@@ -53,7 +58,7 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         String eventUid = getIntent().getStringExtra(EVENT_UID);
-
+        evenUid = eventUid;
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -68,6 +73,7 @@ public class EventActivity extends AppCompatActivity {
         adresseTextView = findViewById(R.id.txtAddresse);
         posterImageView  = findViewById(R.id.imgView);
         myButton = findViewById(R.id.mapButton);
+        melde = findViewById(R.id.btnMeld);
         //endregion
 
         //region Google Maps
@@ -87,6 +93,7 @@ public class EventActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 event = dataSnapshot.getValue(EventInformation.class);
                 event.setEventUID(dataSnapshot.getKey());
+
 
                 nameTextView.setText(event.getEventTitle());
                 descriptionTextView.setText(event.getEventDescription());
@@ -120,6 +127,38 @@ public class EventActivity extends AppCompatActivity {
         });
         //endregion
 
+        melde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DatabaseReference dbref = firebaseDatabase.getReference("events").child(evenUid);
+                final DatabaseReference Userdbref = firebaseDatabase.getReference("users").child(Uid);
+
+                //dbref.child("paameldte").child(Uid).setValue("q");
+
+                ValueEventListener valueEventListener = (new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
+                            if(ds.getKey().equals(Uid)){
+                                dbref.child("paameldte").child(Uid).removeValue();
+                                Userdbref.child("Event").child(evenUid).removeValue();
+                            }else {
+                                dbref.child("paameldte").child(Uid).setValue("q");
+                                Userdbref.child("Event").child(evenUid).setValue("q");
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            dbref.addListenerForSingleValueEvent(valueEventListener);
+            }
+        });
         //region size decoding
         /*private void setPic() {
             //Dimensions used to display image
