@@ -26,21 +26,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import no.hiof.emilie.efinder.EventActivity;
-import no.hiof.emilie.efinder.R;
-import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 import no.hiof.emilie.efinder.model.EventInformation;
+import no.hiof.emilie.efinder.R;
+import no.hiof.emilie.efinder.EventActivity;
+import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 import no.hiof.emilie.efinder.model.FirebaseAccessModel;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class PaameldtFragment extends Fragment {
-
-    public PaameldtFragment() {}
     private static final int RC_SIGN_IN = 1;
-    private List<EventInformation> eventList;
-    private List<String> eventListKeys;
+    private List<EventInformation> paameldtList;
+    private List<String> paameldtListKeys;
     private RecyclerView recyclerView;
     private ChildEventListener childEventListener;
     private EventRecyclerAdapter eventAdapter;
@@ -50,19 +48,27 @@ public class PaameldtFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
+    private DatabaseReference userdataReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String Uid = user.getUid();
+
+
+    public PaameldtFragment() {}
 
     @Nullable
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
-        eventList = new ArrayList<>();
-        eventListKeys = new ArrayList<>();
+        paameldtList = new ArrayList<>();
+        paameldtListKeys = new ArrayList<>();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         eventdataReference = firebaseDatabase.getReference("events");
+        userdataReference = firebaseDatabase.getReference("users").child(Uid);
+
 
         createAuthenticationListener();
         createDatabaseReadListener();
@@ -78,6 +84,7 @@ public class PaameldtFragment extends Fragment {
 
         if (childEventListener != null)
             eventdataReference.addChildEventListener(childEventListener);
+
     }
 
     @Override
@@ -91,8 +98,8 @@ public class PaameldtFragment extends Fragment {
             eventdataReference.removeEventListener(childEventListener);
         }
 
-        eventList.clear();
-        eventListKeys.clear();
+        paameldtList.clear();
+        paameldtListKeys.clear();
         eventAdapter.notifyDataSetChanged();
     }
 
@@ -103,14 +110,17 @@ public class PaameldtFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 EventInformation event = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-
                 event.setEventUID(eventKey);
-
-                if (!eventList.contains(event)) {
-                    eventList.add(event);
-                    Collections.sort(eventList, EventInformation.Sortering);
-                    eventListKeys.add(eventKey);
-                    eventAdapter.notifyItemInserted(eventList.size()-1);
+                for(DataSnapshot ds:
+                    dataSnapshot.child("paameldte").getChildren()){
+                    if (ds.getKey().equals(Uid)){
+                        if (!paameldtList.contains(event)) {
+                            paameldtList.add(event);
+                            Collections.sort(paameldtList, EventInformation.Sortering);
+                            paameldtListKeys.add(eventKey);
+                            eventAdapter.notifyItemInserted(paameldtList.size() - 1);
+                        }
+                    }
                 }
             }
             @Override
@@ -119,22 +129,22 @@ public class PaameldtFragment extends Fragment {
                 String eventKey = dataSnapshot.getKey();
                 event.setEventUID(eventKey);
 
-                int position = eventListKeys.indexOf(eventKey);
+                int position = paameldtListKeys.indexOf(eventKey);
 
-                eventList.set(position, event);
+                paameldtList.set(position, event);
                 eventAdapter.notifyItemChanged(position);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                EventInformation removedMovie = dataSnapshot.getValue(EventInformation.class);
+                EventInformation removedEvent = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                removedMovie.setEventUID(eventKey);
+                removedEvent.setEventUID(eventKey);
 
-                int position = eventListKeys.indexOf(eventKey);
+                int position = paameldtListKeys.indexOf(eventKey);
 
-                eventList.remove(removedMovie);
-                eventListKeys.remove(position);
+                paameldtList.remove(removedEvent);
+                paameldtListKeys.remove(position);
                 eventAdapter.notifyItemRemoved(position);
             }
 
@@ -152,13 +162,13 @@ public class PaameldtFragment extends Fragment {
 
     private void setUpRecyclerView(View parentView) {
         recyclerView = parentView.findViewById(R.id.recyclerView);
-        eventAdapter = new EventRecyclerAdapter(getActivity(), eventList);
+        eventAdapter = new EventRecyclerAdapter(getActivity(), paameldtList);
         eventAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = recyclerView.getChildAdapterPosition(view);
 
-                EventInformation event = eventList.get(position);
+                EventInformation event = paameldtList.get(position);
 
                 Intent intent = new Intent(getActivity(), EventActivity.class);
                 intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());

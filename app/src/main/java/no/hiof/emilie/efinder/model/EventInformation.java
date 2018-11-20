@@ -14,6 +14,16 @@ public class EventInformation {
     public int
             eventPayment,
             eventAttendants;
+    public String[] datesplit = getEventDate().split("-");
+
+
+    public String[] getDatesplit() {
+        return datesplit;
+    }
+
+    public void setDatesplit(String[] datesplit) {
+        this.datesplit = datesplit;
+    }
 
     public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
         this.eventUID = eventUID;
@@ -22,6 +32,7 @@ public class EventInformation {
         this.eventPayment = eventPayment;
         this.eventAttendants = eventAttendants;
         this.eventAdress = eventAdress;
+
         this.eventDescription = eventDescription;
         this.eventImage = eventImage;
     }
@@ -113,7 +124,9 @@ public class EventInformation {
     public static final Comparator<EventInformation> Sortering = new Comparator<EventInformation>(){
         @Override
         public int compare(EventInformation eventObject1, EventInformation eventObject2){
+
             return eventObject1.getEventDate().compareTo(eventObject2.getEventDate());
         }
+
     };
 }

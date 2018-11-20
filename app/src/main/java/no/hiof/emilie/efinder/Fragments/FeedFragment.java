@@ -137,13 +137,13 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                EventInformation removedMovie = dataSnapshot.getValue(EventInformation.class);
+                EventInformation removedEvent = dataSnapshot.getValue(EventInformation.class);
                 String eventKey = dataSnapshot.getKey();
-                removedMovie.setEventUID(eventKey);
+                removedEvent.setEventUID(eventKey);
 
                 int position = eventListKeys.indexOf(eventKey);
 
-                eventList.remove(removedMovie);
+                eventList.remove(removedEvent);
                 eventListKeys.remove(position);
                 eventAdapter.notifyItemRemoved(position);
             }
