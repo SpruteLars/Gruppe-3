@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         new SearchResultListener<Searchable>() {
                             @Override
                             public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
+                                //TODO: Send til event du har klikket på
                                 Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
                                 baseSearchDialogCompat.dismiss();
                             }
@@ -125,40 +126,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*fabSearchEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new SimpleSearchDialogCompat(MainActivity.this,
-                    "Search...",
-                    "What events are you looking for...?",
-                    null,
-                    initData(),
-                    new SearchResultListener<Searchable>() {
-                        @Override
-                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
-                            Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
-                            baseSearchDialogCompat.dismiss();
-                        }
-                    }).show();
-            }
-        });*/
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_feed:
-                        startActivity(new Intent(MainActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        startActivity(new Intent(MainActivity.this, MainActivity.class)); //TODO: Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_profil:
                         startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         return true;
                     case R.id.action_notification:
-                        startActivity(new Intent(MainActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
+                        startActivity(new Intent(MainActivity.this, NotificationListActivity.class));
                         return true;
                     case R.id.action_discovery:
-                        startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        startActivity(new Intent(MainActivity.this, DiscoveryActivity.class));
                         return true;
                 }
                 return false;
@@ -171,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SearchModel> initData() {
         ArrayList<SearchModel> items = new ArrayList<>();
 
+        //TODO: Legge til events som items
         items.add(new SearchModel("Captain America"));
         items.add(new SearchModel("Batman"));
         items.add(new SearchModel("Deadpool"));
