@@ -4,45 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".SignUpActivity">
 
     <EditText
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorText"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleSignUp" />
 
     <EditText
         android:id="@+id/txtEmail"
-        android:layout_width="271dp"
+        android:layout_width="269dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorText"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/txtPass"
-        app:layout_constraintStart_toStartOf="@+id/txtName"
-        app:layout_constraintTop_toBottomOf="@+id/txtName" />
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAlder" />
 
     <EditText
         android:id="@+id/txtPass"
         android:layout_width="274dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginStart="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorText"
         android:ems="10"
         android:hint="Password atleast 6 characters"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/txtAlder"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
@@ -50,36 +56,55 @@
         android:id="@+id/txtAlder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/colorText"
         android:ems="10"
         android:hint="Age"
         android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/txtInfo"
-        app:layout_constraintStart_toStartOf="@+id/txtPass"
-        app:layout_constraintTop_toBottomOf="@+id/txtPass" />
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
     <EditText
         android:id="@+id/txtInfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorText"
         android:ems="10"
         android:hint="About You"
         android:inputType="textMultiLine"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextHint"
         app:layout_constraintBottom_toTopOf="@+id/btnUpSign"
-        app:layout_constraintEnd_toEndOf="@+id/txtAlder"
-        app:layout_constraintStart_toStartOf="@+id/txtAlder"
-        app:layout_constraintTop_toBottomOf="@+id/txtAlder" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPass" />
 
     <Button
         android:id="@+id/btnUpSign"
-        android:layout_width="wrap_content"
+        android:layout_width="88dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txtInfo"
-        app:layout_constraintTop_toBottomOf="@+id/txtInfo" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTitleSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tell us a bit about yourself"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
