@@ -14,16 +14,8 @@ public class EventInformation {
     public int
             eventPayment,
             eventAttendants;
-    public String[] datesplit = getEventDate().split("-");
 
 
-    public String[] getDatesplit() {
-        return datesplit;
-    }
-
-    public void setDatesplit(String[] datesplit) {
-        this.datesplit = datesplit;
-    }
 
     public EventInformation(String eventUID, String eventTitle, String eventDateTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
         this.eventUID = eventUID;
