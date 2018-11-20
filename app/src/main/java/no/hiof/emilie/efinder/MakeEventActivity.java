@@ -207,6 +207,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                         //Send objektet til firebase
                         String uid = eventdataReference.push().getKey();
                         eventdataReference.child(uid).setValue(eventInformation);
+                        eventdataReference.child(uid).child("paameldte").push().setValue("Value");
 
                         // TODO: new intent til Event, send med uid
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
