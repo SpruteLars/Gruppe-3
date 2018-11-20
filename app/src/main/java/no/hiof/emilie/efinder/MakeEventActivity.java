@@ -204,6 +204,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                             textViewDescription.getText().toString(),
                             taskSnapshot.getStorage().toString());
 
+
                         //Send objektet til firebase
                         String uid = eventdataReference.push().getKey();
                         eventdataReference.child(uid).setValue(eventInformation);

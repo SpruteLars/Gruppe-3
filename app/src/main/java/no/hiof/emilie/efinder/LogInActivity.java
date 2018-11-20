@@ -51,14 +51,18 @@ public class LogInActivity extends AppCompatActivity {
             but.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    editEmail = findViewById(R.id.txtEmail);
-                    editPass = findViewById(R.id.txtPassword);
-                    if(editEmail.equals("")){
+
+                        editEmail = findViewById(R.id.txtEmail);
+                        String Username = editEmail.getText().toString();
+                        editPass = findViewById(R.id.txtPassword);
+                        String password = editPass.getText().toString();
+
+                    if(Username.matches("")){
                         Toast.makeText(LogInActivity.this,"Fill in your Email",Toast.LENGTH_LONG).show();
-                    }else if(editPass.equals("")){
+                    }else if(password.matches("")){
                         Toast.makeText(LogInActivity.this,"Fill in your Password",Toast.LENGTH_LONG).show();
                     }else{
-                        signIn(editEmail.getText().toString(), editPass.getText().toString());
+                        signIn(Username, password);
                     }
 
                 }
