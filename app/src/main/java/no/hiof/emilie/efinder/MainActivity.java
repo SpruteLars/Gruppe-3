@@ -38,15 +38,21 @@ import no.hiof.emilie.efinder.model.SearchModel;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     public static final String CHANNEL_ID = "1A";
+
     FragmentStatePagerAdapter eksempelPagerAdapter;
     public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public HashMap<String, String> personMap;
-    DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
-    ArrayList<SearchModel> items = new ArrayList<>();;
-    Intent kntent;
-    public HashMap<String, String> SearchDataBase(String sook){
 
+    DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
+    DatabaseReference userDbRef = firebaseDatabase.getInstance().getReference("users");
+    ArrayList<SearchModel> items = new ArrayList<>();
+    ArrayList<SearchModel> userItems = new ArrayList<>();
+
+    Intent kntent;
+
+    public HashMap<String, String> SearchDataBase(String sook){
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("events");
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -55,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     String Marcus = "Marcus Olsen";
                     String Uid = ds.getKey();
 
-
-                    //if (followCase.contains(sookEvent)) {
-                    // Log.d("Bruk", followCase);
-                    // Log.d("Bruk", Uid);
                     if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
 
                     } else {
@@ -71,13 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     for (String loop : personMap.values()) {
                         Log.d("mapper", loop);
                     }
-                    //}
-
                 }
-                //Intent intent = new Intent(DiscoveryActivity.this, SearchActivity.class);
-                //intent.putExtra("map", personMap);
-                //startActivity(intent);
-
             }
 
             @Override
@@ -86,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         };
         dbref.addListenerForSingleValueEvent(valueEventListener);
-
         return personMap;
     }
 
@@ -94,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         ValueEventListener ValueListener = new ValueEventListener() {
             @Override
@@ -105,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("ItemLog",""+ds.child("eventTitle").getValue());
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -236,7 +229,34 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
-                        startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        new SimpleSearchDialogCompat<>(MainActivity.this, "Search...", "Which users are you looking for...?", null, initUserData(), new SearchResultListener<Searchable>() {
+                            @Override
+                            public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, final Searchable searchable, int i) {
+                                final Intent userSearchIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                                Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_SHORT).show();
+
+                                final String searchedTitle = searchable.getTitle();
+
+                                ValueEventListener valueEventListener = (new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds = dataSnapshot.getChildren()) {
+                                            if (ds.child("userName").getValue().equals(searchedTitle)) {
+                                                Log.d("usersPlease", "Nøkkel: " + ds.getKey() + " Title: " + searchedTitle);
+                                                userSearchIntent.putExtra("Key", userItems.get(i));
+                                            }
+                                        }
+                                        startActivity(userSearchIntent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }).show();
+                            //startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                 }
                 return false;
@@ -247,14 +267,10 @@ public class MainActivity extends AppCompatActivity {
 
     //region Search Events Dialog Items
     private ArrayList<SearchModel> initData() {
+        return items;
+    }
 
-
-        /*+items.add(new SearchModel("Captain America"));
-        items.add(new SearchModel("Batman"));
-        items.add(new SearchModel("Deadpool"));
-        items.add(new SearchModel("Spiderman"));
-        items.add(new SearchModel("Stan Lee cameo"));*/
-
+    private ArrayList<SearchModel> initUserData() {
         return items;
     }
     //endregion

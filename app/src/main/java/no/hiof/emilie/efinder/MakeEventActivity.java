@@ -3,6 +3,7 @@ package no.hiof.emilie.efinder;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -90,6 +92,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     static final int DIALOG_INT_TIME = 3;
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
     static final int IMAGE_GALLERY_REQUEST = 5;
+    static final int NOTIFICATIO_ID = 10;
     static final String TAG = "INPUTFIELDS";
 
     private FirebaseDatabase firebaseDatabase;
@@ -212,6 +215,13 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
 
                         // TODO: new intent til Event, send med uid
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MakeEventActivity.this)
+                            .setSmallIcon(android.R.drawable.ic_dialog_info)
+                            .setContentTitle("Upload")
+                            .setContentText("Your event has been uploaded to the feed!");
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(NOTIFICATIO_ID, mBuilder.build());
 
                         //Sendes videre til aktiviteten som blir lagd
                         Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);
