@@ -95,6 +95,8 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
     private StorageReference storageReference;
+
+    String[] perms = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
     //endregion
 
     // region onCreate
@@ -312,6 +314,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
     //endregion
+
     //region Google Places
     public void findPlace(View view) {
         try {
@@ -344,36 +347,39 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     //endregion
 
     // region forespørsel om bildetagning til OS
+    @AfterPermissionGranted(456)
     private void dispatchPictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        //Make sure there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            //Lager en fil hvor bildet skal
-            File picFile = null;
+            if (EasyPermissions.hasPermissions(this, perms[0])) {
+                Toast.makeText(this, "Opening gallery", Toast.LENGTH_SHORT).show();
+                //Lager en fil hvor bildet skal
+                File picFile = null;
 
-            try {
-                picFile = createImageFile();
-            } catch (IOException e) {
-                Toast.makeText(getApplicationContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
-            }
+                try {
+                    picFile = createImageFile();
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
+                }
 
-            //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
-            if (picFile != null) {
-                Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
+                //https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
+                if (picFile != null) {
+                    Uri picURI = FileProvider.getUriForFile(this, "no.hiof.emilie.efinder", picFile);
 
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, picURI);
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+            } else {
+                EasyPermissions.requestPermissions(this, "We need permission for you to upload an event.", 456, perms);
             }
         }
     }
 
     @AfterPermissionGranted(123)
     private void dispatchGalleryIntent() {
-        String[] perms = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
-
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            Toast.makeText(this, "Opening camera", Toast.LENGTH_SHORT).show();
+        if (EasyPermissions.hasPermissions(this, perms[1])) {
+            Toast.makeText(this, "Opening gallery", Toast.LENGTH_SHORT).show();
 
             Intent getPictureFromGalleryIntent = new Intent(Intent.ACTION_PICK);
 
