@@ -1,7 +1,5 @@
 package no.hiof.emilie.efinder;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
-    TextView profNavn, profFollower, profDescription;
+    TextView profNavn, profFollower, profDescription, profAlder;
     ImageButton signOut, follow;
     ImageView profBilde;
     String Uid;
@@ -55,91 +52,73 @@ public class ProfileActivity extends AppCompatActivity {
         profNavn = findViewById(R.id.txtProfilNavn);
         profBilde = findViewById(R.id.imgProfilBilde);
         profDescription = findViewById(R.id.txtAbout);
+        profFollower = findViewById(R.id.txtFollowers);
+        profAlder = findViewById(R.id.txtAge);
 
         if(intent.getExtras() == null){
             Uid = user.getUid();
             follow.setVisibility(View.GONE);
         }else{
             signOut.setVisibility(View.GONE);
-             String hey = (String) getIntent().getSerializableExtra("Key");
-             Log.d("Key", hey);
-             Uid = hey;
+            String hey = (String) getIntent().getSerializableExtra("Key");
+            Uid = hey;
         }
 
-        profFollower = findViewById(R.id.txtFollowers);
         dbref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("Database", "Got data");
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
-               // profFollower.setText(""+dataSnapshot.child(Uid).child("folgere").getValue(Integer.class));
-                //folgere = dataSnapshot.child(Uid).child("folgere").getValue(Integer.class);
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
+                profAlder.setText(dataSnapshot.child(Uid).child("alder").getValue(String.class) + " years old");
                 //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
+
                 int i = -1;
                 for(DataSnapshot ks : dataSnapshot.child(Uid).child("FolgereList").getChildren()){
                     i += 1;
                 }
-                profFollower.setText(""+i);
-
-                Log.d("Database", "Set data");
+                profFollower.setText(i + " followers");
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
+        //region Følgere
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 final DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                //String Navn = dbref.child(Marcus).child("Navn").getValue(String.class);
                 final DatabaseReference following = root.child("users").child(Uid);
+
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                            //String followCase = dataSnapshot.child("Folgere").getValue(String.class);
                         for(DataSnapshot ds : dataSnapshot.child("FolgereList").getChildren()) {
-                            String Marcus = FirebaseAuth.getInstance().getUid();
-                            Log.d("datasnaper", "Marcus " + Marcus);
-                           // String Navn = dbname.child("users").child(Marcus).child("Navn").getValue(String.class);
-                            String Kid = dataSnapshot.getKey();
-                            Log.d("datasnap", "Kid "+ Kid);
-                            Log.d("datasnaper","Ds value "+ds.getValue());
-                            if (ds.getKey().equals(Marcus)) {
-                                Log.d("datasnape", "allerede følger");
-                                following.child("FolgereList").child(Marcus).removeValue();
+                            String authUid = FirebaseAuth.getInstance().getUid();
+                            //String dsKey = dataSnapshot.getKey();
+
+                            if (ds.getKey().equals(authUid)) {
+                                following.child("FolgereList").child(authUid).removeValue();
+
                                 Toast.makeText(ProfileActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
                                 break;
                             } else {
-                                //folgere = ds.child(Kid).child("folgere").getValue(Integer.class);
-                                //followingRef.child(Uid).setValue();
-                                //folgere = folgere + 1;
-                               // root.child("users").child(Kid).child("folgere").setValue(folgere);
-                                //following.child(Marcus).setValue(Uid);
-                                Log.d("datasnap","Dette her "+Marcus+" "+dataSnapshot);
-                                following.child("FolgereList").child(Marcus).setValue("q");
+                                Log.d("datasnap","Dette her "+ authUid +" "+dataSnapshot);
+                                following.child("FolgereList").child(authUid).setValue("q");
                                 Toast.makeText(ProfileActivity.this, "Followed", Toast.LENGTH_LONG).show();
-
-
-
                             }
                         }
-
                     }
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 };
                 following.addListenerForSingleValueEvent(valueEventListener);
             }
         });
+        //endregion
 
+        //region Logg ut
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //endregion
 
         //region BotNav
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
@@ -182,25 +162,5 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         //endregion
-    }
-
-    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-        .setSmallIcon(R.drawable.ic_baseline_notifications_24px)
-        .setContentTitle("Du har fått et annet varsel")
-        .setContentText("Dette er ditt andre varsel")
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-    private void createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }
