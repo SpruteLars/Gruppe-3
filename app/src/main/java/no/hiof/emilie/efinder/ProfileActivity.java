@@ -72,7 +72,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                 int i = -1;
                 for(DataSnapshot ks : dataSnapshot.child(Uid).child("FolgereList").getChildren()){
-                    i += 1;
+                    if(ks.getKey().equals(Uid)){
+
+                    }else{
+                        i += 1;
+                    }
+
                 }
                 profFollower.setText(i + " followers");
             }

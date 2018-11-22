@@ -209,7 +209,7 @@ public class EventActivity extends AppCompatActivity {
                     builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent newIntent = new Intent(EventActivity.this, MainActivity.class);
+                            Intent newIntent = new Intent(EventActivity.this, bufferActivity.class);
                             newIntent.putExtra("Delete",evenUid);
 
 
