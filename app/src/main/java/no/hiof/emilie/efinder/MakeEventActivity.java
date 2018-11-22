@@ -97,6 +97,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
     static final int IMAGE_GALLERY_REQUEST = 5;
     static final String TAG = "INPUTFIELDS";
+
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;

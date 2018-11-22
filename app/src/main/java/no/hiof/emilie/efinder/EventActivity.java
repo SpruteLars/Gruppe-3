@@ -2,6 +2,8 @@ package no.hiof.emilie.efinder;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,13 +35,7 @@ import no.hiof.emilie.efinder.model.EventInformation;
 public class EventActivity extends AppCompatActivity {
     public static final String EVENT_UID = "event_uid";
     private no.hiof.emilie.efinder.model.EventInformation event;
-    private TextView nameTextView;
-    private TextView descriptionTextView;
-    private TextView dateTextView;
-    private TextView clockTextView;
-    private TextView paymentTextView;
-    private TextView attendantsTextView;
-    private TextView adresseTextView;
+    private TextView nameTextView, descriptionTextView, dateTextView, clockTextView, paymentTextView, attendantsTextView, adresseTextView;
     private ImageView posterImageView;
     private String imageName;
     private Button melde;
@@ -48,7 +44,6 @@ public class EventActivity extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String Uid = user.getUid();
     String eventUid;
-    //Google Maps
     public ImageButton myButton;
 
     //Firebase
@@ -61,51 +56,33 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        Log.d("eventIkke",""+getIntent().getStringExtra(EVENT_UID));
+
+        findViewById();
 
         if(getIntent().getStringExtra("event_uid") != null){
-            //Log.d("eventIkke",""+eventUid);
             eventUid = getIntent().getStringExtra(EVENT_UID);
-
             evenUid = eventUid;
         } else {
             eventUid = getIntent().getStringExtra("EventUid");
-            Log.d("eventSøk",""+eventUid);
             evenUid = eventUid;
         }
 
-        Log.d("event",""+eventUid);
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
+        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //region XML items
-        nameTextView = findViewById(R.id.txtEventName);
-        descriptionTextView = findViewById(R.id.txtDescription);
-        dateTextView = findViewById(R.id.txtDate);
-        clockTextView = findViewById(R.id.txtClock);
-        paymentTextView = findViewById(R.id.txtPayment);
-        attendantsTextView = findViewById(R.id.txtAttendants);
-        adresseTextView = findViewById(R.id.txtAddresse);
-        posterImageView  = findViewById(R.id.imgView);
-        myButton = findViewById(R.id.mapButton);
-        melde = findViewById(R.id.btnMeld);
-        Deleter = findViewById(R.id.btnDelete);
-        //endregion
-
-        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
 
         Ownerbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("Deleter", "" + evenUid);
-                Log.d("Deleter", "Database " + dataSnapshot.getValue());
-                    if (dataSnapshot.getValue().equals(Uid)) {
-                        Deleter.setVisibility(View.VISIBLE);
-                    } else {
-
-                    }
+                //Log.d("Deleter", "" + evenUid);
+                //Log.d("Deleter", "Database " + dataSnapshot.getValue());
+                if (dataSnapshot.getValue().equals(Uid)) {
+                    Deleter.setVisibility(View.VISIBLE);
+                } else { }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -113,21 +90,19 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
-
         Usedbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("KeyP", ""+Uid);
+                //Log.d("KeyP", ""+Uid);
 
-                Log.d("KeyP", ""+dataSnapshot.child("paameldte").getKey());
+                //Log.d("KeyP", ""+dataSnapshot.child("paameldte").getKey());
                 for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
-                    Log.d("KeyP", "hei");
+                    //Log.d("KeyP", "hei");
                     if(ds.getKey().equals(Uid)){
                         melde.setText("Not Going");
 
                         break;
-                    }else {
+                    }else{
                         melde.setText("Going");
 
                     }
@@ -179,6 +154,7 @@ public class EventActivity extends AppCompatActivity {
                             Glide.with(EventActivity.this)
                                 .load(uri.toString()) //path to image in Firebase Storage
                                 .into(posterImageView);  //Upload picture to imgView in EventActivity
+                            setPic(); //TODO: Hvor skal denne for å få metoden til å fungere?
                         }
                     });
                 }
@@ -252,33 +228,6 @@ public class EventActivity extends AppCompatActivity {
 
         //endregion
 
-        //region size decoding
-        //IKKE SLETT
-        /*private void setPic() {
-            //Dimensions used to display image
-            //int targetWidth = imageView.getWidth();
-            //int targetHeight = imageView.getHeight();
-
-            //Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            bmOptions.inJustDecodeBounds = true;
-            int imageWidth = bmOptions.outWidth;
-            int imageHeight = bmOptions.outHeight;
-
-            //Determine how much to scale down the image
-            //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
-
-            //Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            //bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true; //(?)
-
-            //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            //imageView.setImageBitMap(bitmap);
-        }*/
-        // endregion
-
         //region botnav
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -301,5 +250,47 @@ public class EventActivity extends AppCompatActivity {
             }
         });
         //endregion
+    }
+
+    //region size decoding
+    private void setPic() {
+        //Dimensions used to display image
+        int targetWidth = posterImageView.getWidth();
+        int targetHeight = posterImageView.getHeight();
+
+        //Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        String imgPathString = String.valueOf(imagePath);
+        BitmapFactory.decodeFile(imgPathString, bmOptions);
+        bmOptions.inJustDecodeBounds = true;
+
+        int imageWidth = bmOptions.outWidth;
+        int imageHeight = bmOptions.outHeight;
+
+        //Determine how much to scale down the image
+        int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
+
+        //Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true; //(?)
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imgPathString, bmOptions);
+        posterImageView.setImageBitmap(bitmap);
+    }
+    // endregion
+
+    private void findViewById() {
+        nameTextView = findViewById(R.id.txtEventName);
+        descriptionTextView = findViewById(R.id.txtDescription);
+        dateTextView = findViewById(R.id.txtDate);
+        clockTextView = findViewById(R.id.txtClock);
+        paymentTextView = findViewById(R.id.txtPayment);
+        attendantsTextView = findViewById(R.id.txtAttendants);
+        adresseTextView = findViewById(R.id.txtAddresse);
+        posterImageView  = findViewById(R.id.imgView);
+        myButton = findViewById(R.id.mapButton);
+        melde = findViewById(R.id.btnMeld);
+        Deleter = findViewById(R.id.btnDelete);
     }
 }
