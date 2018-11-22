@@ -1,10 +1,12 @@
 package no.hiof.emilie.efinder;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -93,28 +95,28 @@ public class EventActivity extends AppCompatActivity {
         Deleter = findViewById(R.id.btnDelete);
         //endregion
 
-        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(eventUid).child("eventOwner");
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
 
         Ownerbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("KeyP", "" + Uid);
+                Log.d("Deleter", "" + evenUid);
 
-                Log.d("KeyP", "" + dataSnapshot.getValue());
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d("KeyP", "hei");
-                    if (ds.getValue().equals(Uid)) {
-
-                        Deleter.setVisibility(View.GONE);
+                Log.d("Deleter", "Database " + dataSnapshot.getValue());
+               // for (DataSnapshot ds : dataSnapshot) {
+                   // Log.d("Deleter", Uid+" Disse skal være like "+ds.getValue());
+                    if (dataSnapshot.getValue().equals(Uid)) {
 
 
-                        break;
+                        Deleter.setVisibility(View.VISIBLE);
+
+                      //  break;
                     } else {
-                        Deleter.setVisibility(View.GONE);
+
 
 
                     }
-                }
+               // }
 
             }
 
@@ -242,6 +244,27 @@ public class EventActivity extends AppCompatActivity {
                 });
 
             dbref.addListenerForSingleValueEvent(valueEventListener);
+            }
+        });
+
+
+        Deleter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+                builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+                        deletedbref.child(evenUid).removeValue();
+                    }
+                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
             }
         });
         //region size decoding
