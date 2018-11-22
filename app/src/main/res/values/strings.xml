@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">eFinder</string>
 
-    <!-- Log in strings -->
+    <!-- Log in and sign up -->
     <string name="email">email@example.com</string>
-    <string name="password">Password</string>
+    <string name="password">password</string>
     <string name="login">Log in</string>
+    <string name="signup">Sign Up</string>
+    <string name="signupText">Not have an account yet? Sign up here!</string>
+    <string name="eFinderLogo">eFinder\'s, the application, logo</string>
+    <string name="name">Name</string>
+    <string name="signup_intro">Name</string>
 
     <!-- Bottom Navigation Title -->
     <string name="botnav_feed">Feed</string>
@@ -14,8 +19,14 @@
     <string name="botnav_notification">Notifications</string>
 
     <!-- Profil strings -->
-    <string name="profile_name">Trond Dåse</string>
+    <string name="profile_name">Navn Navnesen</string>
     <string name="about">About</string>
+    <string name="followers">Number of followers</string>
+    <string name="age">Age</string>
+    <string name="image_profile_picture">The user\'s profile picture</string>
+    <string name="icon_followers">The user\'s follower number</string>
+    <string name="button_follow">Sign out of account</string>
+    <string name="button_signout">Sign out of account</string>
 
     <!-- Innstillinger -->
     <string name="settings">Settings</string>
@@ -27,20 +38,40 @@
     <string name="hint_date">Pick a date</string>
     <string name="hint_time">Pick a time</string>
     <string name="hint_payment">Choose the price</string>
-    <string name="hint_location">Choose place</string>
+    <string name="hint_location">Choose location</string>
     <string name="hint_attendants">How many can join you?</string>
     <string name="hint_image">Choose an image</string>
     <string name="description">Description</string>
     <string name="hint_description">Add a description to your event!</string>
+    <string name="button_place">Pick a place</string>
+    <string name="button_date">Pick a date</string>
+    <string name="button_time">Pick a time</string>
+    <string name="button_camera">Take a picture with you camera</string>
+    <string name="button_gallery">Choose an image from your gallery!</string>
     <string name="button_add">Add</string>
     <string name="button_submit">Submit</string>
+
+    <!-- Event detaljer -->
+    <string name="eventPoster">Poster image of event</string>
+    <string name="iconCalendar">Calendar icon</string>
+    <string name="iconClock">Clock icon</string>
+    <string name="iconLocation">Location icon</string>
+    <string name="iconAttendants">Group of people icon</string>
+    <string name="iconPayment">Payment icon</string>
+    <string name="btnGoing">Going</string>
+    <string name="btnDelete"></string>
+    <string name="gMaps">Google Maps Location of Event</string>
+
+    <!-- Discovery -->
+    <string name="searchHint">Name of user</string>
+    <string name="searchUserButton">Search</string>
 
     <!-- Google maps -->
     <string name="no_location_permission">Vi trenger din tilatelse for å kunne hente din lokasjon</string>
 
     <!-- Dummy strings -->
     <string name="button">Button</string>
-    <string name="filler">det samme så de trollene komme settende, og de var så store og digre at hodene på dem var jevnhøye med furutoppene. Men de hadde bare ett øye sammen alle tre, og det skiftedes de til å bruke; de hadde et hull i pannen, som de la det i, og styrte det med hånden; den som gikk foran, han måtte ha det, og de andre gikk etter og holdt seg i den første.</string>
+    <string name="filler">About user</string>
 
     <!-- Notifications -->
     <string name="channel_name">Channel1</string>

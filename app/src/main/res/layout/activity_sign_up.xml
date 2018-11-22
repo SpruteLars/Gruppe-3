@@ -7,6 +7,17 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".SignUpActivity">
 
+    <TextView
+        android:id="@+id/txtTitleSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/signup_intro"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
@@ -15,7 +26,8 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/name"
+        android:autofillHints="name"
         android:inputType="textPersonName"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -30,7 +42,8 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
+        android:autofillHints="emailAdress"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -45,7 +58,8 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="Password atleast 6 characters"
+        android:hint="@string/password"
+        android:autofillHints="password"
         android:inputType="textPassword"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -60,7 +74,8 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
+        android:autofillHints="password"
         android:inputType="textPassword"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -75,7 +90,8 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="Age"
+        android:hint="@string/age"
+        android:autofillHints="age"
         android:inputType="numberSigned"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -92,7 +108,8 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorText"
         android:ems="10"
-        android:hint="About You"
+        android:hint="@string/about"
+        android:autofillHints="about"
         android:inputType="textMultiLine"
         android:textColor="@color/colorText"
         android:textColorHint="@color/colorTextHint"
@@ -107,19 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
-        android:text="Sign Up"
+        android:text="@string/signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txtTitleSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Tell us a bit about yourself"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

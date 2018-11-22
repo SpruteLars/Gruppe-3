@@ -14,7 +14,8 @@
         android:layout_marginTop="138dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Name of user"
+        android:hint="@string/searchHint"
+        android:autofillHints="name"
         android:textColorHint="@color/colorTextHint"
         android:textColor="@color/colorText"
         android:backgroundTint="@color/colorText"
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="87dp"
-        android:text="Search"
+        android:text="@string/searchUserButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSokNavn" />

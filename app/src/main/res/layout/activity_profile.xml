@@ -16,10 +16,11 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imgProfilBilde"
+                android:contentDescription="@string/image_profile_picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="8dp"
@@ -46,6 +47,7 @@
             <!-- Følgere -->
             <ImageView
                 android:id="@+id/imgFollowers"
+                android:contentDescription="@string/icon_followers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -61,7 +63,7 @@
                 android:layout_height="16dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="35dp"
-                android:text="Antall følgere"
+                android:text="@string/followers"
                 android:textColor="@color/colorText"
                 app:layout_constraintStart_toEndOf="@+id/imgFollowers"
                 app:layout_constraintTop_toBottomOf="@+id/imgProfilBilde" />
@@ -69,6 +71,7 @@
             <!-- Fødselsdato -->
             <ImageView
                 android:id="@+id/imgDate"
+                android:contentDescription="@string/iconCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -84,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="18dp"
-                android:text="Age"
+                android:text="@string/age"
                 android:textColor="@color/colorText"
                 app:layout_constraintStart_toEndOf="@+id/imgDate"
                 app:layout_constraintTop_toBottomOf="@+id/txtFollowers" />
@@ -118,6 +121,7 @@
 
             <ImageButton
                 android:id="@+id/btnSub"
+                android:contentDescription="@string/button_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -130,6 +134,7 @@
 
             <ImageButton
                 android:id="@+id/btnSignOut"
+                android:contentDescription="@string/button_signout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

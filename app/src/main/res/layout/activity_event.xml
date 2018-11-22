@@ -18,7 +18,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <!-- TextViews -->
             <TextView
@@ -27,9 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 android:textColor="@color/colorAccent"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgView" />
 
@@ -39,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/imgDate"
                 app:layout_constraintEnd_toStartOf="@+id/imgTime"
@@ -53,7 +51,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/imgTime"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/imgPayment"
                 app:layout_constraintStart_toEndOf="@+id/imgPayment" />
@@ -76,21 +72,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="96dp"
-                android:text="TextView"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/imgAttendants"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/txtAddresse"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/imgLocation"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgLocation" />
 
             <TextView
@@ -123,8 +115,9 @@
             <!-- ImageViews -->
             <ImageView
                 android:id="@+id/imgView"
-                android:layout_width="388dp"
+                android:layout_width="fill_parent"
                 android:layout_height="200dp"
+                android:contentDescription="@string/eventPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -132,6 +125,7 @@
 
             <ImageView
                 android:id="@+id/imgDate"
+                android:contentDescription="@string/iconCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -143,6 +137,7 @@
 
             <ImageView
                 android:id="@+id/imgTime"
+                android:contentDescription="@string/iconClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -158,18 +153,17 @@
                 android:id="@+id/imgLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:contentDescription="@string/iconLocation"
                 android:tint="@color/colorText"
-                app:layout_constraintEnd_toEndOf="@+id/imgPayment"
-                app:layout_constraintEnd_toStartOf="@+id/txtAdress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgPayment"
                 app:srcCompat="@drawable/ic_baseline_location_on_24px" />
 
             <ImageView
                 android:id="@+id/imgAttendants"
+                android:contentDescription="@string/iconAttendants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -188,21 +182,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:contentDescription="@string/iconPayment"
                 android:tint="@color/colorText"
-                app:layout_constraintEnd_toEndOf="@+id/imgDate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgDate"
                 app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
             <!-- Google Maps -->
-            <!--android.support.constraint.Barrier
-                android:id="@+id/barrier2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="left" /-->
-
             <ImageButton
                 android:id="@+id/mapButton"
+                android:contentDescription="@string/gMaps"
                 android:layout_width="89dp"
                 android:layout_height="91dp"
                 android:layout_marginBottom="8dp"
@@ -211,6 +200,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
+            <!-- Buttons -->
             <Button
                 android:id="@+id/btnMeld"
                 android:layout_width="wrap_content"
@@ -218,14 +208,14 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/colorPrimary"
-                android:shadowColor="@color/colorAccent"
-                android:text="Going"
+                android:text="@string/btnGoing"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgLocation" />
 
             <ImageButton
                 android:id="@+id/btnDelete"
+                android:contentDescription="@string/btnDelete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"

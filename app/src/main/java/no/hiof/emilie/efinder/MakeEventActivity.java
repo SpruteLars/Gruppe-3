@@ -171,7 +171,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                 editTextArray.add(textViewAdresse.getText().toString());
                 editTextArray.add(textViewDescription.getText().toString());
 
-                Log.d(TAG, "Filnavn: " + mCurrentPhotoPath);
+                //Log.d(TAG, "Filnavn: " + mCurrentPhotoPath);
 
                 for (String textView : editTextArray) {
                     if (textView.length() == 0) {

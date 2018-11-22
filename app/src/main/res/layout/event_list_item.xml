@@ -17,6 +17,7 @@
 
         <ImageView
             android:id="@+id/event_poster"
+            android:contentDescription="@string/eventPoster"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="-1"

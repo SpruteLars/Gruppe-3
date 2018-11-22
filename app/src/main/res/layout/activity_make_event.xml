@@ -18,7 +18,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <!-- Text -->
             <EditText
@@ -67,6 +67,7 @@
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_payment"
+                android:autofillHints="price"
                 android:maxLength="10"
                 android:inputType="number"
                 android:textColor="@color/colorText"
@@ -85,7 +86,6 @@
                 android:layout_marginTop="32dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_image"
-                android:inputType="textUri"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
@@ -102,6 +102,7 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_attendants"
+                android:autofillHints="number"
                 android:maxLength="10"
                 android:inputType="number"
                 android:textColor="@color/colorText"
@@ -120,7 +121,6 @@
                 android:layout_marginTop="38dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_location"
-                android:inputType="textPostalAddress"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
@@ -165,6 +165,7 @@
                 android:scrollHorizontally="false"
                 android:singleLine="false"
                 android:hint="@string/hint_description"
+                android:autofillHints="text"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
@@ -254,7 +255,6 @@
                 app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
             <!-- Buttons -->
-
             <ImageView
                 android:id="@+id/imgAddPhoto"
                 android:layout_width="wrap_content"
@@ -273,7 +273,7 @@
                 android:layout_height="49dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
-                android:text="Pick a date"
+                android:text="@string/button_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Pick a time"
+                android:text="@string/button_time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnDatePicker" />
 
@@ -293,12 +293,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Pick a place"
+                android:text="@string/button_place"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnTimePicker" />
 
             <ImageButton
                 android:id="@+id/btnTakePic"
+                android:contentDescription="@string/button_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -308,6 +309,7 @@
 
             <ImageButton
                 android:id="@+id/btnGalleryPic"
+                android:contentDescription="@string/button_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -326,7 +328,7 @@
         android:layout_height="56dp"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"

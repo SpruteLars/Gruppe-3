@@ -25,7 +25,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgLogo"
         app:layout_constraintVertical_bias="0.32999998"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:autofillHints="emailAddress" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -43,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+        android:autofillHints="password"/>
 
     <Button
         android:id="@+id/btnLogIn"
@@ -66,7 +68,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Sign Up"
+        android:text="@string/signup"
         android:textColor="@color/colorTextHint"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,13 +77,12 @@
 
     <ImageView
         android:id="@+id/imgLogo"
+        android:contentDescription="@string/eFinderLogo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
-        android:outlineAmbientShadowColor="#000000"
-        android:outlineSpotShadowColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -95,7 +96,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Not have an account yet? Sign up here!"
+        android:text="@string/signupText"
         android:textColor="@color/colorTextHint"
         app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"
