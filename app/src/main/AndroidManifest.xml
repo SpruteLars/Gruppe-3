@@ -11,8 +11,10 @@
     <!-- Setter krav til å ha kamera ved nedlastning av appen -->
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
-    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -21,13 +23,11 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.android.geo.API_KEY"
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
 
-        <activity android:name=".LogInActivity" >
-
-
-        </activity>
+        <activity android:name=".LogInActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
@@ -41,33 +41,28 @@
         <activity
             android:name=".ProfileActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EventActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MakeEventActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity">
-
-
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".SignUpActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".LogInActivity">
-        </activity>
+            android:parentActivityName=".LogInActivity"></activity>
         <activity
             android:name=".SearchActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".LogInActivity"/>
+            android:parentActivityName=".LogInActivity" />
         <activity
             android:name=".DiscoveryActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".LogInActivity"/>
-
-        <activity android:name=".NotificationListActivity"/>
+            android:parentActivityName=".LogInActivity" />
+        <activity android:name=".NotificationListActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -83,5 +78,8 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <activity android:name=".bufferActivity"></activity>
     </application>
+
 </manifest>
