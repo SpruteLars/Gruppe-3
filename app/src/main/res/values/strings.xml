@@ -18,7 +18,7 @@
     <string name="botnav_profile">Profile</string>
     <string name="botnav_notification">Notifications</string>
 
-    <!-- Profil strings -->
+    <!-- Profile strings -->
     <string name="profile_name">Navn Navnesen</string>
     <string name="about">About</string>
     <string name="followers">Number of followers</string>
