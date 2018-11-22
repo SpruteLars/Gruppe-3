@@ -42,6 +42,7 @@ public class EventActivity extends AppCompatActivity {
     private ImageView posterImageView;
     private String imageName;
     private Button melde;
+    private ImageButton Deleter;
     private String evenUid;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String Uid = user.getUid();
@@ -89,7 +90,42 @@ public class EventActivity extends AppCompatActivity {
         posterImageView  = findViewById(R.id.imgView);
         myButton = findViewById(R.id.mapButton);
         melde = findViewById(R.id.btnMeld);
+        Deleter = findViewById(R.id.btnDelete);
         //endregion
+
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(eventUid).child("eventOwner");
+
+        Ownerbref.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("KeyP", "" + Uid);
+
+                Log.d("KeyP", "" + dataSnapshot.getValue());
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("KeyP", "hei");
+                    if (ds.getValue().equals(Uid)) {
+
+                        Deleter.setVisibility(View.GONE);
+
+
+                        break;
+                    } else {
+                        Deleter.setVisibility(View.GONE);
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
 
