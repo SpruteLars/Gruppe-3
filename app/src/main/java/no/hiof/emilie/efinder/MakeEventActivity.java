@@ -176,6 +176,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                 for (String textView : editTextArray) {
                     if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
+                        editTextArray.clear();
                         return;
                     }
                 }
