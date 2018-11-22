@@ -97,9 +97,6 @@ public class DiscoveryActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(DiscoveryActivity.this, ProfileActivity.class));
                         return true;
-                    case R.id.action_notification:
-                        startActivity(new Intent(DiscoveryActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
-                        return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(DiscoveryActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;

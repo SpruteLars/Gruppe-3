@@ -22,13 +22,13 @@
                 android:id="@+id/imgProfilBilde"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:background="@color/colorAccent"
                 android:tint="@color/colorPrimaryDark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+                app:srcCompat="@drawable/ic_baseline_person_24px" />
 
             <TextView
                 android:id="@+id/txtProfilNavn"
@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:text="Age"
                 android:textColor="@color/colorText"
                 app:layout_constraintStart_toEndOf="@+id/imgDate"
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorPrimaryDark"
                 android:tint="@color/colorTextHint"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,20 +145,6 @@
     </ScrollView>
 
     <!-- Bottom Navigation -->
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/tools"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:elevation="6dp"
-        android:focusable="true"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_baseline_settings_20px" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

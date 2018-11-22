@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
     DatabaseReference dbref;
     FirebaseUser user;
-    FloatingActionButton floatingActionButton;
     BottomNavigationView bottomNavigationView;
     TextView profNavn, profFollower, profDescription, profAlder;
     ImageButton signOut, follow;
@@ -71,7 +69,6 @@ public class ProfileActivity extends AppCompatActivity {
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
                 profAlder.setText(dataSnapshot.child(Uid).child("alder").getValue(String.class) + " years old");
-                //profBilde.setImageURI(Uri.parse(dataSnapshot.child(Uid).child("bilde").getValue(String.class)));
 
                 int i = -1;
                 for(DataSnapshot ks : dataSnapshot.child(Uid).child("FolgereList").getChildren()){
@@ -131,8 +128,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         //region BotNav
         bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -144,21 +139,11 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.action_profil:
                         startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
                         return true;
-                    case R.id.action_notification:
-                        startActivity(new Intent(ProfileActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
-                        return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(ProfileActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                 }
                 return false;
-            }
-        });
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
             }
         });
         //endregion
