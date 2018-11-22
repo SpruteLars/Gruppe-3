@@ -1,19 +1,22 @@
 package no.hiof.emilie.efinder.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 public class EventInformation {
     public String
-            eventUID,
-            eventTitle,
-            eventAdress,
-            eventDescription,
-            eventDate,
-            eventTime,
-            eventImage;
+        eventUID,
+        eventTitle,
+        eventAdress,
+        eventDescription,
+        eventDate,
+        eventTime,
+        eventImage;
     public int
-            eventPayment,
-            eventAttendants;
+        eventPayment,
+        eventAttendants;
 
     public EventInformation(String eventUID, String eventTitle, String eventDateTime, String eventTime, int eventPayment, int eventAttendants, String eventAdress, String eventDescription, String eventImage) {
         this.eventUID = eventUID;
@@ -114,8 +117,13 @@ public class EventInformation {
     public static final Comparator<EventInformation> Sortering = new Comparator<EventInformation>(){
         @Override
         public int compare(EventInformation eventObject1, EventInformation eventObject2){
-
-            return eventObject1.getEventDate().compareTo(eventObject2.getEventDate());
+            DateFormat dato = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                return dato.parse(eventObject1.getEventDate()).compareTo(dato.parse(eventObject2.getEventDate()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return 0;
         }
 
     };
