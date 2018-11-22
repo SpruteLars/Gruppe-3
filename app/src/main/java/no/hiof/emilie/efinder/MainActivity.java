@@ -254,12 +254,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem (int i) {
-            /*Fragment frg = getSupportFragmentManager().findFragmentByTag(tabTitles[1]);
-            final android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.detach(frg);
-            ft.attach(frg);
-            ft.commit();*/
-
             switch (i) {
                 case 0:
                     return new FeedFragment();

@@ -38,10 +38,12 @@ public class SearchActivity extends AppCompatActivity {
         final HashMap<String, String> map = (HashMap<String, String>)intent.getSerializableExtra("map");
         final List<String> list = new ArrayList<String>(map.keySet());
         final List<String> name = new ArrayList<String>(map.values());
+
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, name){
             public View getView(int pos,View convert, ViewGroup par) {
-                View view =super.getView(pos,convert,par);
+                View view = super.getView(pos,convert,par);
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
                 textView.setTextColor(Color.WHITE);
                 return view;
             }
@@ -52,12 +54,13 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Log.d("Item", "int "+i);
+                /*Log.d("Item", "int "+i);
                 Log.d("Item", "Adapter "+adapterView);
                 Log.d("Item", "View "+view);
                 Log.d("Item", "long "+ l);
                 Log.d("Item", list.get(i));
-                Log.d("Item", name.get(i));
+                Log.d("Item", name.get(i));*/
+
                 Intent intent = new Intent(SearchActivity.this,ProfileActivity.class);
                 intent.putExtra("Key",list.get(i));
                 startActivity(intent);

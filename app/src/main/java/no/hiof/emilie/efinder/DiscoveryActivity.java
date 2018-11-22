@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class DiscoveryActivity extends AppCompatActivity {
     FirebaseAuth auth;
@@ -39,24 +40,23 @@ public class DiscoveryActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         btnSook = findViewById(R.id.btnSoook);
         editSook = findViewById(R.id.editSook);
+
         btnSook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sookNavn = editSook.getText().toString();
-                Log.d("Bruk",sookNavn);
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference followingRef = rootRef.child("users");
+
                 ValueEventListener valueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             String followCase = ds.child("Navn").getValue(String.class);
-                            String Marcus = "Marcus Olsen";
                             String Uid = ds.getKey();
+                            Boolean insensitiveCaseStr = Pattern.compile(Pattern.quote(sookNavn), Pattern.CASE_INSENSITIVE).matcher(followCase).find(); //Gjør at søking ikke er case sensitive
 
-                            if (followCase.contains(sookNavn)) {
-                                // Log.d("Bruk", followCase);
-                                // Log.d("Bruk", Uid);
+                            if ( insensitiveCaseStr ) {
                                 if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
 
                                 } else {
@@ -75,15 +75,12 @@ public class DiscoveryActivity extends AppCompatActivity {
                         Intent intent = new Intent(DiscoveryActivity.this, SearchActivity.class);
                         intent.putExtra("map", personMap);
                         startActivity(intent);
-
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 };
                 followingRef.addListenerForSingleValueEvent(valueEventListener);
-
             }
         });
 
