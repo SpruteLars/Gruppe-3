@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 profNavn.setText(dataSnapshot.child(Uid).child("Navn").getValue(String.class));
                 profDescription.setText(dataSnapshot.child(Uid).child("personinfo").getValue(String.class));
-                profAlder.setText(dataSnapshot.child(Uid).child("alder").getValue(String.class) + " years old");
+                profAlder.setText(dataSnapshot.child(Uid).child("alder").getValue(Integer.class) + " years old");
 
                 int i = -1;
                 for(DataSnapshot ks : dataSnapshot.child(Uid).child("FolgereList").getChildren()){

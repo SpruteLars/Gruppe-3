@@ -90,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
                     textAge = findViewById(R.id.txtAlder);*/
 
                     dbref.child(Uid).child("Navn").setValue(textUsername.getText().toString());
-                    dbref.child(Uid).child("alder").setValue(textAge.getText().toString());
+                    dbref.child(Uid).child("alder").setValue(Integer.class);
                     dbref.child(Uid).child("personinfo").setValue(textAbout.getText().toString());
                     dbref.child(Uid).child("FolgereList").child("key").setValue("value");
 
