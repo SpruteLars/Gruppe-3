@@ -33,10 +33,9 @@
             <TextView
                 android:id="@+id/txtProfilNavn"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="55dp"
                 android:textColor="@color/colorText"
                 android:textSize="16pt"
                 app:layout_constraintBottom_toBottomOf="@+id/imgProfilBilde"
@@ -80,16 +79,13 @@
                 app:srcCompat="@drawable/ic_baseline_calendar_today_24px" />
 
             <TextView
-                android:id="@+id/txtCalendar"
+                android:id="@+id/txtAge"
                 android:layout_width="0dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Dato"
+                android:text="Age"
                 android:textColor="@color/colorText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imgDate"
                 app:layout_constraintTop_toBottomOf="@+id/txtFollowers" />
 
@@ -97,14 +93,12 @@
             <TextView
                 android:id="@+id/txtAboutTitle"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/about"
-                android:textSize="13pt"
-                android:textColor="@color/colorText"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgDate" />
 
@@ -126,13 +120,10 @@
                 android:id="@+id/btnSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimaryDark"
                 android:tint="@color/colorTextHint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.95"
                 app:layout_constraintStart_toEndOf="@+id/txtFollowers"
                 app:layout_constraintTop_toBottomOf="@+id/txtProfilNavn"
                 app:srcCompat="@drawable/ic_baseline_person_add_24px" />

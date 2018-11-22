@@ -15,7 +15,7 @@
 
     <!-- Profil strings -->
     <string name="profile_name">Trond Dåse</string>
-    <string name="about">Om meg</string>
+    <string name="about">About</string>
 
     <!-- Innstillinger -->
     <string name="settings">Settings</string>

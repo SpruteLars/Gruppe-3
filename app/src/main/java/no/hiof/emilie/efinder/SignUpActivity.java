@@ -19,10 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
-
     FirebaseAuth mAuth;
     FirebaseUser user;
-    TextView textEmail, textPassword1, textPassword2, textUsername, textAge, textAbout;
+    TextView textUsername, textAge, textEmail, textPassword1, textPassword2, textAbout;
     Button but;
     String Uid;
     DatabaseReference dbref;
@@ -86,9 +85,9 @@ public class SignUpActivity extends AppCompatActivity {
                     user = mAuth.getCurrentUser();
                     Uid = user.getUid();
 
-                    textUsername = findViewById(R.id.txtName);
+                    /*textUsername = findViewById(R.id.txtName);
                     textAbout = findViewById(R.id.txtInfo);
-                    textAge = findViewById(R.id.txtAlder);
+                    textAge = findViewById(R.id.txtAlder);*/
 
                     dbref.child(Uid).child("Navn").setValue(textUsername.getText().toString());
                     dbref.child(Uid).child("alder").setValue(textAge.getText().toString());
