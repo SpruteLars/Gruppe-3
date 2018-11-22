@@ -234,9 +234,8 @@ public class EventActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent newIntent = new Intent(EventActivity.this, MainActivity.class);
-                            DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+                            newIntent.putExtra("Delete",evenUid);
 
-                            deletedbref.child(evenUid).removeValue();
 
                             startActivity(newIntent);
                         }

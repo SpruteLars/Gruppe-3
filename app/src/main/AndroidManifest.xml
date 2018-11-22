@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA-pwh_q1Bu8VB4uWxg46-1FIORw1chPRY" />
+            android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
 
         <activity android:name=".LogInActivity" >
             <intent-filter>
@@ -51,9 +51,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity">
 
-            <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0" />
+
         </activity>
         <activity
             android:name=".SignUpActivity"
