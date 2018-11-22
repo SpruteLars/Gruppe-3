@@ -75,7 +75,6 @@ public class SignUpActivity extends AppCompatActivity {
                     CreateUser(uEmail, uPass1);
                     Toast.makeText(SignUpActivity.this,"success", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
