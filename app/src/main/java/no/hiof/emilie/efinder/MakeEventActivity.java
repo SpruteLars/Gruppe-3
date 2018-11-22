@@ -151,7 +151,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                     }
                     return false;
                 }
-                }
+            }
         );
         //endregion
 
