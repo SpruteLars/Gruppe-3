@@ -1,12 +1,10 @@
 package no.hiof.emilie.efinder;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.graphics.Color;
-
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,8 +18,6 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,14 +73,6 @@ public class SearchActivity extends AppCompatActivity {
 
         //region BotNav
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.tools);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SearchActivity.this, MakeEventActivity.class));
-            }
-        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -95,9 +83,6 @@ public class SearchActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_profil:
                         startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
-                        return true;
-                    case R.id.action_notification:
-                        startActivity(new Intent(SearchActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(SearchActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????

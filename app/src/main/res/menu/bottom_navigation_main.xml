@@ -15,12 +15,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_notification"
-        android:icon="@drawable/ic_baseline_notifications_24px"
-        android:title="@string/botnav_notification"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/action_profil"
         android:icon="@drawable/ic_baseline_person_24px"
         android:title="@string/botnav_profile"

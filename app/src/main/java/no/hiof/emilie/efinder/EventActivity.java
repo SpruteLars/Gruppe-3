@@ -1,10 +1,12 @@
 package no.hiof.emilie.efinder;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,6 +43,7 @@ public class EventActivity extends AppCompatActivity {
     private ImageView posterImageView;
     private String imageName;
     private Button melde;
+    private ImageButton Deleter;
     private String evenUid;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String Uid = user.getUid();
@@ -56,7 +58,7 @@ public class EventActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         Log.d("eventIkke",""+getIntent().getStringExtra(EVENT_UID));
@@ -89,7 +91,55 @@ public class EventActivity extends AppCompatActivity {
         posterImageView  = findViewById(R.id.imgView);
         myButton = findViewById(R.id.mapButton);
         melde = findViewById(R.id.btnMeld);
+        Deleter = findViewById(R.id.btnDelete);
         //endregion
+
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
+
+        Ownerbref.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("Deleter", "" + evenUid);
+                Log.d("Deleter", "Database " + dataSnapshot.getValue());
+                    if (dataSnapshot.getValue().equals(Uid)) {
+                        Deleter.setVisibility(View.VISIBLE);
+                    } else {
+
+                    }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
+
+        Usedbref.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("KeyP", ""+Uid);
+
+                Log.d("KeyP", ""+dataSnapshot.child("paameldte").getKey());
+                for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
+                    Log.d("KeyP", "hei");
+                    if(ds.getKey().equals(Uid)){
+                        melde.setText("Not Going");
+
+                        break;
+                    }else {
+                        melde.setText("Going");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //region Google Maps
         myButton.setOnClickListener(new View.OnClickListener() {
@@ -141,13 +191,12 @@ public class EventActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region påmelding
         melde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final DatabaseReference dbref = firebaseDatabase.getReference("events").child(evenUid);
                 final DatabaseReference Userdbref = firebaseDatabase.getReference("users").child(Uid);
-
-                //dbref.child("paameldte").child(Uid).setValue("q");
 
                 ValueEventListener valueEventListener = (new ValueEventListener() {
                     @Override
@@ -156,26 +205,53 @@ public class EventActivity extends AppCompatActivity {
                             if(ds.getKey().equals(Uid)){
                                 dbref.child("paameldte").child(Uid).removeValue();
                                 Userdbref.child("Event").child(evenUid).removeValue();
-                                Toast.makeText(EventActivity.this,"NOT GOING anymore",Toast.LENGTH_LONG).show();
+
                                 break;
                             }else {
                                 dbref.child("paameldte").child(Uid).setValue("q");
                                 Userdbref.child("Event").child(evenUid).setValue("q");
-                                Toast.makeText(EventActivity.this,"Going",Toast.LENGTH_LONG).show();
                             }
                         }
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
                 });
 
             dbref.addListenerForSingleValueEvent(valueEventListener);
             }
         });
+        //endregion
+
+        //region Delete
+        Deleter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+
+                    builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent newIntent = new Intent(EventActivity.this, MainActivity.class);
+                            DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+
+                            deletedbref.child(evenUid).removeValue();
+
+                            startActivity(newIntent);
+                        }
+                    }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) { }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+
+        //endregion
+
         //region size decoding
         //IKKE SLETT
         /*private void setPic() {
@@ -216,9 +292,6 @@ public class EventActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_profil:
                         startActivity(new Intent(EventActivity.this, ProfileActivity.class));
-                        return true;
-                    case R.id.action_notification:
-                        startActivity(new Intent(EventActivity.this, NotificationListActivity.class)); //Få denne til å ikke lage en ny intent????
                         return true;
                     case R.id.action_discovery:
                         startActivity(new Intent(EventActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
