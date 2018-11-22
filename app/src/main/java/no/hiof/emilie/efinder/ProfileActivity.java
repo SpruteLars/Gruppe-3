@@ -115,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 Log.d("datasnape", "allerede følger");
                                 following.child("FolgereList").child(Marcus).removeValue();
                                 Toast.makeText(ProfileActivity.this, "Unfollowed", Toast.LENGTH_LONG).show();
+                                break;
                             } else {
                                 //folgere = ds.child(Kid).child("folgere").getValue(Integer.class);
                                 //followingRef.child(Uid).setValue();

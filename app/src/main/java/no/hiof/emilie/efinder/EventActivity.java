@@ -91,6 +91,38 @@ public class EventActivity extends AppCompatActivity {
         melde = findViewById(R.id.btnMeld);
         //endregion
 
+        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
+
+        Usedbref.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("KeyP", ""+Uid);
+
+                Log.d("KeyP", ""+dataSnapshot.child("paameldte").getKey());
+                for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
+                    Log.d("KeyP", "hei");
+                    if(ds.getKey().equals(Uid)){
+
+                        melde.setText("Not Going");
+
+
+                        break;
+                    }else {
+                        melde.setText("Going");
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
         //region Google Maps
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override

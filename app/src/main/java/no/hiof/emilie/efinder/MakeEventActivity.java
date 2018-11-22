@@ -36,6 +36,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -91,7 +93,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 4;
     static final int IMAGE_GALLERY_REQUEST = 5;
     static final String TAG = "INPUTFIELDS";
-
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference eventdataReference;
     private StorageReference storageReference;
@@ -211,6 +213,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                         String uid = eventdataReference.push().getKey();
                         eventdataReference.child(uid).setValue(eventInformation);
                         eventdataReference.child(uid).child("paameldte").push().setValue("Value");
+                        eventdataReference.child(uid).child("eventMaker").setValue(user.getUid());
 
                         // TODO: new intent til Event, send med uid
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
