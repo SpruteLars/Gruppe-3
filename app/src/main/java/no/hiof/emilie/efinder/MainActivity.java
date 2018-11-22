@@ -87,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(getIntent().getStringExtra("Delete") != null){
+            DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+
+            deletedbref.child(getIntent().getStringExtra("Delete")).removeValue();
+        }
+
 
         ValueEventListener ValueListener = new ValueEventListener() {
             @Override
