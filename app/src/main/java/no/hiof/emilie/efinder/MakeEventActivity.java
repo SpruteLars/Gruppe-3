@@ -3,6 +3,8 @@ package no.hiof.emilie.efinder;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,12 +12,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -214,6 +218,22 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
 
                         // TODO: new intent til Event, send med uid
                         Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(MakeEventActivity.this);
+                                notBuilder.setSmallIcon(R.drawable.ic_baseline_notifications_24px);
+                                notBuilder.setContentTitle("Upload");
+                                notBuilder.setContentText("Your ecent has been uploaded!");
+                                Notification notification = notBuilder.build();
+
+                                NotificationManager notManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                notManager.notify(2, notification);
+                            }
+                        }, 100);
+
 
                         //Sendes videre til aktiviteten som blir lagd
                         Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);

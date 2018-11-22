@@ -1,6 +1,5 @@
 package no.hiof.emilie.efinder;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -101,33 +100,18 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("Deleter", "" + evenUid);
-
                 Log.d("Deleter", "Database " + dataSnapshot.getValue());
-               // for (DataSnapshot ds : dataSnapshot) {
-                   // Log.d("Deleter", Uid+" Disse skal være like "+ds.getValue());
                     if (dataSnapshot.getValue().equals(Uid)) {
-
-
                         Deleter.setVisibility(View.VISIBLE);
-
-                      //  break;
                     } else {
 
-
-
                     }
-               // }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
 
         final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
 
@@ -140,9 +124,7 @@ public class EventActivity extends AppCompatActivity {
                 for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
                     Log.d("KeyP", "hei");
                     if(ds.getKey().equals(Uid)){
-
                         melde.setText("Not Going");
-
 
                         break;
                     }else {
@@ -158,8 +140,6 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         //region Google Maps
         myButton.setOnClickListener(new View.OnClickListener() {
@@ -248,20 +228,23 @@ public class EventActivity extends AppCompatActivity {
         Deleter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+
                     builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent newIntent = new Intent(EventActivity.this, MainActivity.class);
                             DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+
                             deletedbref.child(evenUid).removeValue();
+
+                            startActivity(newIntent);
                         }
                     }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
+                        public void onClick(DialogInterface dialogInterface, int i) { }
                     });
+
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
