@@ -1,5 +1,6 @@
 package no.hiof.emilie.efinder;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,7 +59,7 @@ public class EventActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         Log.d("eventIkke",""+getIntent().getStringExtra(EVENT_UID));
@@ -211,13 +211,12 @@ public class EventActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region påmelding
         melde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final DatabaseReference dbref = firebaseDatabase.getReference("events").child(evenUid);
                 final DatabaseReference Userdbref = firebaseDatabase.getReference("users").child(Uid);
-
-                //dbref.child("paameldte").child(Uid).setValue("q");
 
                 ValueEventListener valueEventListener = (new ValueEventListener() {
                     @Override
@@ -226,47 +225,50 @@ public class EventActivity extends AppCompatActivity {
                             if(ds.getKey().equals(Uid)){
                                 dbref.child("paameldte").child(Uid).removeValue();
                                 Userdbref.child("Event").child(evenUid).removeValue();
-                                Toast.makeText(EventActivity.this,"NOT GOING anymore",Toast.LENGTH_LONG).show();
+
                                 break;
                             }else {
                                 dbref.child("paameldte").child(Uid).setValue("q");
                                 Userdbref.child("Event").child(evenUid).setValue("q");
-                                Toast.makeText(EventActivity.this,"Going",Toast.LENGTH_LONG).show();
                             }
                         }
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) { }
                 });
 
             dbref.addListenerForSingleValueEvent(valueEventListener);
             }
         });
+        //endregion
 
-
+        //region Delete
         Deleter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
-                builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
-                        deletedbref.child(evenUid).removeValue();
-                    }
-                }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
+                    builder.setMessage("Are you sure you wanna delete this").setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");
+                            deletedbref.child(evenUid).removeValue();
+                        }
+                    }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+
+        //endregion
+
         //region size decoding
         //IKKE SLETT
         /*private void setPic() {
