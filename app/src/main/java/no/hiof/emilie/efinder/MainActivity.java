@@ -1,5 +1,6 @@
 package no.hiof.emilie.efinder;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ import no.hiof.emilie.efinder.model.SearchModel;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName(); //Debug tag
     public static final String CHANNEL_ID = "1A";
+
     FragmentStatePagerAdapter eksempelPagerAdapter;
     public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public HashMap<String, String> personMap;
@@ -55,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     String Marcus = "Marcus Olsen";
                     String Uid = ds.getKey();
 
-
-                    //if (followCase.contains(sookEvent)) {
-                    // Log.d("Bruk", followCase);
-                    // Log.d("Bruk", Uid);
                     if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
 
                     } else {
@@ -71,18 +69,12 @@ public class MainActivity extends AppCompatActivity {
                     for (String loop : personMap.values()) {
                         Log.d("mapper", loop);
                     }
-                    //}
 
                 }
-                //Intent intent = new Intent(DiscoveryActivity.this, SearchActivity.class);
-                //intent.putExtra("map", personMap);
-                //startActivity(intent);
-
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            public void onCancelled(DatabaseError databaseError) { }
 
         };
         dbref.addListenerForSingleValueEvent(valueEventListener);
@@ -191,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                            // Log.d("eventsPlease","Nøkkel "+ds.getKey()+" Title "+searchable.getTitle());
+
                                             if (ds.child("eventTitle").getValue().equals(searchedTitle)) {
                                                 Log.d("eventsPlease", "Nøkkel " + ds.getKey() + " Title " + searchedTitle);
                                                 kntent.putExtra("EventUid", "" + ds.getKey());
@@ -247,14 +239,6 @@ public class MainActivity extends AppCompatActivity {
 
     //region Search Events Dialog Items
     private ArrayList<SearchModel> initData() {
-
-
-        /*+items.add(new SearchModel("Captain America"));
-        items.add(new SearchModel("Batman"));
-        items.add(new SearchModel("Deadpool"));
-        items.add(new SearchModel("Spiderman"));
-        items.add(new SearchModel("Stan Lee cameo"));*/
-
         return items;
     }
     //endregion
@@ -273,6 +257,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem (int i) {
+            /*Fragment frg = getSupportFragmentManager().findFragmentByTag(tabTitles[1]);
+            final android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.detach(frg);
+            ft.attach(frg);
+            ft.commit();*/
+
             switch (i) {
                 case 0:
                     return new FeedFragment();
@@ -293,6 +283,8 @@ public class MainActivity extends AppCompatActivity {
             //Bruker string-arrayen til å hente ut tittel ut i fra brukerens posisjon
             return tabTitles[position];
         }
+
+
     }
     // endregion
 }
