@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,8 +75,6 @@ public class EventActivity extends AppCompatActivity {
 
 
         //region slett
-        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
-
         Ownerbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,8 +91,7 @@ public class EventActivity extends AppCompatActivity {
         });
         //endregion
 
-        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
-
+        //region følg
         Usedbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -229,32 +225,6 @@ public class EventActivity extends AppCompatActivity {
                 }
             });
 
-        //endregion
-
-        //region size decoding
-        private void setPic() {
-            //Dimensions used to display image
-            //int targetWidth = imageView.getWidth();
-            //int targetHeight = imageView.getHeight();
-
-            //Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            bmOptions.inJustDecodeBounds = true;
-            int imageWidth = bmOptions.outWidth;
-            int imageHeight = bmOptions.outHeight;
-
-            //Determine how much to scale down the image
-            //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
-
-            //Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            //bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true; //(?)
-
-            //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            //imageView.setImageBitMap(bitmap);
-        }
         //endregion
 
         //region botnav
