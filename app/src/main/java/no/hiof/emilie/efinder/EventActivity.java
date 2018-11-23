@@ -2,8 +2,6 @@ package no.hiof.emilie.efinder;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -145,7 +143,6 @@ public class EventActivity extends AppCompatActivity {
                 //Hente path til bildet i Storage
                 imageName = event.getEventImage();
                 imagePath = FirebaseStorage.getInstance().getReferenceFromUrl(imageName);
-                    //getReference().child("events/images/" + imageName);
 
                 if (event.getEventImage() != null ) {
                     imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -154,7 +151,6 @@ public class EventActivity extends AppCompatActivity {
                             Glide.with(EventActivity.this)
                                 .load(uri.toString()) //path to image in Firebase Storage
                                 .into(posterImageView);  //Upload picture to imgView in EventActivity
-                            setPic(); //TODO: Hvor skal denne for å få metoden til å fungere?
                         }
                     });
                 }
@@ -224,7 +220,6 @@ public class EventActivity extends AppCompatActivity {
                     alert.show();
                 }
             });
-
         //endregion
 
         //region botnav
@@ -251,34 +246,7 @@ public class EventActivity extends AppCompatActivity {
         //endregion
     }
 
-    //region size decoding
-    private void setPic() {
-        //Dimensions used to display image
-        int targetWidth = posterImageView.getWidth();
-        int targetHeight = posterImageView.getHeight();
-
-        //Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        String imgPathString = String.valueOf(imagePath);
-        BitmapFactory.decodeFile(imgPathString, bmOptions);
-        bmOptions.inJustDecodeBounds = true;
-
-        int imageWidth = bmOptions.outWidth;
-        int imageHeight = bmOptions.outHeight;
-
-        //Determine how much to scale down the image
-        int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
-
-        //Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true; //(?)
-
-        Bitmap bitmap = BitmapFactory.decodeFile(imgPathString, bmOptions);
-        posterImageView.setImageBitmap(bitmap);
-    }
-    // endregion
-
+    //region findViewById
     private void findViewById() {
         nameTextView = findViewById(R.id.txtEventName);
         descriptionTextView = findViewById(R.id.txtDescription);
@@ -292,4 +260,5 @@ public class EventActivity extends AppCompatActivity {
         melde = findViewById(R.id.btnMeld);
         Deleter = findViewById(R.id.btnDelete);
     }
+    //endregion
 }

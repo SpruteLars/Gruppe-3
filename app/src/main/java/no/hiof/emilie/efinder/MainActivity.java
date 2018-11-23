@@ -1,7 +1,9 @@
 package no.hiof.emilie.efinder;
 
-import android.app.FragmentTransaction;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
     ArrayList<SearchModel> items = new ArrayList<>();;
     Intent kntent;
+
+
+
     public HashMap<String, String> SearchDataBase(String sook){
 
         DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("events");
@@ -87,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        createNotificationChannel();
 
 
 
@@ -276,8 +283,22 @@ public class MainActivity extends AppCompatActivity {
             //Bruker string-arrayen til å hente ut tittel ut i fra brukerens posisjon
             return tabTitles[position];
         }
-
-
     }
     // endregion
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "MY_CHANNEL";
+            String description = "MY_DESCRIPTION";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }

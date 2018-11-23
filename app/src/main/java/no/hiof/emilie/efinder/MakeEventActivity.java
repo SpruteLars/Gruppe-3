@@ -225,7 +225,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(MakeEventActivity.this);
+                                NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(MakeEventActivity.this, "1A");
                                 notBuilder.setSmallIcon(R.drawable.ic_baseline_notifications_24px);
                                 notBuilder.setContentTitle("Upload");
                                 notBuilder.setContentText("Your event has been uploaded!");
