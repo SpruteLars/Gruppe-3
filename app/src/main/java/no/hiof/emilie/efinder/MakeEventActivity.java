@@ -228,14 +228,13 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                                 NotificationCompat.Builder notBuilder = new NotificationCompat.Builder(MakeEventActivity.this);
                                 notBuilder.setSmallIcon(R.drawable.ic_baseline_notifications_24px);
                                 notBuilder.setContentTitle("Upload");
-                                notBuilder.setContentText("Your ecent has been uploaded!");
+                                notBuilder.setContentText("Your event has been uploaded!");
                                 Notification notification = notBuilder.build();
 
                                 NotificationManager notManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                 notManager.notify(2, notification);
                             }
                         }, 100);
-
 
                         //Sendes videre til aktiviteten som blir lagd
                         Intent intent = new Intent(MakeEventActivity.this, EventActivity.class);

@@ -75,6 +75,9 @@ public class EventActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+        //region slett
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
+
         Ownerbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,6 +92,9 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
+        //endregion
+
+        final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
 
         Usedbref.addValueEventListener (new ValueEventListener() {
             @Override
@@ -100,14 +106,11 @@ public class EventActivity extends AppCompatActivity {
                     //Log.d("KeyP", "hei");
                     if(ds.getKey().equals(Uid)){
                         melde.setText("Not Going");
-
                         break;
                     }else{
                         melde.setText("Going");
-
                     }
                 }
-
             }
 
             @Override
@@ -115,6 +118,7 @@ public class EventActivity extends AppCompatActivity {
 
             }
         });
+        //endregion
 
         //region Google Maps
         myButton.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +229,32 @@ public class EventActivity extends AppCompatActivity {
                 }
             });
 
+        //endregion
+
+        //region size decoding
+        private void setPic() {
+            //Dimensions used to display image
+            //int targetWidth = imageView.getWidth();
+            //int targetHeight = imageView.getHeight();
+
+            //Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            //BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            bmOptions.inJustDecodeBounds = true;
+            int imageWidth = bmOptions.outWidth;
+            int imageHeight = bmOptions.outHeight;
+
+            //Determine how much to scale down the image
+            //int scaleFactor = Math.min(imageWidth/targetWidth, imageHeight/targetHeight);
+
+            //Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            //bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true; //(?)
+
+            //Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            //imageView.setImageBitMap(bitmap);
+        }
         //endregion
 
         //region botnav
