@@ -28,8 +28,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity android:name=".LogInActivity"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -44,7 +42,7 @@
         <activity android:name=".GoogleMapsActivity">
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key" />
+                android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
         </activity>
         <activity
             android:name=".ProfileActivity"
@@ -58,12 +56,10 @@
             android:name=".MakeEventActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"/>
-            android:parentActivityName=".MainActivity">
 
             <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key" />
-        </activity>
+                android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
         <activity
             android:name=".SignUpActivity"
             android:launchMode="singleTop"
