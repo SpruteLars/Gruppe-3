@@ -70,7 +70,6 @@ public class PaameldtFragment extends Fragment {
         userdataReference = firebaseDatabase.getReference("users").child(Uid);
 
 
-        createAuthenticationListener();
         createDatabaseReadListener();
         setUpRecyclerView(fragmentView);
 
@@ -182,40 +181,6 @@ public class PaameldtFragment extends Fragment {
     //endregion
 
     //region Innlogging
-    private void createAuthenticationListener() {
-        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
 
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser == null) {
-                    startActivityForResult(
-                        AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setIsSmartLockEnabled(false)
-                            .setAvailableProviders(
-                                Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-                                    new AuthUI.IdpConfig.GoogleBuilder().build()))
-                            .build(),
-                        RC_SIGN_IN);
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode == RESULT_OK) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                Toast.makeText(getActivity(), "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getActivity(), "Sign in canceled", Toast.LENGTH_SHORT).show();
-                getActivity().finish();
-            }
-        }
-    }
     //endregion
 }

@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,15 +18,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
+import no.hiof.emilie.efinder.model.EventInformation;
+
 public class ProfileActivity extends AppCompatActivity {
+    private static final int RC_SIGN_IN = 1;
+    private List<EventInformation> creatorList;
+    private List<String> creatorListKeys;
+    private RecyclerView recyclerView;
+    private ChildEventListener childEventListener;
+    private EventRecyclerAdapter eventAdapter;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference eventdataReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     DatabaseReference dbref;
     FirebaseUser user;
     BottomNavigationView bottomNavigationView;
@@ -152,5 +175,139 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         //endregion
+        creatorList = new ArrayList<>();
+        creatorListKeys = new ArrayList<>();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        eventdataReference = firebaseDatabase.getReference("events");
+
+
+        createDatabaseReadListener();
+        setUpRecyclerView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (firebaseAuthStateListener != null)
+            firebaseAuth.addAuthStateListener(firebaseAuthStateListener);
+
+        if (childEventListener != null)
+            eventdataReference.addChildEventListener(childEventListener);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (firebaseAuthStateListener != null)
+            firebaseAuth.removeAuthStateListener(firebaseAuthStateListener);
+
+        if (childEventListener != null) {
+            eventdataReference.removeEventListener(childEventListener);
+        }
+
+        creatorList.clear();
+        creatorListKeys.clear();
+        eventAdapter.notifyDataSetChanged();
+    }
+
+    //region Database reader
+    private void createDatabaseReadListener() {
+        childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                EventInformation event = dataSnapshot.getValue(EventInformation.class);
+                String eventKey = dataSnapshot.getKey();
+                event.setEventUID(eventKey);
+                    if (dataSnapshot.child("eventMaker").getValue().equals(Uid)){
+                        if (!creatorList.contains(event)) {
+                            creatorList.add(event);
+                            Collections.sort(creatorList, EventInformation.Sortering);
+                            creatorListKeys.add(eventKey);
+                            eventAdapter.notifyItemInserted(creatorList.size() - 1);
+                    }
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                EventInformation event = dataSnapshot.getValue(EventInformation.class);
+                String eventKey = dataSnapshot.getKey();
+                event.setEventUID(eventKey);
+
+                int position = creatorListKeys.indexOf(eventKey);
+
+                creatorList.set(position, event);
+                eventAdapter.notifyItemChanged(position);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                EventInformation removedEvent = dataSnapshot.getValue(EventInformation.class);
+                String eventKey = dataSnapshot.getKey();
+                removedEvent.setEventUID(eventKey);
+
+                int position = creatorListKeys.indexOf(eventKey);
+
+                creatorList.remove(removedEvent);
+                creatorListKeys.remove(position);
+                eventAdapter.notifyItemRemoved(position);
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    private void setUpRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView);
+        eventAdapter = new EventRecyclerAdapter(this, creatorList);
+        eventAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = recyclerView.getChildAdapterPosition(view);
+
+                EventInformation event = creatorList.get(position);
+
+                Intent intent = new Intent(ProfileActivity.this, EventActivity.class);
+                intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());
+
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(eventAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+    }
+    //endregion
+
+
+
+    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        .setSmallIcon(R.drawable.ic_baseline_notifications_24px)
+        .setContentTitle("Du har fått et annet varsel")
+        .setContentText("Dette er ditt andre varsel")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
