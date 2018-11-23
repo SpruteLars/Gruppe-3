@@ -287,27 +287,4 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(eventAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
     }
-    //endregion
-
-
-
-    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-        .setSmallIcon(R.drawable.ic_baseline_notifications_24px)
-        .setContentTitle("Du har fått et annet varsel")
-        .setContentText("Dette er ditt andre varsel")
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-    private void createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 }
