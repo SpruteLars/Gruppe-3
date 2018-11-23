@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -26,6 +28,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUWHZKX8fzhxIGhUHEJ1j57my5I2yKq4A" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity android:name=".LogInActivity"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -37,7 +41,11 @@
             android:launchMode="singleTop">
 
         </activity>
-        <activity android:name=".GoogleMapsActivity" />
+        <activity android:name=".GoogleMapsActivity">
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key" />
+        </activity>
         <activity
             android:name=".ProfileActivity"
             android:launchMode="singleTop"
@@ -50,6 +58,12 @@
             android:name=".MakeEventActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key" />
+        </activity>
         <activity
             android:name=".SignUpActivity"
             android:launchMode="singleTop"

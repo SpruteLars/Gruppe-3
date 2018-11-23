@@ -60,6 +60,12 @@ dependencies {
 
     //Gallery permission
     implementation 'pub.devrel:easypermissions:2.0.0'
+
+    //Search Dialog
+    implementation 'com.github.mirrajabi:search-dialog:1.2.3'
+
+    //FAB
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

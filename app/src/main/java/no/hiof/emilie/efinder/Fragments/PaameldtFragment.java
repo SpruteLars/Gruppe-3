@@ -56,6 +56,20 @@ public class PaameldtFragment extends Fragment {
 
 
     public PaameldtFragment() {}
+    private static final int RC_SIGN_IN = 1;
+    private List<EventInformation> eventList;
+    private List<String> eventListKeys;
+    private RecyclerView recyclerView;
+    private ChildEventListener childEventListener;
+    private EventRecyclerAdapter eventAdapter;
+
+    //Forslag til å importere alt av Firebase connections på denne måten
+    FirebaseAccessModel firebaseAccessModel = new FirebaseAccessModel();
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference eventdataReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Nullable
     @Override
