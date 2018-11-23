@@ -49,44 +49,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<SearchModel> items = new ArrayList<>();;
     Intent kntent;
 
-
-
-    public HashMap<String, String> SearchDataBase(String sook){
-
-        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("events");
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String followCase = ds.child("eventTitle").getValue(String.class);
-                    String Marcus = "Marcus Olsen";
-                    String Uid = ds.getKey();
-
-                    if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
-
-                    } else {
-                        personMap.put(Uid, followCase);
-                    }
-
-                    for (String key : personMap.keySet()) {
-                        Log.d("mapper", key);
-                    }
-                    for (String loop : personMap.values()) {
-                        Log.d("mapper", loop);
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-
-        };
-        dbref.addListenerForSingleValueEvent(valueEventListener);
-
-        return personMap;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -241,6 +203,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //endregion
+    }
+
+    public HashMap<String, String> SearchDataBase(String sook){
+
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("events");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String followCase = ds.child("eventTitle").getValue(String.class);
+                    String Marcus = "Marcus Olsen";
+                    String Uid = ds.getKey();
+
+                    if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
+
+                    } else {
+                        personMap.put(Uid, followCase);
+                    }
+
+                    for (String key : personMap.keySet()) {
+                        Log.d("mapper", key);
+                    }
+                    for (String loop : personMap.values()) {
+                        Log.d("mapper", loop);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+
+        };
+        dbref.addListenerForSingleValueEvent(valueEventListener);
+
+        return personMap;
     }
 
     //region Search Events Dialog Items

@@ -218,9 +218,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                         eventdataReference.child(uid).child("paameldte").push().setValue("Value");
                         eventdataReference.child(uid).child("eventMaker").setValue(user.getUid());
 
-                        // TODO: new intent til Event, send med uid
-                        Toast.makeText(MakeEventActivity.this, "File uploaded", Toast.LENGTH_SHORT).show();
-
+                        //Varsel etter å ha lastet opp arrangement
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
