@@ -140,7 +140,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/colorPrimaryDark"
-                android:tint="@color/colorTextHint"
+                android:tint="@color/colorText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_exit_to_app_24px" />
