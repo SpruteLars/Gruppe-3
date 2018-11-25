@@ -113,7 +113,7 @@
             <ImageView
                 android:id="@+id/imgView"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:contentDescription="@string/eventPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -37,7 +37,6 @@ public class DiscoveryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_discovery);
         personMap = new HashMap<String, String>();
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         btnSook = findViewById(R.id.btnSoook);
         editSook = findViewById(R.id.editSook);
 
@@ -84,6 +83,8 @@ public class DiscoveryActivity extends AppCompatActivity {
             }
         });
 
+        //region BotNav
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -101,6 +102,6 @@ public class DiscoveryActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        //endregion
     }
 }

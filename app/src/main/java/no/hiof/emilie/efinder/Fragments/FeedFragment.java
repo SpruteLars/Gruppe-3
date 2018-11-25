@@ -75,9 +75,6 @@ public class FeedFragment extends Fragment {
         createDatabaseReadListener();
         setUpRecyclerView(fragmentView);
 
-
-
-
         return fragmentView;
     }
     @Override
@@ -106,7 +103,6 @@ public class FeedFragment extends Fragment {
         eventAdapter.notifyDataSetChanged();
     }
 
-    //region Database reader
     private void createDatabaseReadListener() {
         childEventListener = new ChildEventListener() {
             @Override
@@ -170,7 +166,6 @@ public class FeedFragment extends Fragment {
                 EventInformation event = eventList.get(position);
 
                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                //intent.putExtra(EventActivity.EVENT_UID, event.getEventUID());
                 intent.putExtra("event_uid",""+event.getEventUID());
 
                 startActivity(intent);
@@ -180,6 +175,4 @@ public class FeedFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
     }
 }
-
-    //endregion
 

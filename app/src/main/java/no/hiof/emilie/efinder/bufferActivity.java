@@ -16,7 +16,6 @@ public class bufferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buffer);
 
-
         if(getIntent().getStringExtra("Delete") != null){
 
             DatabaseReference deletedbref = firebaseDatabase.getInstance().getReference("events");

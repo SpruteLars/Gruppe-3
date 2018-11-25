@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     public HashMap<String, String> personMap;
     DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
-    ArrayList<SearchModel> items = new ArrayList<>();;
+    ArrayList<SearchModel> items = new ArrayList<>();
     Intent eventsIntent;
 
     @Override
@@ -59,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String kaffe = ds.child("eventTitle").getValue(String.class);
-                    items.add(new SearchModel(kaffe));
-                    Log.d("ItemLog",""+ds.child("eventTitle").getValue());
+                    String tittel = ds.child("eventTitle").getValue(String.class);
+                    items.add(new SearchModel(tittel));
                 }
             }
 
@@ -79,15 +78,10 @@ public class MainActivity extends AppCompatActivity {
         //endregion
 
         //region Viewpager
-        // View pageren som vi har definert i XML-layouten.
         ViewPager viewPager = findViewById(R.id.view_pager);
         eksempelPagerAdapter = new MainActivity.EksempelPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(eksempelPagerAdapter);
 
-        /* Her kontrolleres hva som skal skje når brukeren interagerer med viewet
-         * Skal noe i aktiviteten reagere på endringer i view-pageren, skal dette gjøres her
-         * Kjør i debug og se i konsollen for eksempel
-         */
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -117,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         fabSpeedDial.setMenuListener(new FabSpeedDial.MenuListener() {
             @Override
             public boolean onPrepareMenu(NavigationMenu navigationMenu) {
-                //Vis meny
+                //Viser meny
                 return true;
             }
 
@@ -271,16 +265,14 @@ public class MainActivity extends AppCompatActivity {
     // endregion
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "MY_CHANNEL";
-            String description = "MY_DESCRIPTION";
+            CharSequence name = "Events";
+            String description = "Gir beskjed om hva som har blitt gjort med arrangement";
             int importance = NotificationManager.IMPORTANCE_HIGH;
+
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
+
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

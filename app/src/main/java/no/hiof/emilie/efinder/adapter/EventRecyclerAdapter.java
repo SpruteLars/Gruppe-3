@@ -29,7 +29,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     private List<EventInformation> data;
     private LayoutInflater inflater;
     private Context context;
-
     private no.hiof.emilie.efinder.model.EventInformation event;
     private String imageName;
     private StorageReference imagePath;
@@ -96,8 +95,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                     @Override
                     public void onSuccess(Uri uri) {
                         Glide.with(poster.getContext())
-                            .load(uri.toString()) //path to image in Firebase Storage
-                            .into(poster);  //Upload picture to imgView in EventActivity
+                            .load(uri.toString())
+                            .into(poster);
                     }
                 });
             }

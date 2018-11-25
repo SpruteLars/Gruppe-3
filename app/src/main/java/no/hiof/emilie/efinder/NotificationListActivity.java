@@ -17,7 +17,6 @@ public class NotificationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification_list);
 
         notificationList = new ArrayList<Notification>();
-        //arrayAdapter = new ArrayAdapter<String>(this, R.layout.notification_list_item, notificationList);
     }
 
     public void notificationCreate() {

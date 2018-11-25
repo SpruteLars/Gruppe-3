@@ -53,14 +53,6 @@ public class SearchActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                /*Log.d("Item", "int "+i);
-                Log.d("Item", "Adapter "+adapterView);
-                Log.d("Item", "View "+view);
-                Log.d("Item", "long "+ l);
-                Log.d("Item", list.get(i));
-                Log.d("Item", name.get(i));*/
-
                 Intent intent = new Intent(SearchActivity.this,ProfileActivity.class);
                 intent.putExtra("Key",list.get(i));
                 startActivity(intent);
@@ -82,13 +74,13 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_feed:
-                        startActivity(new Intent(SearchActivity.this, MainActivity.class)); //Få denne til å ikke lage en ny intent????
+                        startActivity(new Intent(SearchActivity.this, MainActivity.class));
                         return true;
                     case R.id.action_profil:
                         startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
                         return true;
                     case R.id.action_discovery:
-                        startActivity(new Intent(SearchActivity.this, DiscoveryActivity.class)); //Få denne til å ikke lage en ny intent????
+                        startActivity(new Intent(SearchActivity.this, DiscoveryActivity.class));
                         return true;
                 }
                 return false;
