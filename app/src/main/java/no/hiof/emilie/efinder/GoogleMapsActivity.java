@@ -148,7 +148,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
         enableMyLocationIfPermitted();
-        mMap.setOnMyLocationClickListener(onMyLocationClickListener);
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(5);
@@ -201,22 +200,4 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             }
         };
 
-    private GoogleMap.OnMyLocationClickListener onMyLocationClickListener =
-        new GoogleMap.OnMyLocationClickListener() {
-            @Override
-            public void onMyLocationClick(@NonNull Location location) {
-
-                mMap.setMinZoomPreference(4);
-
-                CircleOptions circleOptions = new CircleOptions();
-                circleOptions.center(new LatLng(location.getLatitude(),
-                    location.getLongitude()));
-
-                circleOptions.radius(200);
-                circleOptions.fillColor(Color.RED);
-                circleOptions.strokeWidth(6);
-
-                mMap.addCircle(circleOptions);
-            }
-        };
 }
