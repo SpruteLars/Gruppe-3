@@ -13,16 +13,28 @@
         android:layout_height="fill_parent"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <!-- Text -->
+            <Button
+                android:id="@+id/btnPlaces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/button_place"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnTimePicker" />
+
             <EditText
                 android:id="@+id/txtEventName"
                 android:layout_width="257dp"
@@ -55,10 +67,11 @@
 
             <EditText
                 android:id="@+id/txtPayment"
-                android:layout_width="325dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:autofillHints="price"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_payment"
                 android:inputType="number"
@@ -70,25 +83,27 @@
 
             <TextView
                 android:id="@+id/txtAddPhoto"
-                android:layout_width="199dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_image"
-                android:inputType="textUri"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
+                app:layout_constraintEnd_toStartOf="@+id/btnTakePic"
                 app:layout_constraintStart_toEndOf="@+id/imgAddPhoto"
                 app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
 
             <EditText
                 android:id="@+id/txtAttendants"
-                android:layout_width="326dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
+                android:autofillHints="number"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_attendants"
                 android:inputType="number"
@@ -98,15 +113,14 @@
                 app:layout_constraintStart_toEndOf="@+id/imgAttendants"
                 app:layout_constraintTop_toBottomOf="@+id/txtAdress" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtAdress"
                 android:layout_width="326dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:backgroundTint="@color/colorText"
                 android:hint="@string/hint_location"
-                android:inputType="textPostalAddress"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
@@ -139,15 +153,16 @@
                 android:id="@+id/txtDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/colorText"
+                android:hint="@string/hint_description"
                 android:inputType="textCapSentences|textMultiLine"
                 android:scrollHorizontally="false"
                 android:singleLine="false"
-                android:hint="@string/hint_description"
+                android:autofillHints="text"
                 android:textColor="@color/colorText"
                 android:textColorHighlight="@color/colorAccent"
                 android:textColorHint="@color/colorTextHint"
@@ -234,18 +249,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgAttendants"
                 app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
-            <!-- Buttons -->
-
-            <Button
-                android:id="@+id/btnAddPhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/button_add"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPayment" />
-
             <ImageView
                 android:id="@+id/imgAddPhoto"
                 android:layout_width="wrap_content"
@@ -258,13 +261,41 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgPayment"
                 app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
 
+            <!-- Buttons -->
+            <ImageButton
+                android:id="@+id/btnGalleryPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@string/button_gallery"
+                android:tint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPayment"
+                app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24px" />
+
+            <ImageButton
+                android:id="@+id/btnTakePic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="56dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@string/button_camera"
+                android:tint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/btnGalleryPic"
+                app:layout_constraintEnd_toStartOf="@+id/btnGalleryPic"
+                app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
+
             <Button
                 android:id="@+id/btnDatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="49dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Pick a date"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/button_date"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
@@ -272,9 +303,11 @@
                 android:id="@+id/btnTimePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="8dp"
-                android:text="Pick a time"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/button_time"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnDatePicker" />
         </android.support.constraint.ConstraintLayout>
@@ -288,7 +321,7 @@
         android:layout_height="56dp"
         android:layout_gravity="end|bottom"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"

@@ -125,7 +125,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 dest = getLocationFromAddress(adresse);
 
                 //Setter merke på kartet på posisjonen lik verdien til dest
-                mMap.addMarker(new MarkerOptions().position(dest).title("Destinasjon"));
+                mMap.addMarker(new MarkerOptions().position(dest).title(adresse));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
             }
 
@@ -170,8 +170,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     enableMyLocationIfPermitted();
                 } else {
                     showDefaultLocation();
