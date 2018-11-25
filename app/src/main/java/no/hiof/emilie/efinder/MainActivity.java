@@ -18,7 +18,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,17 +46,14 @@ public class MainActivity extends AppCompatActivity {
     public HashMap<String, String> personMap;
     DatabaseReference Eventdbref = firebaseDatabase.getReference("events");
     ArrayList<SearchModel> items = new ArrayList<>();;
-    Intent kntent;
+    Intent eventsIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         createNotificationChannel();
-
-
 
         ValueEventListener ValueListener = new ValueEventListener() {
             @Override
@@ -70,14 +66,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         };
         Eventdbref.addListenerForSingleValueEvent(ValueListener);
 
         //region Notification
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_notifications_24px)
             .setContentTitle("Du har fått et annet varsel")
             .setContentText("Dette er ditt andre varsel")
@@ -119,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         //region BotNav
         FabSpeedDial fabSpeedDial = (FabSpeedDial)findViewById(R.id.fabSpeedDial);
+
         fabSpeedDial.setMenuListener(new FabSpeedDial.MenuListener() {
             @Override
             public boolean onPrepareMenu(NavigationMenu navigationMenu) {
@@ -145,33 +140,26 @@ public class MainActivity extends AppCompatActivity {
                         new SearchResultListener<Searchable>() {
                             @Override
                             public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, final Searchable searchable, int i) {
-                                kntent = new Intent(MainActivity.this, EventActivity.class);
-                                Toast.makeText(MainActivity.this, "" + searchable.getTitle(), Toast.LENGTH_LONG).show();
-
+                                eventsIntent = new Intent(MainActivity.this, EventActivity.class);
                                 final String searchedTitle = searchable.getTitle();
 
                                 ValueEventListener valueListener = (new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                                             if (ds.child("eventTitle").getValue().equals(searchedTitle)) {
                                                 Log.d("eventsPlease", "Nøkkel " + ds.getKey() + " Title " + searchedTitle);
-                                                kntent.putExtra("EventUid", "" + ds.getKey());
+                                                eventsIntent.putExtra("EventUid", "" + ds.getKey());
                                             }
                                         }
-                                        startActivity(kntent);
+                                        startActivity(eventsIntent);
                                     }
 
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {}
                                 });
                                 baseSearchDialogCompat.dismiss();
                                 Eventdbref.addValueEventListener(valueListener);
-
                             }
                         }).show();
                 }
@@ -179,9 +167,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onMenuClosed() {
-
-            }
+            public void onMenuClosed() { }
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.bottom_navigation);
@@ -213,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String followCase = ds.child("eventTitle").getValue(String.class);
-                    String Marcus = "Marcus Olsen";
+                    //String Marcus = "Marcus Olsen";
                     String Uid = ds.getKey();
 
                     if (personMap.containsKey(followCase) && personMap.containsValue(Uid)) {
