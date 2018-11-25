@@ -194,8 +194,7 @@
                 android:contentDescription="@string/gMaps"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-                app:srcCompat="@drawable/maps_96in128dp" />
+                app:srcCompat="@drawable/ic_baseline_access_location_48px" />
 
             <!-- Buttons -->
             <Button
