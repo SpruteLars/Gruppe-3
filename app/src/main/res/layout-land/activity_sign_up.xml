@@ -122,8 +122,8 @@
         android:id="@+id/btnUpSign"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="488dp"
         android:text="@string/signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

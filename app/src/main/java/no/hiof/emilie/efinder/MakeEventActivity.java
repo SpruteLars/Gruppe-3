@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -517,5 +518,9 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
         mediaScanIntent.setData(contentURI);
         this.sendBroadcast(mediaScanIntent);
     }
-    // endregion
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+    }
 }
