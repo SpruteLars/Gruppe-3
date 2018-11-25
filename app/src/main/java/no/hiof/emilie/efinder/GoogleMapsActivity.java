@@ -126,7 +126,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                    //Gir variabel dest verdien som metoden gir tilbake med stringen adresse
                    dest = getLocationFromAddress(adresse);
                    //Setter merke på kartet på posisjonen lik verdien til dest
-                   mMap.addMarker(new MarkerOptions().position(dest).title("Destinasjon"));
+                   mMap.addMarker(new MarkerOptions().position(dest).title(adresse));
                    mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
                //}
 
