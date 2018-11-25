@@ -77,6 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
     private void CreateUser(String email, String password){
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -84,10 +85,6 @@ public class SignUpActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     user = mAuth.getCurrentUser();
                     Uid = user.getUid();
-
-                    /*textUsername = findViewById(R.id.txtName);
-                    textAbout = findViewById(R.id.txtInfo);
-                    textAge = findViewById(R.id.txtAlder);*/
 
                     dbref.child(Uid).child("Navn").setValue(textUsername.getText().toString());
                     dbref.child(Uid).child("alder").setValue(Integer.class);

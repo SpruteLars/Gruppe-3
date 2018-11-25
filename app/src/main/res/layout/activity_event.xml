@@ -113,7 +113,7 @@
             <ImageView
                 android:id="@+id/imgView"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:contentDescription="@string/eventPoster"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -194,8 +194,7 @@
                 android:contentDescription="@string/gMaps"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-                app:srcCompat="@drawable/maps_96in128dp" />
+                app:srcCompat="@drawable/ic_baseline_access_location_48px" />
 
             <!-- Buttons -->
             <Button

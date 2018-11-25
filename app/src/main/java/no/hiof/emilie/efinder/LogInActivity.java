@@ -24,7 +24,6 @@ public class LogInActivity extends AppCompatActivity {
         private FirebaseAuth auth;
         public Button but;
         public Button mBut;
-        ArrayAdapter<String> nisse;
         public EditText editEmail;
         public EditText editPass;
         public FirebaseUser user;

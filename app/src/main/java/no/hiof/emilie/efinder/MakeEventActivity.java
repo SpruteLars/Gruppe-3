@@ -172,8 +172,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                 editTextArray.add(textViewAdresse.getText().toString());
                 editTextArray.add(textViewDescription.getText().toString());
 
-                //Log.d(TAG, "Filnavn: " + mCurrentPhotoPath);
-
                 for (String textView : editTextArray) {
                     if (textView.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Your event requires all of the information above to be filled out", Toast.LENGTH_LONG).show();
@@ -190,7 +188,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Log.d(TAG, "Dette gikk ikke bra!");
                         exception.printStackTrace();
                         // Handle unsuccessful uploads
                         Toast.makeText(MakeEventActivity.this, "File not uploaded", Toast.LENGTH_SHORT).show();
@@ -209,7 +206,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                             textViewAdresse.getText().toString(),
                             textViewDescription.getText().toString(),
                             taskSnapshot.getStorage().toString());
-
 
                         //Send objektet til firebase
                         String uid = eventdataReference.push().getKey();
@@ -371,7 +367,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
 
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             if (EasyPermissions.hasPermissions(this, perms[0])) {
-                Toast.makeText(this, "Opening gallery", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Opening camera", Toast.LENGTH_SHORT).show();
                 //Lager en fil hvor bildet skal
                 File picFile = null;
 
@@ -492,7 +488,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
 
     // region lagre bilde på enhet
     private File createImageFile() throws IOException {
-        //Make a unique name for the image file
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "event_" + timestamp;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -500,7 +495,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
         File image = File.createTempFile(/*prefix*/ imageFileName, /*suffix*/ ".jpg", /*directory*/ storageDir);
 
         fileName = imageFileName + " .jpg";
-        //Save a file: the path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
 
         return image;

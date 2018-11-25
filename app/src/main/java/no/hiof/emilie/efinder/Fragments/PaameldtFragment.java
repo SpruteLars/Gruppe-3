@@ -69,7 +69,6 @@ public class PaameldtFragment extends Fragment {
         eventdataReference = firebaseDatabase.getReference("events");
         userdataReference = firebaseDatabase.getReference("users").child(Uid);
 
-
         createDatabaseReadListener();
         setUpRecyclerView(fragmentView);
 

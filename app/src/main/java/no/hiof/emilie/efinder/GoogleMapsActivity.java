@@ -62,7 +62,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private no.hiof.emilie.efinder.model.EventInformation event;
-    //private String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     public GoogleMap mMap;
     private String eventUid;
@@ -118,19 +117,16 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                event = dataSnapshot.getValue(EventInformation.class);
                event.setEventUID(dataSnapshot.getKey());
-                //for (DataSnapshot child : dataSnapshot.getChildren()) {
-               //    event = child.getValue(EventInformation.class);
-               //    event.setEventUID(child.getKey());
-                   //Henter eventAdress verdien fra firebase og setter variabel adresse til å ha lik verdi
-                   adresse = event.getEventAdress();
-                   //Gir variabel dest verdien som metoden gir tilbake med stringen adresse
-                   dest = getLocationFromAddress(adresse);
-                   //Setter merke på kartet på posisjonen lik verdien til dest
-                   mMap.addMarker(new MarkerOptions().position(dest).title(adresse));
-                   mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
-               //}
 
+               //Henter eventAdress verdien fra firebase og setter variabel adresse til å ha lik verdi
+                adresse = event.getEventAdress();
 
+                //Gir variabel dest verdien som metoden gir tilbake med stringen adresse
+                dest = getLocationFromAddress(adresse);
+
+                //Setter merke på kartet på posisjonen lik verdien til dest
+                mMap.addMarker(new MarkerOptions().position(dest).title("Destinasjon"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
             }
 
             @Override
@@ -154,9 +150,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
 
     private void enableMyLocationIfPermitted() {
-        if (ContextCompat.checkSelfPermission(this,
-            Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION},
@@ -167,16 +161,13 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void showDefaultLocation() {
-        Toast.makeText(this, "Ikke gitt tilatelse til å finne lokasjonene din, " +
-                "viser ferdig satt lokasjon.",
-            Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Ikke gitt tilatelse til å finne lokasjonene din, " + "viser ferdig satt lokasjon.", Toast.LENGTH_SHORT).show();
         LatLng redmond = new LatLng(58.940090, 11.634092);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0

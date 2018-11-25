@@ -37,7 +37,7 @@ public class EventActivity extends AppCompatActivity {
     private String imageName;
     private Button melde;
     private ImageButton Deleter;
-    private String evenUid;
+    private String stringEventUid;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String Uid = user.getUid();
     String eventUid;
@@ -58,15 +58,15 @@ public class EventActivity extends AppCompatActivity {
 
         if(getIntent().getStringExtra("event_uid") != null){
             eventUid = getIntent().getStringExtra(EVENT_UID);
-            evenUid = eventUid;
+            stringEventUid = eventUid;
         } else {
             eventUid = getIntent().getStringExtra("EventUid");
-            evenUid = eventUid;
+            stringEventUid = eventUid;
         }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
-        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(evenUid).child("eventMaker");
+        final DatabaseReference Ownerbref = firebaseDatabase.getReference("events").child(stringEventUid).child("eventMaker");
         final DatabaseReference Usedbref = firebaseDatabase.getReference("events").child(eventUid);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -76,8 +76,6 @@ public class EventActivity extends AppCompatActivity {
         Ownerbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Log.d("Deleter", "" + evenUid);
-                //Log.d("Deleter", "Database " + dataSnapshot.getValue());
                 if (dataSnapshot.getValue().equals(Uid)) {
                     Deleter.setVisibility(View.VISIBLE);
                 } else { }
@@ -93,11 +91,8 @@ public class EventActivity extends AppCompatActivity {
         Usedbref.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Log.d("KeyP", ""+Uid);
 
-                //Log.d("KeyP", ""+dataSnapshot.child("paameldte").getKey());
                 for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
-                    //Log.d("KeyP", "hei");
                     if(ds.getKey().equals(Uid)){
                         melde.setText("Not Going");
                         break;
@@ -108,9 +103,7 @@ public class EventActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
         //endregion
 
@@ -132,7 +125,6 @@ public class EventActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 event = dataSnapshot.getValue(EventInformation.class);
                 event.setEventUID(dataSnapshot.getKey());
-
 
                 nameTextView.setText(event.getEventTitle());
                 descriptionTextView.setText(event.getEventDescription());
@@ -159,9 +151,7 @@ public class EventActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
         //endregion
 
@@ -169,7 +159,7 @@ public class EventActivity extends AppCompatActivity {
         melde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DatabaseReference dbref = firebaseDatabase.getReference("events").child(evenUid);
+                final DatabaseReference dbref = firebaseDatabase.getReference("events").child(stringEventUid);
                 final DatabaseReference Userdbref = firebaseDatabase.getReference("users").child(Uid);
 
                 ValueEventListener valueEventListener = (new ValueEventListener() {
@@ -178,21 +168,18 @@ public class EventActivity extends AppCompatActivity {
                         for(DataSnapshot ds : dataSnapshot.child("paameldte").getChildren()){
                             if(ds.getKey().equals(Uid)){
                                 dbref.child("paameldte").child(Uid).removeValue();
-                                Userdbref.child("Event").child(evenUid).removeValue();
+                                Userdbref.child("Event").child(stringEventUid).removeValue();
 
                                 break;
                             }else {
                                 dbref.child("paameldte").child(Uid).setValue("q");
-                                Userdbref.child("Event").child(evenUid).setValue("q");
+                                Userdbref.child("Event").child(stringEventUid).setValue("q");
                             }
                         }
-
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) { }
                 });
-
             dbref.addListenerForSingleValueEvent(valueEventListener);
             }
         });
@@ -208,8 +195,7 @@ public class EventActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent newIntent = new Intent(EventActivity.this, bufferActivity.class);
-                            newIntent.putExtra("Delete",evenUid);
-
+                            newIntent.putExtra("Delete", stringEventUid);
 
                             startActivity(newIntent);
                         }

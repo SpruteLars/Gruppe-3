@@ -37,7 +37,6 @@ import no.hiof.emilie.efinder.adapter.EventRecyclerAdapter;
 import no.hiof.emilie.efinder.model.EventInformation;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 1;
     private List<EventInformation> creatorList;
     private List<String> creatorListKeys;
     private RecyclerView recyclerView;
@@ -57,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     int folgere;
     int followed = 0;
     public static final String CHANNEL_ID = "1A";
+    private static final int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +121,6 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.child("FolgereList").getChildren()) {
                             String authUid = FirebaseAuth.getInstance().getUid();
-                            //String dsKey = dataSnapshot.getKey();
 
                             if (ds.getKey().equals(authUid)) {
                                 following.child("FolgereList").child(authUid).removeValue();
@@ -175,6 +174,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         //endregion
+
         creatorList = new ArrayList<>();
         creatorListKeys = new ArrayList<>();
 
