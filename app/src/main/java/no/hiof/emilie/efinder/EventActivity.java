@@ -119,6 +119,7 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EventActivity.this,GoogleMapsActivity.class);
+                intent.putExtra("eventID", eventUid);
                 startActivity(intent);
             }
         });
@@ -131,6 +132,7 @@ public class EventActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 event = dataSnapshot.getValue(EventInformation.class);
                 event.setEventUID(dataSnapshot.getKey());
+
 
                 nameTextView.setText(event.getEventTitle());
                 descriptionTextView.setText(event.getEventDescription());

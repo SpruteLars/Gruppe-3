@@ -4,18 +4,26 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,25 +34,71 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import no.hiof.emilie.efinder.model.EventInformation;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private LatLng HIOF = new LatLng(59.12797849, 11.35272861);
-    private LatLng FREDRIKSTAD = new LatLng(59.21047628, 10.93994737);
-    public LatLng myPosition;
-    private String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
+    private no.hiof.emilie.efinder.model.EventInformation event;
+    //private String[] locationPermission = {Manifest.permission.ACCESS_FINE_LOCATION};
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private GoogleMap mMap;
+    public GoogleMap mMap;
+    private String eventUid;
+    public String adresse;
+    public LatLng dest;
+    public LatLng mPosition;
+
+    //Firebase
+    private FirebaseDatabase firebaseDatabase;
+
+    //metode for å konvertere adressestreng til LatLng
+    public LatLng getLocationFromAddress(String adresse) {
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(adresse, 1);
+            if (adresse == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +106,39 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_google_maps);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
+        eventUid = getIntent().getStringExtra("eventID");
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference eventReference = firebaseDatabase.getReference("events").child(eventUid);
+
+        eventReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               event = dataSnapshot.getValue(EventInformation.class);
+               event.setEventUID(dataSnapshot.getKey());
+                //for (DataSnapshot child : dataSnapshot.getChildren()) {
+               //    event = child.getValue(EventInformation.class);
+               //    event.setEventUID(child.getKey());
+                   //Henter eventAdress verdien fra firebase og setter variabel adresse til å ha lik verdi
+                   adresse = event.getEventAdress();
+                   //Gir variabel dest verdien som metoden gir tilbake med stringen adresse
+                   dest = getLocationFromAddress(adresse);
+                   //Setter merke på kartet på posisjonen lik verdien til dest
+                   mMap.addMarker(new MarkerOptions().position(dest).title("Destinasjon"));
+                   mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
+               //}
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
 
@@ -62,14 +147,12 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
-        mMap.setOnMyLocationClickListener(onMyLocationClickListener);
         enableMyLocationIfPermitted();
+        mMap.setOnMyLocationClickListener(onMyLocationClickListener);
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(5);
         }
-        /*mMap.addMarker(new MarkerOptions().position(HIOF).title("Østfold University College"));
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(HIOF, 15, 0, 0)));*/
 
     private void enableMyLocationIfPermitted() {
         if (ContextCompat.checkSelfPermission(this,
@@ -85,10 +168,10 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void showDefaultLocation() {
-        Toast.makeText(this, "Location permission not granted, " +
-                "showing default location",
+        Toast.makeText(this, "Ikke gitt tilatelse til å finne lokasjonene din, " +
+                "viser ferdig satt lokasjon.",
             Toast.LENGTH_SHORT).show();
-        LatLng redmond = new LatLng(47.6739881, -122.121512);
+        LatLng redmond = new LatLng(58.940090, 11.634092);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
     }
 
@@ -109,15 +192,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
+
     private GoogleMap.OnMyLocationButtonClickListener onMyLocationButtonClickListener =
         new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                mMap.setMinZoomPreference(4);
                 return false;
             }
         };
-
 
     private GoogleMap.OnMyLocationClickListener onMyLocationClickListener =
         new GoogleMap.OnMyLocationClickListener() {
@@ -137,48 +219,4 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 mMap.addCircle(circleOptions);
             }
         };
-
-
-    /*private class DrawRoute extends AsyncTask<LatLng, Void, PolylineOptions> {
-        @Override
-        protected PolylineOptions doInBackground(LatLng... location) {
-            LatLng startLocation = HIOF;
-            if (location[0] != null)
-                startLocation = location[0];
-
-            GMapV2Direction mapDirection = new GMapV2Direction();
-
-            Document doc = mapDirection.getDocument(startLocation, FREDRIKSTAD, GMapV2Direction.MODE_DRIVING, "AIzaSyCfEwbPIXOe6d-rYr-lz1dQTRo9Dj5vcb0");
-
-            ArrayList<LatLng> directionPoint = mapDirection.getDirection(doc);
-            PolylineOptions rectLine = new PolylineOptions().width(3).color(Color.BLUE);
-
-            for (int i = 0; i < directionPoint.size(); i++) {
-                rectLine.add(directionPoint.get(i));
-            }
-
-            return rectLine ;
-        }
-
-        @Override
-        protected void onPostExecute(PolylineOptions result) {
-            mMap.addPolyline(result);
-        }
-    }*/
-
-    /*@AfterPermissionGranted(LOCATION_PERMISSION_ID)
-    private void drawRouteFromCurrentLocation() {
-        if (EasyPermissions.hasPermissions(this, locationPermission)) {
-            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            LatLng myPosition = new LatLng(location.getLatitude(), location.getLongitude());
-            new DrawRoute().execute(myPosition);
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.no_location_permission),
-                LOCATION_PERMISSION_ID, locationPermission);
-        }
-    }*/
 }

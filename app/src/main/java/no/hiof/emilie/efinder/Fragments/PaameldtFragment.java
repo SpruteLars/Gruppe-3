@@ -180,7 +180,4 @@ public class PaameldtFragment extends Fragment {
     }
     //endregion
 
-    //region Innlogging
-
-    //endregion
 }

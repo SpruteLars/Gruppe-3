@@ -254,7 +254,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgAttendants"
                 app:srcCompat="@drawable/ic_baseline_attach_money_24px" />
 
-            <!-- Buttons -->
             <ImageView
                 android:id="@+id/imgAddPhoto"
                 android:layout_width="wrap_content"
@@ -267,6 +266,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgPayment"
                 app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
 
+            <!-- Buttons -->
             <Button
                 android:id="@+id/btnDatePicker"
                 android:layout_width="wrap_content"
@@ -274,6 +274,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/button_date"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
 
@@ -284,6 +286,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/button_time"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnDatePicker" />
 
@@ -294,6 +298,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/button_place"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnTimePicker" />
 
@@ -303,6 +309,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:tint="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="@+id/btnGalleryPic"
                 app:layout_constraintEnd_toStartOf="@+id/btnGalleryPic"
                 app:srcCompat="@drawable/ic_baseline_add_a_photo_24px" />
@@ -314,6 +322,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:tint="@color/colorAccent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtPayment"
                 app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24px" />
