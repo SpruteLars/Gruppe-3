@@ -198,8 +198,6 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getApplicationContext(), "Your event has been added!", Toast.LENGTH_LONG).show();
-
                         //Lag objekt av Event-klassekonstruktør
                         EventInformation eventInformation = new EventInformation(
                             null,
@@ -479,14 +477,14 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
                     Place place = PlaceAutocomplete.getPlace(this, data);
                     textViewAdresse.setText(place.getAddress());
 
-                    Toast.makeText(this, "Place: " + place.getName() + " has been added!", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Place: " + place.getName() + " has been added!", Toast.LENGTH_SHORT).show();
                 } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                     Status status = PlaceAutocomplete.getStatus(this, data);
                     // Handles error
-                    Toast.makeText(this, status.getStatusMessage(), Toast.LENGTH_SHORT);
+                    Toast.makeText(this, status.getStatusMessage(), Toast.LENGTH_SHORT).show();
                 } else if (resultCode == RESULT_CANCELED) {
                     // The user canceled the operation.
-                    Toast.makeText(this, "Operation canceled", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Operation canceled", Toast.LENGTH_SHORT).show();
                 }
             }
     }
@@ -509,7 +507,7 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     }
     // endregion
 
-    // region legg bildet til i galleri
+    //region legg bildet til i galleri
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File file = new File(mCurrentPhotoPath);
@@ -523,4 +521,5 @@ public class MakeEventActivity extends AppCompatActivity implements EasyPermissi
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
     }
+    //endregion
 }
